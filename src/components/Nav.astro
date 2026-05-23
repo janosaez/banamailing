@@ -1,7 +1,9 @@
 ---
 ---
 <nav>
-  <div class="nav-logo">BANA<span>MAILING</span></div>
+  <a href="/" class="nav-logo">
+    <img src="/images/logo-banamailing.svg" alt="BanaMailing" class="nav-logo-img" />
+  </a>
   <ul class="nav-links">
     <li><a href="/">Home</a></li>
     <li><a href="#servicios">Servicios</a></li>
@@ -24,8 +26,8 @@
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
   }
-  .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; }
-  .nav-logo span { color: var(--purple); }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo-img { height: 36px; width: auto; display: block; }
   .nav-links { display: flex; gap: 0; list-style: none; }
   .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); padding: 6px 12px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
   .nav-links a:hover { color: var(--text); background: #F5F5F7; }
