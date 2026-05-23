@@ -1,3 +1,4 @@
+@import '@fontsource-variable/inter';
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --purple:      #674CC4;
@@ -9,7 +10,7 @@
   --green:       #16A34A;
 }
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: #fff;
   color: var(--text);
   min-height: 100vh;
