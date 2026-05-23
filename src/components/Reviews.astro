@@ -214,8 +214,9 @@
     rvIndex = i;
     const trackEl = track as HTMLElement;
     const cardEl = cardEls[i] as HTMLElement;
-    const scrollLeft = trackEl.scrollLeft + cardEl.getBoundingClientRect().left - trackEl.getBoundingClientRect().left;
-    trackEl.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    // offsetLeft is always relative to offsetParent (static, scroll-independent)
+    const scrollLeft = cardEl.offsetLeft - trackEl.offsetLeft - 12;
+    trackEl.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
     dotEls.forEach((d, j) => d.classList.toggle('active', j === i));
   }
 
