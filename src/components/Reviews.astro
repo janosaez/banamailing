@@ -131,7 +131,8 @@
     display: flex; gap: 18px;
     overflow-x: auto; scroll-snap-type: x mandatory;
     scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; padding: 8px 4px 16px;
+    scrollbar-width: none; padding: 8px 12px 16px;
+    scroll-padding-left: 12px;
     flex: 1;
   }
   .reviews-track::-webkit-scrollbar { display: none; }
@@ -211,7 +212,10 @@
   function goToReview(i: number) {
     if (!track || !cardEls[i]) return;
     rvIndex = i;
-    (track as HTMLElement).scrollTo({ left: (cardEls[i] as HTMLElement).offsetLeft - 4, behavior: 'smooth' });
+    const trackEl = track as HTMLElement;
+    const cardEl = cardEls[i] as HTMLElement;
+    const scrollLeft = trackEl.scrollLeft + cardEl.getBoundingClientRect().left - trackEl.getBoundingClientRect().left;
+    trackEl.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     dotEls.forEach((d, j) => d.classList.toggle('active', j === i));
   }
 
