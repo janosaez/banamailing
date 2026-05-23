@@ -3,8 +3,8 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 interface Props { title?: string; description?: string; }
 const {
-  title = 'BanaMailing — Correos Masivos en Perú | Email Marketing Profesional',
-  description = 'En BanaMailing ayudamos a empresas con campañas de mailing y correos masivos Perú, logrando tasas de apertura superiores al 40%.'
+  title = 'Mailing Masivo en Perú | Correos Masivos | Email Marketing — BanaMailing',
+  description = 'BanaMailing: agencia de mailing masivo y correos masivos en Perú. +500 empresas, 99% entregabilidad, 42% tasa de apertura. PowerMTA + AMS Enterprise. Solicita tu demo gratis.'
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -16,6 +16,79 @@ const {
   <meta name="description" content={description} />
   <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
   <link rel="preload" href="/fonts/inter-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://banamailing.com/#organization",
+        "name": "BanaMailing",
+        "legalName": "BANA NETWORK SAC",
+        "taxID": "20606350644",
+        "url": "https://banamailing.com",
+        "logo": "https://banamailing.com/images/logo-banamailing.svg",
+        "telephone": "+51990137226",
+        "email": "banamailing@gmail.com",
+        "description": "Agencia de mailing masivo y correos masivos en Perú con más de 500 empresas atendidas, 99% de entregabilidad y 42% de tasa de apertura.",
+        "sameAs": ["https://www.facebook.com/banamailing", "https://www.instagram.com/banamailing"]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://banamailing.com/#localbusiness",
+        "name": "BanaMailing — Mailing Masivo en Perú",
+        "legalName": "BANA NETWORK SAC",
+        "taxID": "20606350644",
+        "image": "https://banamailing.com/images/logo-banamailing.svg",
+        "url": "https://banamailing.com",
+        "telephone": "+51990137226",
+        "email": "banamailing@gmail.com",
+        "priceRange": "S/ 400 - S/ 2400",
+        "currenciesAccepted": "PEN",
+        "description": "Servicio profesional de mailing masivo, correos masivos y email marketing en Perú. PowerMTA + AMS Enterprise. Demo gratuita en 48 horas.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Chacarilla del Estanque",
+          "addressLocality": "Santiago de Surco",
+          "addressRegion": "Lima",
+          "postalCode": "15038",
+          "addressCountry": "PE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -12.1061,
+          "longitude": -76.9993
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "13:00"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "20",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://banamailing.com/#website",
+        "url": "https://banamailing.com",
+        "name": "BanaMailing — Mailing Masivo en Perú",
+        "description": "Agencia de mailing masivo y correos masivos en Perú",
+        "publisher": { "@id": "https://banamailing.com/#organization" }
+      }
+    ]
+  }</script>
 </head>
 <body>
   <Nav />
