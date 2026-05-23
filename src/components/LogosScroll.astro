@@ -24,7 +24,7 @@ const logos = [
   .logos-scroll-section { background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:2.5rem 0; overflow:hidden; }
   .logos-scroll-label { text-align:center; font-size:12px; font-weight:700; color:#4B5563; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.75rem; }
   .logos-track-wrap { overflow:hidden; position:relative; mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%); -webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%); }
-  .logos-track { display:flex; align-items:center; width:max-content; animation:logoScroll 28s linear infinite; }
+  .logos-track { display:flex; align-items:center; width:max-content; animation:logoScroll 28s linear infinite; will-change:transform; }
   .logos-track:hover { animation-play-state:paused; }
   .logo-slide { padding:0 3rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; border-right:1px solid var(--border); }
   .logo-slide:last-child { border-right:none; }
