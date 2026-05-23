@@ -1,4 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/banamailing-expertos-en-email-marketing-y-mailing-en-peru-2",
+      "destination": "/contacto",
+      "permanent": true
+    },
+    {
+      "source": "/banamailing-expertos-en-email-marketing-y-mailing-en-peru-2/",
+      "destination": "/contacto",
+      "permanent": true
+    },
+    {
+      "source": "/2025/03/03/blog-email-marketing",
+      "destination": "/expertos-en-email-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/2025/03/03/blog-email-marketing/",
+      "destination": "/expertos-en-email-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/expertos-en-email-marketing/",
+      "destination": "/expertos-en-email-marketing",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
