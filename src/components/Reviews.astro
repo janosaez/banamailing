@@ -208,21 +208,33 @@
 
 <script>
   let rvIndex = 0;
-  const track = document.getElementById('reviewsTrack');
-  const dotEls = document.querySelectorAll('.rv-dot');
+  const track   = document.getElementById('reviewsTrack');
+  const dotEls  = document.querySelectorAll('.rv-dot');
   const cardEls = document.querySelectorAll('.rv-card');
+
+  // Pre-calcular posiciones de scroll una sola vez — elimina forced reflow en cada tick
+  const scrollPositions: number[] = [];
+
+  function cachePositions() {
+    if (!track) return;
+    const trackEl = track as HTMLElement;
+    cardEls.forEach((card) => {
+      scrollPositions.push(Math.max(0, (card as HTMLElement).offsetLeft - trackEl.offsetLeft - 12));
+    });
+  }
+
+  // Cachear al cargar y volver a cachear si cambia el viewport
+  requestAnimationFrame(cachePositions);
+  window.addEventListener('resize', () => {
+    scrollPositions.length = 0;
+    cachePositions();
+  }, { passive: true });
 
   function goToReview(i: number) {
     if (!track || !cardEls[i]) return;
     rvIndex = i;
     dotEls.forEach((d, j) => d.classList.toggle('active', j === i));
-    // Use rAF to batch geometry reads after paint — avoids forced reflow
-    requestAnimationFrame(() => {
-      const trackEl = track as HTMLElement;
-      const cardEl  = cardEls[i] as HTMLElement;
-      const scrollLeft = cardEl.offsetLeft - trackEl.offsetLeft - 12;
-      trackEl.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
-    });
+    (track as HTMLElement).scrollTo({ left: scrollPositions[i] ?? 0, behavior: 'smooth' });
   }
 
   document.getElementById('rvPrev')?.addEventListener('click', () => {
