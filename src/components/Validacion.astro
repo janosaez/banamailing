@@ -1,0 +1,348 @@
+---
+---
+<section class="val-section" id="validacion">
+  <div class="val-inner">
+
+    <div class="val-header">
+      <div class="val-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Servicio 100% gratuito
+      </div>
+      <h2 class="val-title">Validación de correos<br><em>masiva y gratuita</em></h2>
+      <p class="val-sub">¿Tienes una base de datos con miles de correos sin verificar? Te la procesamos gratis y en 48 horas te devolvemos dos listas limpias: correos <strong>válidos</strong> e <strong>inválidos</strong>, listas para usar en tus campañas.</p>
+    </div>
+
+    <div class="val-cards">
+      <div class="val-card">
+        <div class="val-card-icon" style="background:#EDE9FF;color:#674CC4;">📋</div>
+        <h3 class="val-card-title">¿Por qué validar?</h3>
+        <p class="val-card-desc">Enviar correos a direcciones inválidas daña la reputación de tu dominio, aumenta los rebotes y reduce tu tasa de entregabilidad. Una base limpia puede mejorar tu apertura hasta un 60%.</p>
+      </div>
+      <div class="val-card val-card-featured">
+        <div class="val-card-icon" style="background:#674CC4;color:#fff;">⚡</div>
+        <h3 class="val-card-title">¿Qué incluye?</h3>
+        <ul class="val-card-list">
+          <li><span class="vchk">✓</span> Detección de correos inexistentes</li>
+          <li><span class="vchk">✓</span> Eliminación de duplicados</li>
+          <li><span class="vchk">✓</span> Identificación de dominios inactivos</li>
+          <li><span class="vchk">✓</span> Lista de válidos lista para envío</li>
+          <li><span class="vchk">✓</span> Lista de inválidos para depuración</li>
+          <li><span class="vchk">✓</span> Entrega en 48 horas</li>
+        </ul>
+      </div>
+      <div class="val-card">
+        <div class="val-card-icon" style="background:#F0FDF4;color:#16A34A;">📦</div>
+        <h3 class="val-card-title">Formatos aceptados</h3>
+        <p class="val-card-desc">Aceptamos cualquier formato con listas de correos: Excel (.xlsx, .xls), CSV (.csv), texto plano (.txt) o ZIP con múltiples archivos. Sin límite de filas.</p>
+        <div class="val-formats">
+          <span class="fmt-pill">XLSX</span>
+          <span class="fmt-pill">CSV</span>
+          <span class="fmt-pill">TXT</span>
+          <span class="fmt-pill">ZIP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="val-form-wrap">
+      <div class="val-form-card">
+        <div class="val-form-header">
+          <div>
+            <h3 class="val-form-title">Solicitar validación gratuita</h3>
+            <p class="val-form-sub">Completa tus datos, sube tu base y en 48 h recibes las listas procesadas.</p>
+          </div>
+          <div class="val-badge-48">
+            <span class="val-48-num">48h</span>
+            <span class="val-48-label">de entrega</span>
+          </div>
+        </div>
+
+        <div id="valFormBody" class="val-form-body">
+          <div class="val-field-row">
+            <div class="field-group">
+              <label class="field-label">Empresa <span class="req">*</span></label>
+              <input class="field-input" id="vEmpresa" type="text" placeholder="Tu empresa o nombre" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">WhatsApp / Teléfono <span class="req">*</span></label>
+              <input class="field-input" id="vTel" type="tel" placeholder="+51 9XX XXX XXX" />
+            </div>
+          </div>
+
+          <div class="val-field-row">
+            <div class="field-group">
+              <label class="field-label">Correo donde recibirás los resultados <span class="req">*</span></label>
+              <input class="field-input" id="vEmail" type="email" placeholder="tu@empresa.com" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Total de correos aproximado</label>
+              <input class="field-input" id="vTotal" type="text" placeholder="Ej: 50,000" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Sube tu base de datos <span class="req">*</span></label>
+            <div class="val-upload-zone" id="valZone">
+              <input type="file" id="valFileInput" multiple accept=".csv,.xlsx,.xls,.txt,.zip" style="display:none" onchange="handleValFiles(this.files)" />
+              <div class="val-drop-content">
+                <div class="val-drop-icon">
+                  <svg viewBox="0 0 48 48" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect width="48" height="48" rx="12" fill="#EDE9FF"/>
+                    <path d="M24 14v14M24 14l-5 5M24 14l5 5" stroke="#674CC4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 30v2a2 2 0 002 2h16a2 2 0 002-2v-2" stroke="#674CC4" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <p class="val-drop-title">Arrastra tu archivo aquí</p>
+                <p class="val-drop-hint">XLSX · CSV · TXT · ZIP · hasta 5 archivos</p>
+                <button type="button" id="valFileBtn" class="val-upload-btn" onclick="document.getElementById('valFileInput').click()">
+                  Seleccionar archivo
+                </button>
+                <span id="valCounter" class="val-counter">0 archivo(s) seleccionado(s)</span>
+              </div>
+            </div>
+            <div id="valFileList" class="file-list"></div>
+            <span class="field-hint">También puedes enviar tu base directamente por WhatsApp al +51 990 137 226.</span>
+          </div>
+
+          <button class="val-submit-btn" onclick="handleValSubmit()">
+            <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 .5C7.44.5.5 7.44.5 16c0 2.83.74 5.48 2.04 7.78L.5 31.5l7.93-2.07A15.45 15.45 0 0016 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5zm7.58 18.14c-.41-.2-2.44-1.2-2.82-1.34-.38-.14-.65-.2-.93.2-.28.41-1.07 1.34-1.31 1.62-.24.27-.48.31-.9.1-.41-.2-1.74-.64-3.32-2.04a12.4 12.4 0 01-2.3-2.85c-.24-.41-.03-.63.18-.84.19-.18.41-.48.62-.72.2-.24.27-.41.41-.69.14-.27.07-.52-.03-.72-.1-.2-.93-2.24-1.28-3.07-.33-.8-.67-.69-.93-.7h-.79c-.27 0-.72.1-1.1.52-.38.41-1.44 1.41-1.44 3.44s1.48 3.99 1.69 4.27c.2.27 2.9 4.43 7.04 6.21.98.42 1.75.68 2.35.87.99.31 1.88.27 2.59.16.79-.12 2.44-1 2.78-1.96.34-.96.34-1.78.24-1.96-.1-.18-.38-.27-.79-.48z"/></svg>
+            Enviar base y solicitar validación gratuita
+          </button>
+
+          <div class="val-trust-row">
+            <span>🔒 Base de datos confidencial</span>
+            <span>⚡ Resultado en 48 h</span>
+            <span>✅ Gratis, sin costo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .val-section {
+    background: #F8F7FF;
+    border-top: 1px solid var(--border);
+    padding: 5.5rem 4rem;
+  }
+  .val-inner { max-width: 1180px; margin: 0 auto; }
+
+  .val-header { text-align: center; margin-bottom: 3.5rem; }
+  .val-eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #F0FDF4; color: var(--green);
+    border: 1px solid #BBF7D0;
+    font-size: 12px; font-weight: 700;
+    padding: 5px 16px; border-radius: 100px;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .val-title {
+    font-size: clamp(1.9rem, 3vw, 2.8rem);
+    font-weight: 900; letter-spacing: -0.035em;
+    color: var(--text); line-height: 1.1; margin-bottom: 1rem;
+  }
+  .val-title em { color: var(--purple); font-style: normal; }
+  .val-sub {
+    font-size: 1rem; color: var(--muted); max-width: 640px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .val-sub strong { color: var(--text); font-weight: 700; }
+
+  .val-cards {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.25rem; margin-bottom: 3.5rem;
+  }
+  .val-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 18px; padding: 1.75rem 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .val-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(103,76,196,0.1); }
+  .val-card-featured {
+    border: 2px solid var(--purple);
+    box-shadow: 0 4px 20px rgba(103,76,196,0.12);
+  }
+  .val-card-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 1rem;
+  }
+  .val-card-title {
+    font-size: 15px; font-weight: 800; color: var(--text);
+    margin-bottom: 0.6rem; letter-spacing: -0.02em;
+  }
+  .val-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .val-card-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .val-card-list li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+  .vchk {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); color: #fff;
+    font-size: 10px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .val-formats { display: flex; gap: 6px; margin-top: 1rem; flex-wrap: wrap; }
+  .fmt-pill {
+    background: var(--purple-light); color: var(--purple);
+    border: 1px solid #DDD6FE;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px;
+  }
+
+  .val-form-wrap { max-width: 860px; margin: 0 auto; }
+  .val-form-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 4px 40px rgba(103,76,196,0.09);
+    overflow: hidden;
+  }
+  .val-form-header {
+    background: linear-gradient(135deg, #674CC4 0%, #4A2FA0 100%);
+    padding: 2rem 2.25rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .val-form-title { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .val-form-sub { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .val-badge-48 {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(255,255,255,0.15); border-radius: 14px;
+    padding: 12px 20px; flex-shrink: 0; text-align: center;
+  }
+  .val-48-num { font-size: 2rem; font-weight: 900; color: #fff; letter-spacing: -0.04em; line-height: 1; }
+  .val-48-label { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+  .val-form-body { padding: 2rem 2.25rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .val-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .val-upload-zone {
+    border: 2px dashed #DDD6FE; border-radius: 14px;
+    background: #F8F7FF; padding: 2.5rem 1.5rem;
+    text-align: center; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .val-upload-zone.drag-over { border-color: var(--purple); background: #EDE9FF; }
+  .val-drop-content { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .val-drop-icon { margin-bottom: 4px; }
+  .val-drop-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .val-drop-hint { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .val-upload-btn {
+    background: var(--purple); color: #fff; border: none;
+    padding: 9px 22px; border-radius: 9px;
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+    transition: background 0.15s, transform 0.1s;
+    margin-top: 4px;
+  }
+  .val-upload-btn:hover { background: var(--purple-dark); transform: translateY(-1px); }
+  .val-upload-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .val-counter { font-size: 12px; color: var(--purple); font-weight: 600; margin-top: 4px; }
+
+  .val-submit-btn {
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #674CC4, #4A2FA0); color: #fff;
+    border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(103,76,196,0.32);
+  }
+  .val-submit-btn:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(103,76,196,0.42); }
+  .val-submit-btn:active { transform: scale(0.98); }
+
+  .val-trust-row {
+    display: flex; justify-content: center; gap: 1.5rem;
+    font-size: 12px; color: #9CA3AF; font-weight: 500;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .val-section { padding: 3.5rem 1.5rem; }
+    .val-cards { grid-template-columns: 1fr; }
+    .val-field-row { grid-template-columns: 1fr; }
+    .val-form-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+  let valFiles: File[] = [];
+
+  function initValZone() {
+    const z = document.getElementById('valZone');
+    if (!z) return;
+    z.addEventListener('dragover', (e) => { e.preventDefault(); z.classList.add('drag-over'); });
+    z.addEventListener('dragleave', () => z.classList.remove('drag-over'));
+    z.addEventListener('drop', (e: DragEvent) => {
+      e.preventDefault();
+      z.classList.remove('drag-over');
+      if (e.dataTransfer?.files) handleValFiles(e.dataTransfer.files);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', initValZone);
+
+  (window as any).handleValFiles = function(files: FileList) {
+    const list = document.getElementById('valFileList');
+    if (!list) return;
+    Array.from(files).forEach((file, i) => {
+      if (valFiles.length >= 5) return;
+      valFiles.push(file);
+      const id = 'vf_' + Date.now() + i;
+      const size = file.size < 1024*1024 ? Math.round(file.size/1024)+' KB' : (file.size/1024/1024).toFixed(1)+' MB';
+      const div = document.createElement('div');
+      div.className = 'file-item'; div.id = id;
+      div.innerHTML = `<span>📋 ${file.name}</span><span class="file-size">${size}</span><button class="file-remove" onclick="removeValFile('${id}','${file.name}')">×</button>`;
+      list.appendChild(div);
+    });
+    updateValCounter();
+  };
+
+  (window as any).removeValFile = function(id: string, name: string) {
+    valFiles = valFiles.filter(f => f.name !== name);
+    const el = document.getElementById(id); if (el) el.remove();
+    updateValCounter();
+  };
+
+  function updateValCounter() {
+    const c = document.getElementById('valCounter');
+    if (c) c.textContent = valFiles.length + ' archivo(s) seleccionado(s)';
+    const btn = document.getElementById('valFileBtn') as HTMLButtonElement | null;
+    if (btn) btn.disabled = valFiles.length >= 5;
+  }
+
+  (window as any).handleValSubmit = function() {
+    const empresa = (document.getElementById('vEmpresa') as HTMLInputElement)?.value || '';
+    const tel     = (document.getElementById('vTel')     as HTMLInputElement)?.value || '';
+    const email   = (document.getElementById('vEmail')   as HTMLInputElement)?.value || '';
+    const total   = (document.getElementById('vTotal')   as HTMLInputElement)?.value || '';
+
+    if (!empresa || !tel || !email) {
+      alert('Por favor completa los campos obligatorios (*).');
+      return;
+    }
+    if (valFiles.length === 0) {
+      alert('Adjunta al menos 1 archivo con tu base de datos.');
+      return;
+    }
+
+    const archivos = `📎 Archivos (${valFiles.length}): ${valFiles.map(f=>f.name).join(', ')}\n⚠️ Los enviaré por este chat.`;
+    const msg = `✅ *SOLICITUD DE VALIDACIÓN MASIVA GRATUITA — BanaMailing*\n\n` +
+      `🏢 *Empresa:* ${empresa}\n` +
+      `📱 *Teléfono/WA:* ${tel}\n` +
+      `📧 *Correo de devolución:* ${email}\n` +
+      (total ? `📊 *Total de correos aprox.:* ${total}\n` : '') +
+      `\n${archivos}\n\n` +
+      `_Solicito la validación masiva gratuita. En 48 h necesito recibir las bases procesadas (válidos e inválidos)._`;
+
+    const url = `https://api.whatsapp.com/send?phone=51990137226&text=${encodeURIComponent(msg)}`;
+
+    const body = document.getElementById('valFormBody');
+    if (body) body.innerHTML = `
+      <div class="success-msg">
+        <div class="success-icon" style="background:#EDE9FF;color:#674CC4;">✓</div>
+        <p class="success-title">¡Solicitud de validación enviada!</p>
+        <p class="success-desc">Te abrimos WhatsApp para que envíes tu base de datos. En <strong>48 horas</strong> recibirás tus listas procesadas — correos válidos e inválidos separados y listos para usar.</p>
+        <a href="${url}" target="_blank" style="display:inline-block;margin-top:1.25rem;background:#25D366;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px;">Abrir WhatsApp →</a>
+      </div>`;
+
+    setTimeout(() => window.open(url, '_blank'), 800);
+  };
+</script>

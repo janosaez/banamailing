@@ -1,0 +1,38 @@
+---
+---
+<nav>
+  <div class="nav-logo">BANA<span>MAILING</span></div>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#demo">Demo gratis</a></li>
+    <li><a href="/validacion">Validación</a></li>
+    <li><a href="/cobranzas">Cobranzas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-ghost">Iniciar sesión</button>
+    <button class="nav-cta" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Solicitar demo</button>
+  </div>
+</nav>
+
+<style>
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem; height: 68px; background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; gap: 0; list-style: none; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); padding: 6px 12px; border-radius: 8px; transition: color 0.15s, background 0.15s; }
+  .nav-links a:hover { color: var(--text); background: #F5F5F7; }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .nav-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: border-color 0.15s; }
+  .nav-ghost:hover { border-color: #9CA3AF; }
+  .nav-cta { background: var(--purple); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s, transform 0.1s; }
+  .nav-cta:hover { background: var(--purple-dark); transform: translateY(-1px); }
+  @media(max-width:900px){ nav{padding:0 1.5rem} .nav-links{display:none} }
+</style>

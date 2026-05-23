@@ -1,0 +1,214 @@
+---
+---
+<section class="demo-section" id="demo">
+  <div class="demo-inner">
+    <div class="demo-left">
+      <div class="demo-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        100% gratuito · sin compromiso
+      </div>
+      <h2 class="demo-title">Solicita tu<br><em>demo gratis</em></h2>
+      <p class="demo-desc">Antes de contratar cualquier plan, te enviamos una campaña de prueba <strong>real</strong> a hasta 5 correos que tú elijas. Así puedes verificar con tus propios ojos la calidad del diseño, la entregabilidad y el impacto visual de tu flyer antes de lanzarlo a miles de contactos.</p>
+      <div class="demo-steps">
+        <div class="demo-step"><div class="step-num">1</div><div class="step-body"><p class="step-title">Completa el formulario</p><p class="step-desc">Llena todos los campos con la información de tu empresa y campaña.</p></div></div>
+        <div class="demo-step"><div class="step-num">2</div><div class="step-body"><p class="step-title">Nos envías tu material</p><p class="step-desc">Fotos, textos, logo, colores — todo lo que necesitamos para armar tu flyer profesional.</p></div></div>
+        <div class="demo-step"><div class="step-num">3</div><div class="step-body"><p class="step-title">Recibe tu campaña de prueba</p><p class="step-desc">En menos de 48 h recibirás el envío en tus correos y verás el resultado real.</p></div></div>
+      </div>
+      <div class="demo-guarantee">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Tu información es confidencial y jamás será compartida con terceros.
+      </div>
+    </div>
+
+    <div class="demo-right">
+      <div class="demo-form-card">
+        <div class="form-header">
+          <h3 class="form-title">Solicitar demo gratuita</h3>
+          <p class="form-sub">Completa los datos y nos ponemos en contacto contigo en menos de 2 horas.</p>
+        </div>
+        <div class="form-body" id="demoFormBody">
+          <div class="field-group">
+            <label class="field-label">Empresa que envía <span class="req">*</span></label>
+            <input class="field-input" id="fEmpresa" type="text" placeholder="Ej: Corporación Lima S.A.C." />
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Teléfono / WhatsApp <span class="req">*</span></label>
+              <input class="field-input" id="fTel" type="tel" placeholder="+51 9XX XXX XXX" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Correo de contacto <span class="req">*</span></label>
+              <input class="field-input" id="fEmail" type="email" placeholder="tu@empresa.com" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Título del subject <span class="req">*</span></label>
+            <input class="field-input" id="fSubject" type="text" placeholder="Ej: ¡Oferta exclusiva solo por hoy! 🔥" />
+            <span class="field-hint">Este será el texto que verán tus destinatarios como asunto del email.</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Descripción del flyer y campaña <span class="req">*</span></label>
+            <textarea class="field-textarea" id="fDesc" rows="4" placeholder="Textos principales, productos, precios, ofertas, colores de marca, link de destino..."></textarea>
+            <span class="field-hint">Cuanto más detalle nos des, mejor será el resultado.</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Adjuntar fotos, logo e imágenes</label>
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="fileInput" multiple accept="image/*,.pdf,.zip,.psd,.ai" style="display:none" />
+              <div class="upload-icon">📎</div>
+              <p class="upload-text">Haz clic o arrastra tus archivos aquí</p>
+              <p class="upload-hint">JPG, PNG, PDF, ZIP · Máx. 10 archivos</p>
+              <button type="button" class="upload-btn" id="uploadBtn">Seleccionar archivos</button>
+            </div>
+            <div id="fileList" class="file-list"></div>
+            <span class="field-hint">También puedes enviarnos las fotos directamente por WhatsApp.</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Correos de prueba <span class="req">*</span></label>
+            <span class="field-hint" style="margin-bottom:8px;display:block;">Ingresa hasta 5 correos donde enviaremos tu demo.</span>
+            <div class="email-inputs" id="emailInputs">
+              <div class="email-row"><span class="email-num">1</span><input class="field-input email-field" type="email" placeholder="correo1@ejemplo.com" /></div>
+              <div class="email-row"><span class="email-num">2</span><input class="field-input email-field" type="email" placeholder="correo2@ejemplo.com" /></div>
+              <div class="email-row"><span class="email-num">3</span><input class="field-input email-field" type="email" placeholder="correo3@ejemplo.com" /></div>
+            </div>
+            <button class="add-email-btn" id="addEmailBtn">+ Agregar otro correo</button>
+          </div>
+          <button class="submit-btn" id="demoSubmitBtn">
+            <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 .5C7.44.5.5 7.44.5 16c0 2.83.74 5.48 2.04 7.78L.5 31.5l7.93-2.07A15.45 15.45 0 0016 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5zm7.58 18.14c-.41-.2-2.44-1.2-2.82-1.34-.38-.14-.65-.2-.93.2-.28.41-1.07 1.34-1.31 1.62-.24.27-.48.31-.9.1-.41-.2-1.74-.64-3.32-2.04a12.4 12.4 0 01-2.3-2.85c-.24-.41-.03-.63.18-.84.19-.18.41-.48.62-.72.2-.24.27-.41.41-.69.14-.27.07-.52-.03-.72-.1-.2-.93-2.24-1.28-3.07-.33-.8-.67-.69-.93-.7h-.79c-.27 0-.72.1-1.1.52-.38.41-1.44 1.41-1.44 3.44s1.48 3.99 1.69 4.27c.2.27 2.9 4.43 7.04 6.21.98.42 1.75.68 2.35.87.99.31 1.88.27 2.59.16.79-.12 2.44-1 2.78-1.96.34-.96.34-1.78.24-1.96-.1-.18-.38-.27-.79-.48z"/></svg>
+            Enviar y continuar por WhatsApp →
+          </button>
+          <div class="wa-direct">
+            <div class="wa-orb"><svg viewBox="0 0 32 32" width="20" height="20" fill="white" aria-hidden="true"><path d="M16 .5C7.44.5.5 7.44.5 16c0 2.83.74 5.48 2.04 7.78L.5 31.5l7.93-2.07A15.45 15.45 0 0016 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5zm7.58 18.14c-.41-.2-2.44-1.2-2.82-1.34-.38-.14-.65-.2-.93.2-.28.41-1.07 1.34-1.31 1.62-.24.27-.48.31-.9.1-.41-.2-1.74-.64-3.32-2.04a12.4 12.4 0 01-2.3-2.85c-.24-.41-.03-.63.18-.84.19-.18.41-.48.62-.72.2-.24.27-.41.41-.69.14-.27.07-.52-.03-.72-.1-.2-.93-2.24-1.28-3.07-.33-.8-.67-.69-.93-.7h-.79c-.27 0-.72.1-1.1.52-.38.41-1.44 1.41-1.44 3.44s1.48 3.99 1.69 4.27c.2.27 2.9 4.43 7.04 6.21.98.42 1.75.68 2.35.87.99.31 1.88.27 2.59.16.79-.12 2.44-1 2.78-1.96.34-.96.34-1.78.24-1.96-.1-.18-.38-.27-.79-.48z"/></svg></div>
+            <div class="wa-info"><p class="wa-label">¿Prefieres coordinar directo?</p><p class="wa-num">+51 990 137 226</p></div>
+            <a href="https://api.whatsapp.com/send?phone=51990137226&text=Hola%2C%20quiero%20solicitar%20mi%20demo%20gratuita%20de%20correos%20masivos." target="_blank" class="wa-link-btn">Abrir WhatsApp</a>
+          </div>
+          <div class="form-trust-row">
+            <span>🔒 Datos seguros</span>
+            <span>⚡ Respuesta en &lt;2 h</span>
+            <span>✅ Sin costo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo-section { background:#fff; border-top:1px solid var(--border); padding:5.5rem 4rem; }
+  .demo-inner { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:start; }
+  .demo-eyebrow { display:inline-flex; align-items:center; gap:7px; background:#F0FDF4; color:var(--green); border:1px solid #BBF7D0; font-size:12px; font-weight:700; padding:5px 14px; border-radius:100px; margin-bottom:1.5rem; text-transform:uppercase; letter-spacing:0.06em; }
+  .demo-title { font-size:clamp(2rem,3.5vw,3rem); font-weight:900; letter-spacing:-0.04em; color:var(--text); line-height:1.1; margin-bottom:1.25rem; }
+  .demo-title em { color:var(--purple); font-style:normal; }
+  .demo-desc { font-size:1rem; color:var(--muted); line-height:1.72; margin-bottom:2rem; }
+  .demo-desc strong { color:var(--text); font-weight:600; }
+  .demo-steps { display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem; }
+  .demo-step { display:flex; align-items:flex-start; gap:14px; }
+  .step-num { width:32px; height:32px; border-radius:50%; background:var(--purple); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .step-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:2px; }
+  .step-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+  .demo-guarantee { display:flex; align-items:center; gap:8px; background:var(--purple-light); border:1px solid #DDD6FE; border-radius:10px; padding:12px 16px; font-size:12.5px; color:var(--purple); font-weight:500; }
+  .demo-form-card { background:#fff; border:1px solid var(--border); border-radius:20px; box-shadow:0 4px 32px rgba(103,76,196,0.08); overflow:hidden; }
+  .form-header { background:var(--purple); padding:1.75rem 2rem; }
+  .form-title { font-size:1.2rem; font-weight:800; color:#fff; letter-spacing:-0.02em; margin-bottom:4px; }
+  .form-sub { font-size:13px; color:rgba(255,255,255,0.75); line-height:1.5; }
+  .form-body { padding:1.75rem 2rem; display:flex; flex-direction:column; gap:1.1rem; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .upload-zone { border:2px dashed #DDD6FE; border-radius:12px; padding:1.5rem 1.25rem; text-align:center; cursor:pointer; background:var(--purple-light); transition:border-color 0.2s,background 0.2s; }
+  .upload-zone:hover { border-color:var(--purple); background:#EDE9FF; }
+  .upload-icon { font-size:28px; margin-bottom:6px; }
+  .upload-text { font-size:14px; font-weight:600; color:var(--text); margin-bottom:3px; }
+  .upload-hint { font-size:11.5px; color:var(--muted); margin-bottom:12px; }
+  .upload-btn { background:var(--purple); color:#fff; border:none; padding:8px 18px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; transition:background 0.15s; }
+  .upload-btn:hover { background:var(--purple-dark); }
+  .email-inputs { display:flex; flex-direction:column; gap:8px; }
+  .email-row { display:flex; align-items:center; gap:10px; }
+  .email-num { width:24px; height:24px; border-radius:50%; background:var(--purple-light); color:var(--purple); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .email-field { flex:1; }
+  .add-email-btn { margin-top:8px; align-self:flex-start; background:transparent; color:var(--purple); border:1px dashed #DDD6FE; border-radius:8px; padding:7px 14px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:inherit; transition:background 0.15s,border-color 0.15s; }
+  .add-email-btn:hover { background:var(--purple-light); border-color:var(--purple); }
+  .add-email-btn:disabled { opacity:0.4; cursor:not-allowed; }
+  .submit-btn { width:100%; padding:15px; background:var(--purple); color:#fff; border:none; border-radius:11px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:background 0.15s,transform 0.15s,box-shadow 0.15s; box-shadow:0 4px 18px rgba(103,76,196,0.3); margin-top:0.25rem; }
+  .submit-btn:hover { background:var(--purple-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(103,76,196,0.4); }
+  .wa-direct { display:flex; align-items:center; gap:12px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:14px 16px; }
+  .wa-orb { width:40px; height:40px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .wa-info { flex:1; }
+  .wa-label { font-size:11.5px; color:var(--muted); font-weight:500; }
+  .wa-num { font-size:15px; font-weight:800; color:var(--text); letter-spacing:-0.02em; }
+  .wa-link-btn { background:#25D366; color:#fff; border:none; padding:9px 16px; border-radius:9px; font-size:13px; font-weight:700; white-space:nowrap; flex-shrink:0; transition:background 0.15s,transform 0.1s; display:inline-flex; align-items:center; }
+  .wa-link-btn:hover { background:#1EBE59; transform:translateY(-1px); }
+  .form-trust-row { display:flex; justify-content:center; gap:1.5rem; font-size:12px; color:#9CA3AF; font-weight:500; padding-top:0.5rem; }
+  @media(max-width:900px){ .demo-section{padding:3.5rem 1.5rem} .demo-inner{grid-template-columns:1fr;gap:2.5rem} .field-row{grid-template-columns:1fr} }
+</style>
+
+<script>
+  let uploadedFiles: File[] = [];
+  const zone = document.getElementById('uploadZone');
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+  const uploadBtn = document.getElementById('uploadBtn');
+
+  uploadBtn?.addEventListener('click', () => fileInput?.click());
+  fileInput?.addEventListener('change', () => handleFiles(fileInput.files!));
+
+  zone?.addEventListener('dragover', e => { e.preventDefault(); (zone as HTMLElement).style.borderColor = '#674CC4'; });
+  zone?.addEventListener('dragleave', () => { (zone as HTMLElement).style.borderColor = '#DDD6FE'; });
+  zone?.addEventListener('drop', e => { e.preventDefault(); handleFiles((e as DragEvent).dataTransfer!.files); });
+
+  function handleFiles(files: FileList) {
+    const list = document.getElementById('fileList')!;
+    Array.from(files).forEach((file, i) => {
+      if (uploadedFiles.length >= 10) return;
+      uploadedFiles.push(file);
+      const id = 'f_' + Date.now() + i;
+      const size = file.size < 1024*1024 ? (file.size/1024).toFixed(0)+' KB' : (file.size/1024/1024).toFixed(1)+' MB';
+      const div = document.createElement('div');
+      div.className = 'file-item'; div.id = id;
+      div.innerHTML = `<span>📄 ${file.name}</span><span class="file-size">${size}</span><button class="file-remove" data-id="${id}" data-name="${file.name}">×</button>`;
+      list.appendChild(div);
+    });
+  }
+
+  document.getElementById('fileList')?.addEventListener('click', e => {
+    const btn = (e.target as HTMLElement).closest('.file-remove') as HTMLElement;
+    if (!btn) return;
+    uploadedFiles = uploadedFiles.filter(f => f.name !== btn.dataset.name);
+    document.getElementById(btn.dataset.id!)?.remove();
+  });
+
+  let emailCount = 3;
+  document.getElementById('addEmailBtn')?.addEventListener('click', () => {
+    if (emailCount >= 5) return;
+    emailCount++;
+    const container = document.getElementById('emailInputs')!;
+    const row = document.createElement('div');
+    row.className = 'email-row';
+    row.innerHTML = `<span class="email-num">${emailCount}</span><input class="field-input email-field" type="email" placeholder="correo${emailCount}@ejemplo.com" />`;
+    container.appendChild(row);
+    if (emailCount >= 5) {
+      const btn = document.getElementById('addEmailBtn') as HTMLButtonElement;
+      btn.disabled = true; btn.textContent = 'Máximo 5 correos';
+    }
+  });
+
+  document.getElementById('demoSubmitBtn')?.addEventListener('click', () => {
+    const empresa = (document.getElementById('fEmpresa') as HTMLInputElement).value.trim();
+    const tel     = (document.getElementById('fTel') as HTMLInputElement).value.trim();
+    const email   = (document.getElementById('fEmail') as HTMLInputElement).value.trim();
+    const subject = (document.getElementById('fSubject') as HTMLInputElement).value.trim();
+    const desc    = (document.getElementById('fDesc') as HTMLTextAreaElement).value.trim();
+
+    if (!empresa || !tel || !subject || !desc) { alert('Por favor completa los campos obligatorios (*).'); return; }
+
+    const testEmails = Array.from(document.querySelectorAll('.email-field')).map(i => (i as HTMLInputElement).value.trim()).filter(Boolean);
+    if (testEmails.length === 0) { alert('Ingresa al menos 1 correo de prueba.'); return; }
+
+    const archivos = uploadedFiles.length > 0
+      ? `\n📎 Archivos (${uploadedFiles.length}): ${uploadedFiles.map(f=>f.name).join(', ')}\n⚠️ Te los enviaré por este chat.`
+      : '\n📎 Archivos: Los enviaré por este chat.';
+
+    const msg = `🚀 *SOLICITUD DE DEMO GRATUITA — BanaMailing*\n\n🏢 *Empresa:* ${empresa}\n📱 *Teléfono/WA:* ${tel}\n📧 *Correo:* ${email}\n✉️ *Subject:* ${subject}\n\n📝 *Descripción:*\n${desc}${archivos}\n\n📬 *Correos de prueba (${testEmails.length}):*\n${testEmails.map((e,i)=>`${i+1}. ${e}`).join('\n')}`;
+
+    const url = `https://api.whatsapp.com/send?phone=51990137226&text=${encodeURIComponent(msg)}`;
+    document.getElementById('demoFormBody')!.innerHTML = `<div class="success-msg"><div class="success-icon">✓</div><p class="success-title">¡Solicitud enviada!</p><p class="success-desc">Te estamos redirigiendo a WhatsApp para continuar la coordinación.<br><br><a href="${url}" target="_blank" style="display:inline-block;margin-top:1rem;background:#25D366;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px;">Abrir WhatsApp →</a></p></div>`;
+    setTimeout(() => window.open(url, '_blank'), 800);
+  });
+</script>

@@ -1,0 +1,149 @@
+---
+const preguntas = [
+  {
+    q: '¿Cuánto cuesta el servicio de correos masivos?',
+    a: 'Tenemos planes desde <strong>S/ 400</strong> por campaña según el volumen de correos. También ofrecemos precios especiales para campañas únicas o suscripciones mensuales. Contáctanos y te armamos una propuesta personalizada.'
+  },
+  {
+    q: '¿Por qué usar email marketing?',
+    a: 'El email marketing es económico, medible y permite segmentación y mensajes personalizados. Genera un <strong>ROI promedio de USD 36–54 por cada USD 1 invertido</strong>, siendo uno de los canales de mayor retorno en marketing digital.'
+  },
+  {
+    q: '¿Qué tipos de correos existen?',
+    a: 'Existen múltiples tipos: correos de bienvenida, boletines informativos, automatización de secuencias, correos transaccionales, promociones y descuentos, encuestas de satisfacción y comunicaciones estacionales. En BanaMailing te ayudamos a elegir el mejor formato para tu objetivo.'
+  },
+  {
+    q: '¿Cómo ayudan nuestras estadísticas a tu negocio con campañas de correos masivos Perú?',
+    a: 'Detectamos a los clientes realmente interesados en tus productos mediante estrategias de <strong>mailing segmentado en Perú</strong>. Creamos bases de datos con prospectos calificados y te ofrecemos <strong>remarketing gratuito</strong> para volver a impactar a quienes ya mostraron interés, aumentando tus oportunidades de conversión.'
+  },
+  {
+    q: '¿Qué es el mailing masivo?',
+    a: 'El mailing masivo es el envío de correos electrónicos a una base de datos de contactos con fines comerciales, informativos o promocionales. Se diferencia del spam en que se realiza con bases segmentadas y herramientas profesionales de alta entregabilidad.'
+  },
+  {
+    q: '¿Para qué sirve el mailing en Perú?',
+    a: 'Sirve para promocionar productos o servicios, mantener contacto con clientes, lanzar ofertas o campañas estacionales y generar tráfico a tu sitio web. Es uno de los canales con mayor ROI en el mercado peruano.'
+  },
+  {
+    q: '¿El mailing masivo es legal en Perú?',
+    a: 'Sí, siempre que se respete la <strong>Ley de Protección de Datos Personales (Ley N.° 29733)</strong>. En BanaMailing trabajamos con bases de datos de contactos que han demostrado interés en recibir información comercial, cumpliendo con la normativa vigente.'
+  },
+  {
+    q: '¿Cómo consigo una base de datos para mailing?',
+    a: 'En BanaMailing contamos con bases de datos segmentadas por industria, cargo, ubicación y otros criterios. También podemos trabajar con tu propia base de clientes, asegurando la validación y limpieza de los contactos antes del envío.'
+  },
+  {
+    q: '¿Puedo ver los resultados de mi campaña?',
+    a: 'Sí. Te entregamos un <strong>reporte completo</strong> con métricas de apertura, clics, rebotes y bajas. Para campañas de cobranza y envíos con dominio propio, también tienes acceso a un dashboard en tiempo real.'
+  },
+  {
+    q: '¿Qué diferencia hay entre mailing y spam?',
+    a: 'El mailing profesional utiliza IPs y dominios de alta reputación, bases segmentadas y herramientas de autenticación (SPF, DKIM, DMARC). El spam es envío masivo sin control ni segmentación. BanaMailing garantiza que tus correos lleguen a la <strong>bandeja principal</strong>, no a spam.'
+  },
+  {
+    q: '¿Qué tecnología usan para los envíos?',
+    a: 'Utilizamos <strong>PowerMTA y AMS Enterprise</strong> para mailing masivo y segmentación de bases de correos en Perú. Medimos aperturas y clics con <strong>Google Analytics con UTM</strong>, mejorando cada campaña con estrategias de remarketing y personalización para maximizar conversiones.'
+  },
+  {
+    q: '¿En cuánto tiempo se realiza el envío?',
+    a: 'Una vez aprobada la campaña, realizamos el envío en <strong>48 horas</strong>. Antes del envío definitivo te enviamos una prueba para que valides el diseño, el asunto y la personalización del correo.'
+  },
+];
+---
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="faq-eyebrow">Preguntas frecuentes</div>
+      <h2 class="faq-title">Todo lo que necesitas saber sobre<br><em>correos masivos en Perú</em></h2>
+    </div>
+    <div class="faq-grid">
+      {preguntas.map((p) => (
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span>{p.q}</span>
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-a" set:html={p.a} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background: #F8F7FF;
+    border-top: 1px solid var(--border);
+    padding: 5rem 4rem;
+  }
+  .faq-inner { max-width: 860px; margin: 0 auto; }
+  .faq-header { text-align: center; margin-bottom: 3rem; }
+  .faq-eyebrow {
+    display: inline-block;
+    background: var(--purple-light); color: var(--purple);
+    border: 1px solid #DDD6FE;
+    font-size: 12px; font-weight: 700;
+    padding: 5px 16px; border-radius: 100px;
+    margin-bottom: 1rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .faq-title {
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 900; letter-spacing: -0.035em;
+    color: var(--text); line-height: 1.15;
+  }
+  .faq-title em { color: var(--purple); font-style: normal; }
+
+  .faq-grid { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 1.2rem 0; font-family: inherit;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    text-align: left; font-size: 15px; font-weight: 700; color: var(--text);
+    transition: color 0.15s;
+  }
+  .faq-q:hover { color: var(--purple); }
+  .faq-item.open .faq-q { color: var(--purple); }
+  .faq-icon {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .faq-icon::before, .faq-icon::after {
+    content: ''; position: absolute;
+    background: var(--muted); border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s, background 0.15s;
+  }
+  .faq-icon::before { width: 10px; height: 1.5px; }
+  .faq-icon::after  { width: 1.5px; height: 10px; }
+  .faq-item.open .faq-icon { background: var(--purple); border-color: var(--purple); }
+  .faq-item.open .faq-icon::before { background: #fff; }
+  .faq-item.open .faq-icon::after  { background: #fff; transform: rotate(90deg); opacity: 0; }
+  .faq-a {
+    font-size: 14px; color: var(--muted); line-height: 1.75;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s;
+    padding: 0;
+  }
+  .faq-a strong { color: var(--text); font-weight: 600; }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .faq-section { padding: 3.5rem 1.5rem; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item') as HTMLElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>

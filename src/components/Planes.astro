@@ -1,0 +1,120 @@
+---
+const planes = [
+  {
+    icon: '✉️', name: 'Starter', title: 'Plan Básico',
+    price: '400', note: 'por campaña · pago único',
+    featured: false,
+    features: [
+      '1 campaña de <strong>1.000.000 correos</strong> en Perú',
+      'Entrega rápida en <strong>48 horas</strong>',
+      '<strong>Reporte completo</strong> con métricas de apertura, clics y rebotes',
+      'Prueba previa para validar la campaña',
+      'Plantillas prediseñadas para tu <strong>estrategia de mailing en Perú</strong>',
+    ],
+    waLink: 'https://wa.link/c3mzzq',
+    ctaText: 'Solicitar plan básico →',
+    ctaClass: 'plan-cta-outline',
+  },
+  {
+    icon: '🚀', name: 'Growth', title: 'Plan Intermedio',
+    price: '800', note: '3 campañas · ahorra 33%',
+    featured: true, badge: '⭐ Más popular',
+    features: [
+      '3 campañas de <strong>1.000.000 correos</strong> cada una en Perú',
+      'Entrega rápida en <strong>48 horas</strong>',
+      '<strong>Reporte completo</strong> con métricas de apertura, clics y rebotes',
+      'Prueba previa para validar la campaña',
+      'Plantillas prediseñadas para tu <strong>estrategia de mailing en Perú</strong>',
+    ],
+    waLink: 'https://wa.link/6p7j75',
+    ctaText: 'Solicitar plan intermedio →',
+    ctaClass: 'plan-cta-solid',
+  },
+  {
+    icon: '💎', name: 'Pro', title: 'Plan Avanzado',
+    price: '1600', note: '8 campañas · máximo alcance',
+    featured: false,
+    features: [
+      '8 campañas de <strong>1.000.000 correos</strong> cada una en Perú',
+      'Entrega rápida en <strong>48 horas</strong>',
+      '<strong>Reporte completo</strong> con métricas de apertura, clics y rebotes',
+      'Prueba previa para validar la campaña',
+      'Plantillas prediseñadas para tu <strong>estrategia de mailing en Perú</strong>',
+    ],
+    waLink: 'https://wa.link/rqcdsd',
+    ctaText: 'Solicitar plan avanzado →',
+    ctaClass: 'plan-cta-outline',
+  },
+];
+---
+<section class="plans-section" id="precios">
+  <div class="plans-header">
+    <div class="plans-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Planes y Precios
+    </div>
+    <h2 class="plans-title">Mailing Perú — <em>correos masivos</em><br>segmentados</h2>
+    <p class="plans-sub">Elige el plan que se adapte al volumen de tu campaña. Sin contratos, sin sorpresas.</p>
+  </div>
+
+  <div class="plans-grid">
+    {planes.map(p => (
+      <div class={`plan-card${p.featured ? ' featured' : ''}`}>
+        {p.featured && p.badge && <div class="plan-badge-top">{p.badge}</div>}
+        <div class="plan-icon">{p.icon}</div>
+        <p class="plan-name">{p.name}</p>
+        <h3 class="plan-title">{p.title}</h3>
+        <div class="plan-price-block">
+          <div class="plan-price"><span class="plan-currency">S/</span><em>{p.price}</em></div>
+          <p class="plan-note">{p.note}</p>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          {p.features.map(f => (
+            <li><span class="chk">✓</span><span set:html={f}></span></li>
+          ))}
+        </ul>
+        <button class={`plan-cta ${p.ctaClass}`} onclick={`window.open('${p.waLink}','_blank')`}>{p.ctaText}</button>
+      </div>
+    ))}
+  </div>
+
+  <p class="plans-footer">¿Necesitas un plan personalizado? <strong>Escríbenos por WhatsApp</strong> y te armamos una propuesta a medida.</p>
+</section>
+
+<style>
+  .plans-section { background:#F8F7FF; padding:5rem 4rem; border-top:1px solid var(--border); }
+  .plans-header { text-align:center; margin-bottom:3.5rem; }
+  .plans-eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--purple-light); color:var(--purple); border:1px solid #DDD6FE; font-size:12px; font-weight:700; padding:5px 16px; border-radius:100px; margin-bottom:1.25rem; text-transform:uppercase; letter-spacing:0.06em; }
+  .plans-title { font-size:clamp(1.8rem,3vw,2.6rem); font-weight:900; letter-spacing:-0.035em; color:var(--text); margin-bottom:0.75rem; line-height:1.1; }
+  .plans-title em { color:var(--purple); font-style:normal; }
+  .plans-sub { font-size:1rem; color:var(--muted); font-weight:400; }
+  .plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1100px; margin:0 auto; }
+  .plan-card { background:#fff; border:1px solid var(--border); border-radius:20px; padding:2rem 1.75rem; display:flex; flex-direction:column; position:relative; transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s; cursor:default; }
+  .plan-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(103,76,196,0.13); border-color:#DDD6FE; }
+  .plan-card.featured { border:2px solid var(--purple); box-shadow:0 8px 32px rgba(103,76,196,0.18); }
+  .plan-card.featured:hover { transform:translateY(-8px); box-shadow:0 20px 56px rgba(103,76,196,0.25); }
+  .plan-badge-top { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--purple); color:#fff; font-size:11px; font-weight:700; padding:4px 16px; border-radius:100px; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+  .plan-icon { width:48px; height:48px; border-radius:14px; background:var(--purple-light); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:1.25rem; }
+  .plan-card.featured .plan-icon { background:#EDE9FF; }
+  .plan-name { font-size:11.5px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.4rem; }
+  .plan-title { font-size:1.4rem; font-weight:900; letter-spacing:-0.03em; color:var(--text); margin-bottom:1.25rem; }
+  .plan-price-block { margin-bottom:1.5rem; }
+  .plan-price { font-size:2.8rem; font-weight:900; letter-spacing:-0.04em; color:var(--text); line-height:1; }
+  .plan-price em { color:var(--purple); font-style:normal; }
+  .plan-currency { font-size:1.1rem; font-weight:700; color:var(--muted); vertical-align:super; margin-right:2px; }
+  .plan-note { font-size:12px; color:var(--muted); margin-top:4px; }
+  .plan-divider { height:1px; background:var(--border); margin:1.25rem 0; }
+  .plan-features { list-style:none; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .plan-features li { display:flex; align-items:flex-start; gap:10px; font-size:13.5px; color:var(--text); line-height:1.5; }
+  .chk { width:18px; height:18px; border-radius:50%; background:var(--purple-light); color:var(--purple); display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; margin-top:1px; font-weight:700; }
+  .plan-card.featured .chk { background:#EDE9FF; }
+  .plan-cta { margin-top:2rem; width:100%; padding:14px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:background 0.15s,transform 0.1s,box-shadow 0.15s; border:none; }
+  .plan-cta-outline { background:#fff; color:var(--purple); border:1.5px solid #DDD6FE; }
+  .plan-cta-outline:hover { background:var(--purple-light); border-color:var(--purple); }
+  .plan-cta-solid { background:var(--purple); color:#fff; box-shadow:0 4px 16px rgba(103,76,196,0.3); }
+  .plan-cta-solid:hover { background:var(--purple-dark); transform:translateY(-1px); box-shadow:0 8px 24px rgba(103,76,196,0.4); }
+  .plans-footer { text-align:center; margin-top:2.5rem; font-size:13px; color:var(--muted); }
+  .plans-footer strong { color:var(--text); }
+  @media(max-width:900px){ .plans-section{padding:3.5rem 1.5rem} .plans-grid{grid-template-columns:1fr} }
+</style>

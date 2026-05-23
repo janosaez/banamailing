@@ -1,0 +1,27 @@
+---
+import Footer from '../components/Footer.astro';
+interface Props { title?: string; description?: string; }
+const {
+  title = 'BanaMailing — Correos Masivos en Perú | Email Marketing Profesional',
+  description = 'En BanaMailing ayudamos a empresas con campañas de mailing y correos masivos Perú, logrando tasas de apertura superiores al 40%.'
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <slot />
+  <Footer />
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
