@@ -14,8 +14,8 @@ const logos = [
   <p class="logos-scroll-label">Empresas que confían en BanaMailing</p>
   <div class="logos-track-wrap">
     <div class="logos-track">
-      {logos.map(l => <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
-      {logos.map(l => <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
+      {logos.map(l => { const h = l.small ? 39 : l.keep ? 52 : 78; const w = l.small ? 100 : l.keep ? 140 : 200; return <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" width={w} height={h} decoding="async" /></div>; })}
+      {logos.map(l => { const h = l.small ? 39 : l.keep ? 52 : 78; const w = l.small ? 100 : l.keep ? 140 : 200; return <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" width={w} height={h} decoding="async" /></div>; })}
     </div>
   </div>
 </section>

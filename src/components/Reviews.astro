@@ -215,12 +215,14 @@
   function goToReview(i: number) {
     if (!track || !cardEls[i]) return;
     rvIndex = i;
-    const trackEl = track as HTMLElement;
-    const cardEl = cardEls[i] as HTMLElement;
-    // offsetLeft is always relative to offsetParent (static, scroll-independent)
-    const scrollLeft = cardEl.offsetLeft - trackEl.offsetLeft - 12;
-    trackEl.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
     dotEls.forEach((d, j) => d.classList.toggle('active', j === i));
+    // Use rAF to batch geometry reads after paint — avoids forced reflow
+    requestAnimationFrame(() => {
+      const trackEl = track as HTMLElement;
+      const cardEl  = cardEls[i] as HTMLElement;
+      const scrollLeft = cardEl.offsetLeft - trackEl.offsetLeft - 12;
+      trackEl.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+    });
   }
 
   document.getElementById('rvPrev')?.addEventListener('click', () => {
