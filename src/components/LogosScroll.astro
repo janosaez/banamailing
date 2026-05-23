@@ -5,7 +5,7 @@ const logos = [
   { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/papachay-market-r7ev9sro26afrsgrbxftyo6431th1a36kmnmd1rr6k.png', alt: 'Papachay Market' },
   { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/PS-COURIER-r7ev9tpi90bq3efe6fugj5xkofou8z6wwrb3ubqd0c.png', alt: 'PS Courier' },
   { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/AELE-r7ev9uncfud0f0e10y933np19tk7goan8vylbloyu4.png', alt: 'AELE' },
-  { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/cuy-arts-r7ev9vl6moeaqmcnvgnpo5ghv7fkodedl0m2svnkak.png', alt: 'Cuy Arts' },
+  { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/cuy-arts-r7ev9vl6moeaqmcnvgnpo5ghv7fkodedl0m2svnkak.png', alt: 'Cuy Arts', small: true },
   { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/hamkacafe-1-r7exfbihpaera1v1nxr63lxns1q8umu8wbk87ktw0s.png', alt: 'Hamka Cafe', keep: true },
   { src: 'https://banamailing.com/wp-content/uploads/elementor/thumbs/punto7-r7exitgv5376hss38g76dq5fdohfi2qa1mzainn4v0.jpg', alt: 'Punto 7' },
 ];
@@ -14,8 +14,8 @@ const logos = [
   <p class="logos-scroll-label">Empresas que confían en BanaMailing</p>
   <div class="logos-track-wrap">
     <div class="logos-track">
-      {logos.map(l => <div class={`logo-slide${l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
-      {logos.map(l => <div class={`logo-slide${l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
+      {logos.map(l => <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
+      {logos.map(l => <div class={`logo-slide${l.small ? ' logo-small' : l.keep ? '' : ' logo-big'}`}><img src={l.src} alt={l.alt} loading="lazy" /></div>)}
     </div>
   </div>
 </section>
@@ -31,5 +31,6 @@ const logos = [
   .logo-slide img { height:52px; width:auto; max-width:140px; object-fit:contain; filter:grayscale(100%) opacity(0.55); transition:filter 0.3s ease,transform 0.3s ease; }
   .logo-slide img:hover { filter:grayscale(0%) opacity(1); transform:scale(1.08); }
   .logo-big img { height:78px; max-width:200px; }
-  @media(max-width:900px){ .logo-slide{padding:0 1.75rem} .logo-slide img{height:38px;max-width:100px} .logo-big img{height:57px;max-width:140px} }
+  .logo-small img { height:39px; max-width:100px; }
+  @media(max-width:900px){ .logo-slide{padding:0 1.75rem} .logo-slide img{height:38px;max-width:100px} .logo-big img{height:57px;max-width:140px} .logo-small img{height:28px;max-width:70px} }
 </style>
