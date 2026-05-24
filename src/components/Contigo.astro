@@ -2,9 +2,13 @@
 ---
 <section class="sec-contigo">
   <div class="contigo-inner">
+
+    <!-- Columna izquierda: texto + KPIs -->
     <div class="contigo-left">
       <h2 class="contigo-title">Siempre<br>estamos<br>contigo</h2>
-      <a href="https://api.whatsapp.com/send?phone=51990137226&text=Hola%2C%20quiero%20empezar%20con%20BanaMailing." target="_blank" class="contigo-btn">Empieza aquí →</a>
+
+      <p class="contigo-desc">Más de 20 años ayudando a empresas peruanas a conectar con sus clientes. Somos tu equipo de email marketing, no solo un proveedor.</p>
+
       <div class="contigo-certifs">
         <div class="certif-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -23,38 +27,41 @@
           SEO Certificate
         </div>
       </div>
-    </div>
 
-    <div class="contigo-right">
       <div class="contigo-kpis">
         <div class="ck-item"><span class="ck-n">+500</span><span class="ck-l">Empresas atendidas</span></div>
         <div class="ck-item"><span class="ck-n">42%</span><span class="ck-l">Tasa de apertura</span></div>
         <div class="ck-item"><span class="ck-n">99%</span><span class="ck-l">Entregabilidad</span></div>
-        <div class="ck-item"><span class="ck-n">48h</span><span class="ck-l">Tiempo de entrega</span></div>
+        <div class="ck-item"><span class="ck-n">+200M</span><span class="ck-l">Correos enviados</span></div>
+      </div>
+
+      <a href="https://api.whatsapp.com/send?phone=51990137226&text=Hola%2C%20quiero%20empezar%20con%20BanaMailing." target="_blank" class="contigo-btn">Empieza aquí →</a>
+    </div>
+
+    <!-- Columna derecha: foto contenida -->
+    <div class="contigo-right">
+      <div class="contigo-photo-wrap">
+        <img
+          src="/images/agencia-marketing-digital-certificados-cliente-satisfecho-movil.webp"
+          alt="Equipo BanaMailing asesorando a cliente satisfecho — agencia de email marketing en Perú"
+          class="contigo-photo"
+          width="560" height="480"
+          loading="lazy" decoding="async"
+        />
+        <div class="contigo-photo-overlay">
+          <div class="photo-cert-grid">
+            <div class="photo-cert"><span class="pc-title">Google</span><span class="pc-sub">Certified</span></div>
+            <div class="photo-cert"><span class="pc-title">Meta</span><span class="pc-sub">Partner</span></div>
+            <div class="photo-cert"><span class="pc-title">HubSpot</span><span class="pc-sub">Certified</span></div>
+            <div class="photo-cert"><span class="pc-title">RUC</span><span class="pc-sub">20606350644</span></div>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 
-  <div class="contigo-photo-wrap">
-    <img
-      src="/images/agencia-marketing-digital-certificados-cliente-satisfecho-movil.webp"
-      alt="Equipo BanaMailing asesorando a cliente satisfecho — agencia de email marketing en Perú con certificados Google, Meta, HubSpot y SEO"
-      class="contigo-photo"
-      width="1180" height="480"
-      loading="lazy" decoding="async"
-      onerror="this.parentElement.innerHTML='<div class=\'contigo-photo-fallback\'><div style=\'font-size:48px\'>✉️</div><p>Equipo BanaMailing — Siempre a tu servicio</p></div>'"
-    />
-    <div class="contigo-photo-overlay">
-      <div class="photo-cert-grid">
-        <div class="photo-cert"><span class="pc-title">Google</span><span class="pc-sub">Certified Prof.</span></div>
-        <div class="photo-cert"><span class="pc-title">Meta</span><span class="pc-sub">Marketing Partner</span></div>
-        <div class="photo-cert"><span class="pc-title">HubSpot</span><span class="pc-sub">Certified</span></div>
-        <div class="photo-cert"><span class="pc-title">SEO</span><span class="pc-sub">Certificate</span></div>
-        <div class="photo-cert"><span class="pc-title">RUC</span><span class="pc-sub">Registrado</span></div>
-      </div>
-    </div>
-  </div>
-
+  <!-- Stats bar -->
   <div class="contigo-stats">
     <div class="cs-stat"><span class="cs-n">+500</span><span class="cs-l">Empresas atendidas en Perú</span></div>
     <div class="cs-divider"></div>
@@ -72,29 +79,27 @@
     border-top: 1px solid var(--border);
     padding: 5.5rem 4rem 0;
   }
+
+  /* Grid principal: texto izq / foto der */
   .contigo-inner {
     max-width: 1180px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; align-items: center;
-    padding-bottom: 3.5rem;
+    gap: 5rem; align-items: center;
+    padding-bottom: 4rem;
   }
+
+  /* Columna izquierda */
   .contigo-title {
-    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
     font-weight: 900; line-height: 0.95;
     letter-spacing: -0.04em; color: var(--text);
-    text-transform: uppercase; margin-bottom: 2rem;
+    text-transform: uppercase; margin-bottom: 1.25rem;
   }
-  .contigo-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--text); color: #fff;
-    padding: 15px 30px; border-radius: 10px;
-    font-size: 15px; font-weight: 700;
-    text-decoration: none; letter-spacing: 0.01em;
-    transition: background 0.15s, transform 0.15s;
-    margin-bottom: 2rem;
+  .contigo-desc {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 1.75rem; max-width: 420px;
   }
-  .contigo-btn:hover { background: #2D2D2D; transform: translateY(-2px); }
-  .contigo-certifs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .contigo-certifs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
   .certif-pill {
     display: inline-flex; align-items: center; gap: 5px;
     background: var(--purple-light); color: var(--purple);
@@ -102,46 +107,57 @@
     font-size: 12px; font-weight: 600;
     padding: 5px 12px; border-radius: 100px;
   }
-  .contigo-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* KPIs en 2x2 */
+  .contigo-kpis {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 2rem;
+  }
   .ck-item {
     background: #F8F7FF; border: 1px solid #EDE9FF;
-    border-radius: 14px; padding: 1.1rem 1.25rem;
+    border-radius: 14px; padding: 1rem 1.25rem;
     display: flex; flex-direction: column; gap: 3px;
   }
-  .ck-n { font-size: 1.9rem; font-weight: 900; color: var(--purple); letter-spacing: -0.04em; line-height: 1; }
+  .ck-n { font-size: 1.75rem; font-weight: 900; color: var(--purple); letter-spacing: -0.04em; line-height: 1; }
   .ck-l { font-size: 12px; color: var(--muted); font-weight: 500; }
 
+  .contigo-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--text); color: #fff;
+    padding: 14px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .contigo-btn:hover { background: #2D2D2D; transform: translateY(-2px); }
+
+  /* Columna derecha: foto */
   .contigo-photo-wrap {
-    position: relative; max-width: 1180px; margin: 0 auto;
+    position: relative;
     border-radius: 20px; overflow: hidden;
-    box-shadow: 0 12px 48px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    height: 480px;
   }
   .contigo-photo {
-    width: 100%; max-height: 480px;
+    width: 100%; height: 100%;
     object-fit: cover; object-position: center top; display: block;
   }
   .contigo-photo-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
-    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    padding: 1.5rem;
   }
-  .photo-cert-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+  .photo-cert-grid { display: flex; gap: 8px; flex-wrap: wrap; }
   .photo-cert {
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(8px);
-    border-radius: 10px; padding: 8px 14px;
+    border-radius: 9px; padding: 6px 12px;
     display: flex; flex-direction: column; gap: 1px;
   }
-  .pc-title { font-size: 12px; font-weight: 800; color: var(--text); }
-  .pc-sub   { font-size: 10px; font-weight: 500; color: var(--purple); }
-  .contigo-photo-fallback {
-    width: 100%; height: 380px;
-    background: linear-gradient(135deg, #F3F0FF, #EDE9FF);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 14px;
-  }
-  .contigo-photo-fallback p { font-size: 15px; font-weight: 600; color: var(--purple); }
+  .pc-title { font-size: 11px; font-weight: 800; color: var(--text); }
+  .pc-sub   { font-size: 9.5px; font-weight: 500; color: var(--purple); }
 
+  /* Stats bar */
   .contigo-stats {
     max-width: 1180px; margin: 0 auto;
     border-top: 1px solid var(--border);
@@ -155,10 +171,9 @@
 
   @media (max-width: 900px) {
     .sec-contigo { padding: 3.5rem 1.5rem 0; }
-    .contigo-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .contigo-title { font-size: clamp(2.8rem, 12vw, 4rem); }
-    .contigo-photo { max-height: 300px; }
-    .photo-cert-grid { gap: 6px; }
+    .contigo-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contigo-title { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+    .contigo-photo-wrap { height: 280px; }
     .contigo-stats { flex-wrap: wrap; gap: 1.5rem; padding: 2rem 0; }
     .cs-divider { display: none; }
     .cs-stat { flex: 0 0 45%; }
