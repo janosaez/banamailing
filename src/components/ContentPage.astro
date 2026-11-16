@@ -2,7 +2,7 @@
 // Plantilla de páginas de contenido SEO (servicios y artículos). Datos en src/lib/content.ts
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { findBySlug, hrefOf, BLOG_URL, type Entry } from '../lib/content';
-interface Props { entry: Entry; kind: 'service' | 'post'; }
+interface Props { entry: Entry; kind: 'service' | 'post' | 'legal'; }
 const { entry, kind } = Astro.props;
 const SITE = 'https://banamailing.com';
 const url = SITE + hrefOf(entry, kind);
@@ -19,7 +19,9 @@ const graph: Record<string, unknown>[] = [
     itemListElement: crumbs.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })),
   },
 ];
-if (kind === 'service') {
+if (kind === 'legal') {
+  graph.push({ '@type': 'WebPage', '@id': url + '#page', name: entry.h1, url, inLanguage: 'es-PE', isPartOf: { '@id': SITE + '/#website' } });
+} else if (kind === 'service') {
   graph.push({
     '@type': 'Service', '@id': url + '#service', name: entry.h1, description: entry.description, url,
     serviceType: 'Email marketing y correos masivos', areaServed: { '@type': 'Country', name: 'Perú' },
@@ -87,14 +89,14 @@ const fmt = (d?: string) => d ? new Date(d + 'T12:00:00').toLocaleDateString('es
         </section>
       )}
 
-      <aside class="cp-cta">
+      {kind !== 'legal' && <aside class="cp-cta">
         <h2>¿Listo para tu próxima campaña?</h2>
         <p>Cuéntanos tu objetivo y te preparamos una demo gratuita. Respondemos por correo o WhatsApp.</p>
         <div class="cp-ctas">
           <a class="cp-btn" href="/contacto">Hablar con un asesor</a>
           <a class="cp-btn cp-btn-wa" href="https://api.whatsapp.com/send?phone=51990137226&text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20correos%20masivos." target="_blank" rel="noopener">WhatsApp</a>
         </div>
-      </aside>
+      </aside>}
 
       {related.length > 0 && (
         <section class="cp-sec">

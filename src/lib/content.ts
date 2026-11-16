@@ -435,6 +435,138 @@ export const posts: Entry[] = [
   },
 ];
 
+
+export const legal: Entry[] = [
+  {
+    slug: 'politica-de-privacidad',
+    title: 'Política de Privacidad — BanaMailing',
+    description: 'Cómo BANA NETWORK SAC (BanaMailing) trata tus datos personales: qué datos recibimos, para qué los usamos, con quién los compartimos y cómo ejercer tus derechos.',
+    eyebrow: 'Legal',
+    h1: 'Política de Privacidad',
+    lead: 'Última actualización: 16 de noviembre de 2026. Esta política explica cómo <strong>BANA NETWORK SAC</strong> (marca BanaMailing, RUC 20606350644, con domicilio en Chacarilla del Estanque, Santiago de Surco, Lima, Perú) trata los datos personales de quienes visitan banamailing.com, de acuerdo con la Ley N.° 29733, Ley de Protección de Datos Personales, y su reglamento.',
+    sections: [
+      {
+        h2: '1. Qué datos podemos recibir',
+        ul: [
+          '<strong>Datos de contacto</strong> que nos entregas por correo, teléfono o WhatsApp: nombre, empresa, correo, teléfono y el contenido de tu mensaje.',
+          '<strong>Correo de destino de una prueba</strong>, si usas el editor "Arma tu mailing" para enviarte un correo de prueba.',
+          '<strong>Contenido de tu diseño</strong> (textos, enlaces e imágenes) cuando solicitas ese envío de prueba.',
+          '<strong>Datos técnicos mínimos</strong> necesarios para el funcionamiento y la seguridad del sitio, como la dirección IP.',
+        ],
+      },
+      {
+        h2: '2. Para qué los usamos',
+        ul: [
+          'Responder tus consultas y enviarte la información o la demo que solicites.',
+          'Enviar el correo de prueba que pediste, una sola vez por solicitud.',
+          'Proteger el sitio y el servicio de envío contra abusos, por ejemplo limitando las pruebas a 1 cada 10 minutos.',
+          'Gestionar la relación comercial y cumplir obligaciones legales y tributarias.',
+        ],
+        p: ['No vendemos ni cedemos tus datos a terceros para fines de publicidad.'],
+      },
+      {
+        h2: '3. Correo de prueba del editor',
+        p: [
+          'La dirección que indicas se usa únicamente para enviar la prueba. Para aplicar el límite de envíos guardamos, por un máximo de 10 minutos, una huella cifrada (hash) de tu IP y de ese correo; no guardamos la dirección en claro para ese fin. El diseño se procesa en nuestro servidor para generar el correo y no se conserva después del envío.',
+          'Tu borrador del editor se guarda solo en tu propio navegador (almacenamiento local) para que no lo pierdas; no lo recibimos nosotros.',
+        ],
+      },
+      {
+        h2: '4. Con quién se comparten',
+        p: ['Para operar el sitio usamos proveedores que tratan datos por encargo nuestro y bajo sus propias políticas de seguridad:'],
+        ul: [
+          '<strong>Vercel</strong>: alojamiento del sitio.',
+          '<strong>Resend</strong>: entrega de los correos de prueba.',
+          '<strong>Upstash</strong>: control del límite de envíos.',
+          '<strong>Cloudflare Turnstile</strong>: verificación anti-robots al enviar una prueba.',
+        ],
+      },
+      {
+        h2: '5. Cookies y medición',
+        p: [
+          'Este sitio no utiliza cookies publicitarias. Si en el futuro incorporamos herramientas de medición como Google Analytics, actualizaremos esta política e informaremos su uso.',
+        ],
+      },
+      {
+        h2: '6. Conservación y seguridad',
+        p: [
+          'Conservamos los datos de contacto el tiempo necesario para atender tu solicitud y la relación comercial, y luego durante los plazos legales aplicables. Aplicamos medidas técnicas y organizativas razonables: conexión cifrada (HTTPS), validación de las solicitudes y límites de uso.',
+        ],
+      },
+      {
+        h2: '7. Tus derechos',
+        p: [
+          'Puedes ejercer tus derechos de <strong>acceso, rectificación, cancelación y oposición</strong> (ARCO), y revocar tu consentimiento, escribiendo a <a href="mailto:banamailing@gmail.com">banamailing@gmail.com</a> con el asunto "Datos personales" y adjuntando una copia de tu documento de identidad. Si consideras que no atendimos tu solicitud, puedes acudir a la Autoridad Nacional de Protección de Datos Personales.',
+          'Si recibes un correo de BanaMailing y no deseas recibir más, usa el enlace de baja del mensaje o escríbenos y lo atenderemos de inmediato.',
+        ],
+      },
+      {
+        h2: '8. Cambios en esta política',
+        p: ['Podemos actualizar esta política. La versión vigente siempre estará en esta página, con su fecha de actualización. Más información de la empresa en <a href="/nosotros">Nosotros</a> y en <a href="/terminos-de-uso">Términos de uso</a>.'],
+      },
+    ],
+    faqs: [],
+    related: [],
+  },
+  {
+    slug: 'terminos-de-uso',
+    title: 'Términos de Uso — BanaMailing',
+    description: 'Términos y condiciones de uso del sitio banamailing.com y del editor Arma tu mailing de BANA NETWORK SAC: uso permitido, límites, responsabilidades y ley aplicable.',
+    eyebrow: 'Legal',
+    h1: 'Términos de Uso',
+    lead: 'Última actualización: 16 de noviembre de 2026. Al usar banamailing.com aceptas estos términos. El sitio es operado por <strong>BANA NETWORK SAC</strong> (BanaMailing, RUC 20606350644). Si no estás de acuerdo, te pedimos no utilizarlo.',
+    sections: [
+      {
+        h2: '1. El sitio y sus contenidos',
+        p: ['Este sitio informa sobre nuestros servicios de email marketing y ofrece herramientas como el editor <a href="/arma-tu-mailing">Arma tu mailing</a>. Los contenidos del blog y de las páginas son informativos y no constituyen asesoría legal, financiera ni garantía de resultados.'],
+      },
+      {
+        h2: '2. Uso del editor y de los correos de prueba',
+        ul: [
+          'El editor es una herramienta gratuita de demostración. El envío de pruebas se limita a <strong>1 correo cada 10 minutos</strong> y a un tope diario global; podemos modificar o suspender el servicio en cualquier momento.',
+          'Solo puedes enviar pruebas a una dirección propia o a la de una persona que lo haya autorizado.',
+          'Los correos de prueba no sirven para campañas ni envíos masivos reales; para eso contrata nuestro <a href="/correos-masivos-peru">servicio de correos masivos</a>.',
+        ],
+      },
+      {
+        h2: '3. Conductas no permitidas',
+        ul: [
+          'Enviar spam, acoso, contenido ilegal, engañoso o fraudulento (por ejemplo, suplantación o phishing).',
+          'Incluir enlaces a sitios maliciosos o contenido que vulnere derechos de terceros.',
+          'Intentar eludir los límites de uso, la verificación anti-robots o las medidas de seguridad.',
+          'Usar el sitio para fines contrarios a la ley peruana.',
+        ],
+        p: ['Podemos bloquear el acceso a quien incumpla estas reglas.'],
+      },
+      {
+        h2: '4. Propiedad intelectual',
+        p: ['El sitio, su diseño, textos, marca y logotipos pertenecen a BANA NETWORK SAC o a sus titulares y están protegidos por la ley. Los textos e imágenes que tú incorporas en el editor siguen siendo tuyos, y declaras tener derecho a usarlos.'],
+      },
+      {
+        h2: '5. Servicios contratados',
+        p: ['Los servicios de envío de campañas se rigen por la propuesta o acuerdo comercial que firmemos con cada cliente. Estos términos aplican al uso general del sitio. El cliente es responsable de contar con el consentimiento de los contactos de su base; revisa <a href="/blog/ley-spam-peru-correo-comercial">nuestra guía sobre la ley del correo comercial</a>.'],
+      },
+      {
+        h2: '6. Limitación de responsabilidad',
+        p: ['Hacemos lo razonable por mantener el sitio disponible y la información actualizada, pero se ofrece "tal cual". No garantizamos que funcione sin interrupciones ni que un correo llegue a la bandeja principal de todos los proveedores, ya que eso depende también de terceros. En la medida que la ley lo permita, no respondemos por daños indirectos derivados del uso del sitio.'],
+      },
+      {
+        h2: '7. Enlaces a terceros',
+        p: ['El sitio puede enlazar a páginas de terceros (por ejemplo WhatsApp o redes sociales). No controlamos su contenido ni sus políticas.'],
+      },
+      {
+        h2: '8. Ley aplicable y contacto',
+        p: [
+          'Estos términos se rigen por las leyes de la República del Perú. Cualquier controversia se someterá a los jueces y tribunales de Lima, salvo norma imperativa en contrario. Podemos actualizar estos términos; la versión vigente es la publicada aquí.',
+          'Consultas: <a href="mailto:banamailing@gmail.com">banamailing@gmail.com</a> · +51 990 137 226. Datos personales: <a href="/politica-de-privacidad">Política de privacidad</a>.',
+        ],
+      },
+    ],
+    faqs: [],
+    related: [],
+  },
+];
+
 export const all = [...services.map(s => ({ ...s, kind: 'service' as const })), ...posts.map(p => ({ ...p, kind: 'post' as const }))];
 export const hrefOf = (e: { slug: string; kind?: string }, kind = e.kind) => (kind === 'post' ? `/blog/${e.slug}` : `/${e.slug}`);
 export const findBySlug = (slug: string) => all.find(e => e.slug === slug);
