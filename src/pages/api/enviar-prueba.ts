@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { LIMITS, SAMPLE_VARS, applyVars, renderEmail, renderText, sanitizeDesign } from '../../lib/mailing';
+import { LIMITS, SAMPLE_VARS, allBlocks, applyVars, renderEmail, renderText, sanitizeDesign } from '../../lib/mailing';
 
 export const prerender = false;
 
@@ -73,7 +73,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const design = sanitizeDesign(body?.design);
   if (!design || design.blocks.length === 0) return json(400, { error: 'Diseño no válido.' });
   if (!design.subject) return json(400, { error: 'Escribe un asunto para tu correo.' });
-  if (design.blocks.some(b => b.type === 'button' && !b.url)) return json(400, { error: 'Hay un botón sin enlace https válido.' });
+  if (allBlocks(design).some(b => b.type === 'button' && !b.url)) return json(400, { error: 'Hay un botón sin enlace https válido.' });
 
   // 5) Configuración del servidor (falla cerrado si falta algo)
   const apiKey = env('RESEND_API_KEY');

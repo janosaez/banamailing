@@ -7,7 +7,7 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   <div class="bld-head">
     <span class="bld-badge">Gratis · sin registro</span>
     <h1>Arma tu mailing y <em>pruébalo en tu correo</em></h1>
-    <p>Elige una plantilla, edítala con bloques y recibe una prueba real en tu bandeja. Ideal para ver cómo se verá tu campaña antes de enviarla.</p>
+    <p>Elige una plantilla, arrastra bloques, edita el texto directamente sobre el correo y recibe una prueba real en tu bandeja.</p>
   </div>
 
   <div class="bld-app">
@@ -24,31 +24,35 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
         <div class="bld-tpls" id="bldTpls">
           {tplMeta.map(t => (
             <button class="bld-tpl" data-tpl={t.id} style={`--c:${t.accent}`}>
-              <span class="bld-tpl-thumb"><i></i><i></i><i></i></span>
+              <span class="bld-tpl-thumb" data-thumb={t.id}></span>
               <strong>{t.name}</strong>
               <small>{t.desc}</small>
             </button>
           ))}
         </div>
-        <div class="bld-row">
-          <button class="bld-btn" id="bldImport">Cargar diseño (.json)</button>
-          <input type="file" id="bldFile" accept="application/json,.json" hidden />
-        </div>
+        <button class="bld-btn" id="bldImport">Cargar diseño (.json)</button>
+        <input type="file" id="bldFile" accept="application/json,.json" hidden />
       </div>
 
       <div class="bld-panel" data-panel="blocks" hidden>
-        <p class="bld-hint">Haz clic para agregar un bloque debajo del seleccionado.</p>
-        <div class="bld-palette" id="bldPalette">
-          <button data-add="header">▭ Cabecera</button>
-          <button data-add="heading">H Título</button>
-          <button data-add="text">¶ Texto</button>
-          <button data-add="image">▣ Imagen</button>
-          <button data-add="button">◉ Botón</button>
-          <button data-add="columns">◫ 2 columnas</button>
-          <button data-add="divider">— Divisor</button>
-          <button data-add="spacer">↕ Espacio</button>
-          <button data-add="social">☺ Redes</button>
-          <button data-add="footer">▁ Pie</button>
+        <p class="bld-hint"><b>Arrastra</b> un bloque al correo, o haz clic para agregarlo debajo del seleccionado.</p>
+        <h3 class="bld-h3">Contenido</h3>
+        <div class="bld-tiles" id="bldPalette">
+          <button draggable="true" data-add="heading"><span class="ic">H</span>Título</button>
+          <button draggable="true" data-add="text"><span class="ic">¶</span>Texto</button>
+          <button draggable="true" data-add="image"><span class="ic">▣</span>Imagen</button>
+          <button draggable="true" data-add="button"><span class="ic">◉</span>Botón</button>
+          <button draggable="true" data-add="divider"><span class="ic">—</span>Divisor</button>
+          <button draggable="true" data-add="spacer"><span class="ic">↕</span>Espacio</button>
+          <button draggable="true" data-add="header"><span class="ic">▭</span>Cabecera</button>
+          <button draggable="true" data-add="social"><span class="ic">☺</span>Redes</button>
+          <button draggable="true" data-add="footer"><span class="ic">▁</span>Pie</button>
+        </div>
+        <h3 class="bld-h3">Filas (columnas)</h3>
+        <div class="bld-tiles rows" id="bldRows">
+          <button draggable="true" data-row="1" title="1 columna"><svg viewBox="0 0 36 22"><rect x="2" y="3" width="32" height="16" rx="2"/></svg>1 col.</button>
+          <button draggable="true" data-row="2" title="2 columnas"><svg viewBox="0 0 36 22"><rect x="2" y="3" width="15" height="16" rx="2"/><rect x="19" y="3" width="15" height="16" rx="2"/></svg>2 col.</button>
+          <button draggable="true" data-row="3" title="3 columnas"><svg viewBox="0 0 36 22"><rect x="2" y="3" width="9.5" height="16" rx="2"/><rect x="13.2" y="3" width="9.5" height="16" rx="2"/><rect x="24.5" y="3" width="9.5" height="16" rx="2"/></svg>3 col.</button>
         </div>
         <h3 class="bld-h3">Estructura</h3>
         <ol class="bld-outline" id="bldOutline"></ol>
@@ -81,15 +85,16 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
           <input class="field-input" id="bldPre" maxlength="140" placeholder="Lo que se ve junto al asunto en la bandeja" />
         </div>
       </div>
+      <p class="bld-tip">💡 Haz clic en cualquier texto del correo para editarlo directamente. Usa la barra morada para formato, mover, duplicar o borrar.</p>
       <div class="bld-stage" id="bldStage">
-        <iframe id="bldFrame" title="Vista previa del correo" sandbox="allow-same-origin"></iframe>
+        <iframe id="bldFrame" title="Vista previa y edición del correo" sandbox="allow-same-origin"></iframe>
       </div>
     </div>
 
     <!-- DERECHA -->
     <aside class="bld-right" aria-label="Propiedades y envío de prueba">
       <h3 class="bld-h3" id="bldPropTitle">Propiedades</h3>
-      <div class="bld-fields" id="bldProps"><p class="bld-hint">Selecciona un bloque en la vista previa o en la estructura para editarlo.</p></div>
+      <div class="bld-fields" id="bldProps"><p class="bld-hint">Selecciona un bloque en el correo o en la estructura para ajustar sus propiedades.</p></div>
 
       <div class="bld-send">
         <h3 class="bld-h3">Recibe una prueba</h3>
@@ -113,7 +118,7 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   .bld-head h1 em { color: var(--purple); font-style: normal; }
   .bld-head p { color: var(--muted); margin-top: 10px; font-size: 15px; line-height: 1.6; }
 
-  .bld-app { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 290px minmax(0, 1fr) 310px; gap: 14px; align-items: start; }
+  .bld-app { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 300px minmax(0, 1fr) 310px; gap: 14px; align-items: start; }
   .bld-left, .bld-right, .bld-center { background: #fff; border: 1px solid var(--border); border-radius: 14px; }
   .bld-left, .bld-right { padding: 14px; position: sticky; top: 76px; max-height: calc(100vh - 92px); overflow: auto; }
   .bld-center { padding: 12px; min-width: 0; }
@@ -122,37 +127,38 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   .bld-tab { flex: 1; border: 0; background: transparent; padding: 7px 4px; border-radius: 7px; font: 600 12.5px inherit; font-family: inherit; color: var(--muted); cursor: pointer; }
   .bld-tab.active { background: #fff; color: var(--purple); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
   .bld-hint { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .bld-tip { font-size: 12px; color: var(--muted); margin: -2px 0 10px; }
   .bld-h3 { font-size: 13px; font-weight: 800; margin: 14px 0 8px; letter-spacing: -0.01em; }
   .bld-h3:first-child { margin-top: 0; }
 
   .bld-tpls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-  .bld-tpl { text-align: left; border: 1px solid var(--border); background: #fff; border-radius: 10px; padding: 8px; cursor: pointer; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
-  .bld-tpl:hover { border-color: var(--c); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .bld-tpl { text-align: left; border: 1px solid var(--border); background: #fff; border-radius: 10px; padding: 7px; cursor: pointer; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
+  .bld-tpl:hover { border-color: var(--c); box-shadow: 0 4px 14px rgba(0,0,0,.1); }
   .bld-tpl strong { display: block; font-size: 12.5px; margin-top: 6px; color: var(--text); }
   .bld-tpl small { display: block; font-size: 11px; color: var(--muted); line-height: 1.35; margin-top: 2px; }
-  .bld-tpl-thumb { display: block; background: #F3F4F6; border-radius: 6px; padding: 6px; height: 64px; overflow: hidden; }
-  .bld-tpl-thumb i { display: block; height: 8px; border-radius: 3px; background: #D1D5DB; margin-bottom: 5px; }
-  .bld-tpl-thumb i:first-child { background: var(--c); height: 12px; }
-  .bld-tpl-thumb i:nth-child(3) { width: 60%; }
+  .bld-tpl-thumb { display: block; position: relative; background: #EDEBF5; border-radius: 6px; height: 150px; overflow: hidden; }
+  .bld-tpl-thumb iframe { position: absolute; top: 0; left: 0; width: 600px; height: 900px; border: 0; transform-origin: top left; pointer-events: none; background: transparent; }
 
   .bld-btn { border: 1px solid var(--border); background: #fff; color: var(--text); padding: 9px 12px; border-radius: 9px; font: 600 12.5px inherit; font-family: inherit; cursor: pointer; width: 100%; transition: border-color .15s, background .15s; }
   .bld-btn:hover { border-color: var(--purple); background: var(--purple-light); }
   .bld-btn.sm { width: auto; padding: 7px 11px; }
-  .bld-row { margin-top: 6px; }
 
-  .bld-palette { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .bld-palette button { border: 1px solid var(--border); background: #fff; padding: 9px 8px; border-radius: 9px; font: 600 12.5px inherit; font-family: inherit; cursor: pointer; text-align: left; transition: all .15s; }
-  .bld-palette button:hover { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+  .bld-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .bld-tiles button { border: 1px solid var(--border); background: #fff; padding: 10px 4px 8px; border-radius: 9px; font: 600 11.5px inherit; font-family: inherit; cursor: grab; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text); transition: all .15s; }
+  .bld-tiles button:hover { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+  .bld-tiles button:active { cursor: grabbing; }
+  .bld-tiles .ic { font-size: 18px; line-height: 1; color: var(--purple); font-weight: 800; }
+  .bld-tiles svg { width: 40px; height: 24px; fill: currentColor; opacity: .55; }
+  .bld-tiles.rows svg { fill: var(--purple); opacity: .7; }
 
-  .bld-outline { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-  .bld-outline li { display: flex; align-items: center; gap: 4px; border: 1px solid var(--border); border-radius: 8px; padding: 5px 6px; background: #fff; font-size: 12px; cursor: pointer; }
+  .bld-outline { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+  .bld-outline li { display: flex; align-items: center; gap: 2px; border: 1px solid var(--border); border-radius: 8px; padding: 4px 5px; background: #fff; font-size: 12px; cursor: pointer; }
   .bld-outline li.sel { border-color: var(--purple); background: var(--purple-light); }
-  .bld-outline li.over { border-top: 3px solid var(--purple); }
+  .bld-outline li.d1 { margin-left: 16px; background: #FAFAFC; }
   .bld-outline .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .bld-outline .lbl b { color: var(--purple); font-weight: 700; margin-right: 5px; }
-  .bld-outline button { border: 0; background: transparent; cursor: pointer; padding: 3px 5px; border-radius: 5px; font-size: 13px; color: var(--muted); }
+  .bld-outline button { border: 0; background: transparent; cursor: pointer; padding: 3px 4px; border-radius: 5px; font-size: 12px; color: var(--muted); }
   .bld-outline button:hover { background: #E5E7EB; color: var(--text); }
-  .bld-outline .grip { cursor: grab; color: #9CA3AF; font-size: 12px; }
 
   .bld-toolbar { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
   .bld-icon { border: 1px solid var(--border); background: #fff; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 15px; font-family: inherit; }
@@ -173,12 +179,12 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   .bld-f input:focus, .bld-f select:focus, .bld-f textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(103,76,196,.12); }
   .bld-f input[type=color] { width: 100%; height: 34px; border: 1px solid var(--border); border-radius: 8px; padding: 2px; background: #fff; cursor: pointer; }
   .bld-f input[type=range] { width: 100%; accent-color: var(--purple); }
-  .bld-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bld-note { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
   .bld-vars { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
   .bld-vars button { border: 1px dashed #C4B5FD; background: #F8F6FF; color: var(--purple); font: 600 11px inherit; font-family: inherit; padding: 3px 7px; border-radius: 6px; cursor: pointer; }
   .bld-soc { display: grid; grid-template-columns: 110px 1fr 28px; gap: 5px; align-items: center; margin-bottom: 5px; }
   .bld-soc button { border: 0; background: #FEE2E2; color: #B91C1C; border-radius: 6px; cursor: pointer; height: 30px; }
-  .bld-mini { border: 1px dashed var(--border); background: #fff; padding: 7px; border-radius: 8px; font: 600 12px inherit; font-family: inherit; cursor: pointer; color: var(--purple); }
+  .bld-mini { border: 1px dashed var(--border); background: #fff; padding: 7px; border-radius: 8px; font: 600 12px inherit; font-family: inherit; cursor: pointer; color: var(--purple); width: 100%; margin-top: 4px; }
 
   .bld-send { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
   .bld-send .field-input { margin-top: 2px; }
@@ -192,7 +198,7 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   .bld-legal { font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 8px; }
 
   @media (max-width: 1180px) {
-    .bld-app { grid-template-columns: 270px minmax(0, 1fr); }
+    .bld-app { grid-template-columns: 280px minmax(0, 1fr); }
     .bld-right { grid-column: 1 / -1; position: static; max-height: none; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .bld-right > .bld-h3 { grid-column: 1; }
     .bld-send { margin-top: 0; padding-top: 0; border-top: 0; grid-column: 2; grid-row: 1 / span 2; }
@@ -203,19 +209,18 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     .bld-right { display: block; }
     .bld-send { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
     .bld-meta { grid-template-columns: 1fr; }
-    #bldFrame { height: 520px; }
+    .bld-tip { display: none; }
   }
 </style>
 
 <script>
-  import { SAMPLE_VARS, SOCIALS, FONTS, LIMITS, esc, newBlock, renderEmail, sanitizeDesign, type Block, type Design } from '../lib/mailing';
+  import { SAMPLE_VARS, SOCIALS, FONTS, LIMITS, allBlocks, esc, isCellType, newBlock, newRow, renderEmail, safeUrl, sanitizeDesign, uid, type Block, type Design, type RowB } from '../lib/mailing';
   import { TEMPLATES, cloneDesign } from '../lib/templates';
 
   const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
   const STORE = 'bana-mailing-v1';
   const SENT = 'bana-last-send';
-
-  const LABELS: Record<string, string> = { header: 'Cabecera', heading: 'Título', text: 'Texto', image: 'Imagen', button: 'Botón', divider: 'Divisor', spacer: 'Espacio', columns: '2 columnas', social: 'Redes', footer: 'Pie' };
+  const LABELS: Record<string, string> = { header: 'Cabecera', heading: 'Título', text: 'Texto', image: 'Imagen', button: 'Botón', divider: 'Divisor', spacer: 'Espacio', columns: '2 columnas', social: 'Redes', footer: 'Pie', row: 'Fila' };
 
   let design: Design = cloneDesign(TEMPLATES[1].design);
   let selectedId: string | null = null;
@@ -223,6 +228,7 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   let future: string[] = [];
   let lastSnap = 0;
   let dirty = false;
+  let dragPayload: string | null = null;
 
   // ---------- persistencia ----------
   try {
@@ -232,6 +238,10 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   const save = () => { try { localStorage.setItem(STORE, JSON.stringify(design)); } catch { /* ignorar */ } };
 
   // ---------- historial ----------
+  const updateHist = () => {
+    ($('bldUndo') as HTMLButtonElement).disabled = past.length === 0;
+    ($('bldRedo') as HTMLButtonElement).disabled = future.length === 0;
+  };
   const snapshot = (force = false) => {
     const now = Date.now();
     if (!force && now - lastSnap < 900) return;
@@ -241,98 +251,410 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     future = [];
     updateHist();
   };
-  const updateHist = () => {
-    ($('bldUndo') as HTMLButtonElement).disabled = past.length === 0;
-    ($('bldRedo') as HTMLButtonElement).disabled = future.length === 0;
-  };
-  const restore = (json: string) => { design = JSON.parse(json); if (selectedId && !design.blocks.find(b => b.id === selectedId)) selectedId = null; renderAll(); save(); };
+  const restore = (json: string) => { design = JSON.parse(json); if (selectedId && !getBlock(selectedId)) selectedId = null; renderAll(); save(); };
   const undo = () => { if (!past.length) return; future.push(JSON.stringify(design)); restore(past.pop()!); updateHist(); };
   const redo = () => { if (!future.length) return; past.push(JSON.stringify(design)); restore(future.pop()!); updateHist(); };
 
-  // ---------- vista previa ----------
-  const frame = $('bldFrame') as HTMLIFrameElement;
-  let pendingScroll = 0;
-  let raf = 0;
-  const renderPreview = () => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      pendingScroll = frame.contentWindow?.scrollY ?? 0;
-      frame.srcdoc = renderEmail(design, { editor: true, selectedId, vars: SAMPLE_VARS });
-    });
-  };
-  frame.addEventListener('load', () => {
-    const doc = frame.contentDocument;
-    if (!doc) return;
-    frame.contentWindow?.scrollTo(0, pendingScroll);
-    doc.addEventListener('click', e => {
-      e.preventDefault();
-      const el = (e.target as HTMLElement).closest('[data-bid]') as HTMLElement | null;
-      if (el?.dataset.bid) select(el.dataset.bid, true);
-    });
-  });
-
-  // ---------- selección y estructura ----------
-  const select = (id: string | null, fromPreview = false) => {
-    selectedId = id;
-    renderOutline(); renderProps(); renderPreview();
-    if (fromPreview && id) $('bldProps').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-  };
-
-  const summary = (b: Block): string => {
-    switch (b.type) {
-      case 'header': case 'heading': case 'text': case 'footer': return b.text.replace(/\s+/g, ' ').slice(0, 28);
-      case 'button': return b.text;
-      case 'columns': return b.leftTitle;
-      case 'image': return b.alt || '';
-      default: return '';
+  // ---------- localizar bloques (nivel superior o dentro de filas) ----------
+  type Loc = { arr: any[]; i: number; row: RowB | null; col: number };
+  function locate(id: string): Loc | null {
+    const top = design.blocks.findIndex(b => b.id === id);
+    if (top >= 0) return { arr: design.blocks, i: top, row: null, col: -1 };
+    for (const b of design.blocks) {
+      if (b.type !== 'row') continue;
+      for (let c = 0; c < b.cells.length; c++) {
+        const i = b.cells[c].findIndex(x => x.id === id);
+        if (i >= 0) return { arr: b.cells[c], i, row: b, col: c };
+      }
     }
+    return null;
+  }
+  const getBlock = (id: string | null): any => { if (!id) return null; const l = locate(id); return l ? l.arr[l.i] : null; };
+  const topIndexOf = (id: string): number => {
+    const l = locate(id);
+    if (!l) return design.blocks.length;
+    return l.row ? design.blocks.findIndex(b => b.id === l.row!.id) : l.i;
   };
 
-  const idx = (id: string) => design.blocks.findIndex(b => b.id === id);
-  const struct = (fn: () => void) => { snapshot(true); fn(); renderAll(); save(); };
+  const struct = (fn: () => void) => { snapshot(true); fn(); dirty = true; renderAll(); save(); };
 
-  const addBlock = (type: Block['type']) => {
-    if (design.blocks.length >= LIMITS.blocks) { alert(`Máximo ${LIMITS.blocks} bloques por correo.`); return; }
-    const b = newBlock(type, design.settings.accent);
+  // ---------- operaciones ----------
+  type Target = { rowId: string | null; col: number; index: number };
+  const targetArr = (t: Target): any[] | null => {
+    if (!t.rowId) return design.blocks;
+    const r = design.blocks.find(b => b.id === t.rowId) as RowB | undefined;
+    return r?.cells[t.col] ?? null;
+  };
+  const makeBlock = (spec: string): Block | null => {
+    if (spec.startsWith('row')) return newRow(Number(spec.slice(3)) as 1 | 2 | 3, design.settings.accent);
+    if (spec in LABELS && spec !== 'row') return newBlock(spec as any, design.settings.accent);
+    return null;
+  };
+  const canPlace = (type: string, t: Target) => (t.rowId ? isCellType(type) : true);
+  const fits = (t: Target): boolean => {
+    const arr = targetArr(t);
+    if (!arr) return false;
+    if (arr.length >= (t.rowId ? LIMITS.cellBlocks : LIMITS.blocks)) { alert(t.rowId ? `Máximo ${LIMITS.cellBlocks} bloques por columna.` : `Máximo ${LIMITS.blocks} bloques por correo.`); return false; }
+    return true;
+  };
+
+  function insertNew(spec: string, t: Target) {
+    const b = makeBlock(spec);
+    if (!b || !canPlace(b.type, t) || !fits(t)) return;
+    struct(() => { targetArr(t)!.splice(t.index, 0, b); selectedId = b.id; });
+  }
+  function moveTo(id: string, t: Target) {
+    const loc = locate(id);
+    if (!loc) return;
+    const b = loc.arr[loc.i] as Block;
+    if (!canPlace(b.type, t)) return;
+    if (t.rowId === b.id) return; // una fila no puede entrar en sí misma
+    const dest = targetArr(t);
+    if (!dest) return;
+    if (dest !== loc.arr && !fits(t)) return;
     struct(() => {
-      const at = selectedId ? idx(selectedId) + 1 : design.blocks.length;
-      design.blocks.splice(at, 0, b);
+      loc.arr.splice(loc.i, 1);
+      let idx = t.index;
+      if (dest === loc.arr && loc.i < idx) idx--;
+      dest.splice(idx, 0, b);
       selectedId = b.id;
     });
+  }
+  function addByClick(spec: string) {
+    const nb = makeBlock(spec);
+    if (!nb) return;
+    const sel = selectedId ? locate(selectedId) : null;
+    let t: Target;
+    if (sel?.row && isCellType(nb.type)) t = { rowId: sel.row.id, col: sel.col, index: sel.i + 1 };
+    else t = { rowId: null, col: -1, index: selectedId ? topIndexOf(selectedId) + 1 : design.blocks.length };
+    insertNew(spec, t);
+  }
+  const moveStep = (id: string, dir: -1 | 1) => {
+    const l = locate(id); if (!l) return;
+    const j = l.i + dir; if (j < 0 || j >= l.arr.length) return;
+    struct(() => { [l.arr[l.i], l.arr[j]] = [l.arr[j], l.arr[l.i]]; });
   };
-  const move = (id: string, dir: -1 | 1) => struct(() => {
-    const i = idx(id), j = i + dir;
-    if (j < 0 || j >= design.blocks.length) return;
-    [design.blocks[i], design.blocks[j]] = [design.blocks[j], design.blocks[i]];
-  });
-  const dup = (id: string) => {
-    if (design.blocks.length >= LIMITS.blocks) return;
+  const dupBlock = (id: string) => {
+    const l = locate(id); if (!l) return;
+    if (l.arr.length >= (l.row ? LIMITS.cellBlocks : LIMITS.blocks)) { alert('Se alcanzó el máximo de bloques.'); return; }
     struct(() => {
-      const i = idx(id);
-      const copy = JSON.parse(JSON.stringify(design.blocks[i])) as Block;
-      copy.id = Math.random().toString(36).slice(2, 10);
-      design.blocks.splice(i + 1, 0, copy);
+      const copy = JSON.parse(JSON.stringify(l.arr[l.i]));
+      const fresh = (x: any) => { x.id = uid(); if (x.type === 'row') x.cells.forEach((c: any[]) => c.forEach(fresh)); };
+      fresh(copy);
+      l.arr.splice(l.i + 1, 0, copy);
       selectedId = copy.id;
     });
   };
-  const del = (id: string) => struct(() => {
-    const i = idx(id);
-    design.blocks.splice(i, 1);
-    selectedId = design.blocks[Math.min(i, design.blocks.length - 1)]?.id ?? null;
+  const delBlock = (id: string) => {
+    const l = locate(id); if (!l) return;
+    struct(() => {
+      l.arr.splice(l.i, 1);
+      selectedId = l.arr[Math.min(l.i, l.arr.length - 1)]?.id ?? (l.row ? l.row.id : null);
+    });
+  };
+
+  // ---------- selección ----------
+  function select(id: string | null) {
+    if (id === selectedId) return;
+    selectedId = id;
+    renderOutline(); renderProps(); applySelection();
+  }
+
+  // ---------- vista previa / lienzo ----------
+  const frame = $('bldFrame') as HTMLIFrameElement;
+  let renderTimer = 0;
+  const renderPreview = () => {
+    clearTimeout(renderTimer);
+    renderTimer = window.setTimeout(() => { frame.srcdoc = renderEmail(design, { editor: true, vars: SAMPLE_VARS }); }, 20);
+  };
+  const doc = () => frame.contentDocument;
+  const fit = () => { const d = doc(); if (d?.body) frame.style.height = Math.max(560, d.body.offsetHeight + 40) + 'px'; };
+
+  let ovl: HTMLElement | null = null;
+  let ovlEl: HTMLElement | null = null;
+
+  frame.addEventListener('load', () => {
+    const d = doc(); if (!d) return;
+    attach(d);
+    fit();
+    try { new (frame.contentWindow as any).ResizeObserver(() => { fit(); placeOverlay(); }).observe(d.body); } catch { /* sin RO */ }
+    applySelection();
   });
 
-  let dragId: string | null = null;
+  // --- conversión DOM editable → mini-markdown seguro ---
+  function md(n: Node, rich: boolean): string {
+    if (n.nodeType === 3) return (n.nodeValue ?? '').replace(/ /g, ' ');
+    if (n.nodeType !== 1) return '';
+    const el = n as HTMLElement, tag = el.tagName;
+    if (tag === 'BR') return '\n';
+    const inner = Array.from(el.childNodes).map(c => md(c, rich)).join('');
+    if (tag === 'DIV' || tag === 'P') return inner === '\n' ? (el.previousSibling ? '\n' : '') : (el.previousSibling ? '\n' : '') + inner;
+    if (!rich) return inner;
+    const wrapMark = (m: string) => { const x = inner.match(/^(\s*)([\s\S]*?)(\s*)$/)!; return x[2] ? x[1] + m + x[2] + m + x[3] : inner; };
+    const st = el.style;
+    if (tag === 'A') { const u = safeUrl(el.getAttribute('href') ?? ''); return u && inner.trim() ? `[${inner}](${u})` : inner; }
+    if (tag === 'B' || tag === 'STRONG' || st.fontWeight === 'bold' || Number(st.fontWeight) >= 600) return wrapMark('**');
+    if (tag === 'I' || tag === 'EM' || st.fontStyle === 'italic') return wrapMark('*');
+    return inner;
+  }
+  const toText = (ed: HTMLElement) => {
+    const kind = ed.dataset.edit;
+    let v = Array.from(ed.childNodes).map(c => md(c, kind === 'rich')).join('').replace(/\n+$/, '');
+    if (kind === 'line') v = v.replace(/\n+/g, ' ');
+    return v;
+  };
+
+  function syncFromEditable(ed: HTMLElement) {
+    const b = getBlock(selectedId); if (!b) return;
+    snapshot(); dirty = true;
+    b.text = toText(ed).slice(0, b.type === 'text' ? LIMITS.text : b.type === 'footer' ? 600 : LIMITS.short);
+    save(); updateHist();
+    const p = document.getElementById('p-text') as HTMLInputElement | null;
+    if (p && document.activeElement !== p) p.value = b.text;
+    const lbl = document.querySelector(`#bldOutline li[data-id="${b.id}"] .lbl span`);
+    if (lbl) lbl.textContent = summary(b);
+    fit(); placeOverlay();
+  }
+
+  function applySelection() {
+    const d = doc(); if (!d?.body) return;
+    d.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
+    d.querySelectorAll('[contenteditable]').forEach(x => x.removeAttribute('contenteditable'));
+    ovl?.remove(); ovl = null; ovlEl = null;
+    d.querySelectorAll('.bld-menu').forEach(x => x.remove());
+    if (!selectedId) return;
+    const b = getBlock(selectedId);
+    const el = d.querySelector(`[data-bid="${selectedId}"]`) as HTMLElement | null;
+    if (!b || !el) return;
+    el.classList.add('sel');
+    if (b.type !== 'row') {
+      const ed = el.querySelector('[data-edit]') as HTMLElement | null;
+      if (ed) { ed.setAttribute('contenteditable', 'true'); ed.setAttribute('spellcheck', 'false'); }
+    }
+    ovlEl = el;
+    buildOverlay(d, b);
+    placeOverlay();
+  }
+
+  function buildOverlay(d: Document, b: any) {
+    const o = d.createElement('div');
+    o.className = 'bld-ovl';
+    const btn = (label: string, title: string, fn: (ev: MouseEvent) => void, cls = '') => {
+      const x = d.createElement('button');
+      x.type = 'button'; x.textContent = label; x.title = title; if (cls) x.className = cls;
+      x.addEventListener('mousedown', ev => { ev.preventDefault(); ev.stopPropagation(); fn(ev); });
+      o.appendChild(x); return x;
+    };
+    const sep = () => { const s = d.createElement('span'); s.className = 'sep'; o.appendChild(s); };
+    const ed = ovlEl?.querySelector('[data-edit="rich"]') as HTMLElement | null;
+    if (ed) {
+      const B = btn('B', 'Negrita (Ctrl+B)', () => { d.execCommand('bold'); syncFromEditable(ed); }); B.style.fontWeight = '900';
+      const I = btn('I', 'Cursiva (Ctrl+I)', () => { d.execCommand('italic'); syncFromEditable(ed); }); I.style.fontStyle = 'italic';
+      btn('🔗', 'Enlace (https)', () => {
+        const sel = d.getSelection();
+        const range = sel && sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+        const url = frame.contentWindow!.prompt('Pega el enlace (https://...). Déjalo vacío para quitar el enlace.', 'https://');
+        if (url === null) return;
+        ed.focus();
+        if (range) { sel!.removeAllRanges(); sel!.addRange(range); }
+        const safe = safeUrl(url);
+        if (!url.trim() || url.trim() === 'https://') d.execCommand('unlink');
+        else if (safe) d.execCommand('createLink', false, safe);
+        else alert('El enlace debe empezar con https://');
+        syncFromEditable(ed);
+      });
+    }
+    if (ovlEl?.querySelector('[data-edit]') && b.type !== 'row') {
+      btn('{ }', 'Insertar variable', ev => {
+        d.querySelectorAll('.bld-menu').forEach(x => x.remove());
+        const m = d.createElement('div'); m.className = 'bld-menu';
+        m.setAttribute('style', 'position:absolute;z-index:70;background:#fff;border:1px solid #E5E7EB;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:4px;font-family:Arial,sans-serif;font-size:13px;');
+        const r = (ev.target as HTMLElement).getBoundingClientRect();
+        m.style.left = r.left + d.defaultView!.scrollX + 'px'; m.style.top = r.bottom + d.defaultView!.scrollY + 4 + 'px';
+        ['nombre', 'empresa', 'fecha', 'monto'].forEach(v => {
+          const it = d.createElement('div'); it.textContent = `{{${v}}}`;
+          it.setAttribute('style', 'padding:6px 12px;cursor:pointer;border-radius:5px;color:#674CC4;font-weight:600;');
+          it.addEventListener('mouseenter', () => (it.style.background = '#F3F0FF')); it.addEventListener('mouseleave', () => (it.style.background = ''));
+          it.addEventListener('mousedown', e2 => { e2.preventDefault(); e2.stopPropagation(); const e3 = ovlEl?.querySelector('[data-edit]') as HTMLElement | null; e3?.focus(); d.execCommand('insertText', false, `{{${v}}}`); if (e3) syncFromEditable(e3); m.remove(); });
+          m.appendChild(it);
+        });
+        d.body.appendChild(m);
+      });
+    }
+    if (o.childNodes.length) sep();
+    const grip = btn('⠿', 'Arrastra para mover', () => {}, 'grip');
+    grip.draggable = true;
+    grip.addEventListener('dragstart', ev => { dragPayload = 'move:' + b.id; ev.dataTransfer?.setData('text/plain', 'move'); if (ev.dataTransfer) ev.dataTransfer.effectAllowed = 'move'; });
+    grip.addEventListener('dragend', () => { dragPayload = null; clearDrop(); });
+    btn('↑', 'Subir', () => moveStep(b.id, -1));
+    btn('↓', 'Bajar', () => moveStep(b.id, 1));
+    btn('⧉', 'Duplicar', () => dupBlock(b.id));
+    btn('🗑', 'Eliminar', () => delBlock(b.id));
+    d.body.appendChild(o);
+    ovl = o;
+  }
+
+  function placeOverlay() {
+    const d = doc();
+    if (!d || !ovl || !ovlEl) return;
+    const r = ovlEl.getBoundingClientRect();
+    const sx = d.defaultView!.scrollX, sy = d.defaultView!.scrollY;
+    let top = r.top + sy - ovl.offsetHeight - 3;
+    if (top < 2) top = r.top + sy + 3;
+    ovl.style.top = top + 'px';
+    const maxLeft = d.documentElement.clientWidth + sx - ovl.offsetWidth - 4;
+    ovl.style.left = Math.max(4, Math.min(r.right + sx - ovl.offsetWidth - 4, maxLeft)) + 'px';
+  }
+
+  // --- arrastrar y soltar sobre el lienzo ---
+  type Drop = Target & { ref: HTMLElement | null; before: boolean; whole: boolean; cellEl: HTMLElement | null };
+  let line: HTMLElement | null = null;
+  function clearDrop() {
+    line?.remove(); line = null;
+    doc()?.querySelectorAll('.dropping').forEach(x => x.classList.remove('dropping'));
+  }
+  function dragType(): string | null {
+    if (!dragPayload) return null;
+    if (dragPayload.startsWith('new:')) { const s = dragPayload.slice(4); return s.startsWith('row') ? 'row' : s; }
+    if (dragPayload.startsWith('move:')) return getBlock(dragPayload.slice(5))?.type ?? null;
+    return null;
+  }
+  function computeDrop(e: DragEvent): Drop | null {
+    const type = dragType(); if (!type) return null;
+    const el = e.target as Element; if (!el || typeof el.closest !== 'function') return null;
+    const cellEl = isCellType(type) ? (el.closest('[data-cell]') as HTMLElement | null) : null;
+    if (cellEl) {
+      const [rowId, colS] = cellEl.dataset.cell!.split('|'); const col = Number(colS);
+      const row = design.blocks.find(b => b.id === rowId) as RowB | undefined;
+      if (!row) return null;
+      const child = el.closest('[data-bid]') as HTMLElement | null;
+      if (child && cellEl.contains(child)) {
+        const rc = child.getBoundingClientRect(); const before = e.clientY < rc.top + rc.height / 2;
+        const i = row.cells[col].findIndex(x => x.id === child.dataset.bid);
+        return { rowId, col, index: i + (before ? 0 : 1), ref: child, before, whole: false, cellEl };
+      }
+      return { rowId, col, index: row.cells[col].length, ref: null, before: false, whole: true, cellEl };
+    }
+    let t = el.closest('[data-bid]') as HTMLElement | null;
+    while (t) { const c = t.parentElement?.closest('[data-cell]') as HTMLElement | null; if (!c) break; t = c.closest('[data-bid]') as HTMLElement | null; }
+    if (!t) return { rowId: null, col: -1, index: design.blocks.length, ref: null, before: false, whole: false, cellEl: null };
+    const rc = t.getBoundingClientRect(); const before = e.clientY < rc.top + rc.height / 2;
+    const i = design.blocks.findIndex(b => b.id === t!.dataset.bid);
+    return { rowId: null, col: -1, index: i + (before ? 0 : 1), ref: t, before, whole: false, cellEl: null };
+  }
+  function showDrop(d: Document, t: Drop) {
+    clearDrop();
+    if (t.whole && t.cellEl) { t.cellEl.classList.add('dropping'); return; }
+    line = d.createElement('div'); line.className = 'bld-line';
+    const sx = d.defaultView!.scrollX, sy = d.defaultView!.scrollY;
+    let ref = t.ref, atEnd = false;
+    if (!ref) { const last = d.querySelector('table.wrap'); ref = last as HTMLElement; atEnd = true; }
+    if (!ref) return;
+    const r = ref.getBoundingClientRect();
+    line.style.left = r.left + sx + 'px'; line.style.width = r.width + 'px';
+    line.style.top = (t.before && !atEnd ? r.top : r.bottom) + sy - 2 + 'px';
+    d.body.appendChild(line);
+  }
+
+  function attach(d: Document) {
+    d.addEventListener('mousedown', e => {
+      const t = e.target as Element;
+      if (t.closest('.bld-ovl') || t.closest('.bld-menu')) return;
+      d.querySelectorAll('.bld-menu').forEach(x => x.remove());
+      const el = t.closest('[data-bid]') as HTMLElement | null;
+      select(el?.dataset.bid ?? null);
+    });
+    d.addEventListener('click', e => { if ((e.target as Element).closest('a')) e.preventDefault(); });
+
+    d.addEventListener('input', e => {
+      const ed = (e.target as Element).closest('[data-edit]') as HTMLElement | null;
+      if (ed) syncFromEditable(ed);
+    });
+    d.addEventListener('keydown', e => {
+      const t = e.target as HTMLElement;
+      const ed = t.closest?.('[data-edit]') as HTMLElement | null;
+      if (ed && ed.isContentEditable) {
+        const kind = ed.dataset.edit;
+        if (e.key === 'Enter' && kind === 'line') e.preventDefault();
+        else if (e.key === 'Enter' && kind === 'plain') { e.preventDefault(); d.execCommand('insertLineBreak'); }
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
+      else if ((e.key === 'Delete' || e.key === 'Backspace') && selectedId) { e.preventDefault(); delBlock(selectedId); }
+    });
+    d.addEventListener('paste', e => {
+      const ed = (e.target as Element).closest('[data-edit]') as HTMLElement | null;
+      if (!ed) return;
+      e.preventDefault();
+      let txt = e.clipboardData?.getData('text/plain') ?? '';
+      if (ed.dataset.edit === 'line') txt = txt.replace(/\s+/g, ' ');
+      d.execCommand('insertText', false, txt.slice(0, 2000));
+    });
+
+    d.addEventListener('dragover', e => {
+      if (!dragPayload) return;
+      const t = computeDrop(e);
+      if (!t) { clearDrop(); return; }
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = dragPayload.startsWith('move:') ? 'move' : 'copy';
+      showDrop(d, t);
+    });
+    d.addEventListener('dragleave', e => { if (!(e as DragEvent).relatedTarget) clearDrop(); });
+    d.addEventListener('drop', e => {
+      if (!dragPayload) return;
+      e.preventDefault();
+      const t = computeDrop(e);
+      const p = dragPayload;
+      dragPayload = null; clearDrop();
+      if (!t) return;
+      const target: Target = { rowId: t.rowId, col: t.col, index: t.index };
+      if (p.startsWith('new:')) insertNew(p.slice(4), target);
+      else if (p.startsWith('move:')) moveTo(p.slice(5), target);
+    });
+  }
+
+  // arrastrar desde la paleta
+  const startPaletteDrag = (e: DragEvent) => {
+    const t = (e.target as HTMLElement).closest('button');
+    if (!t) return;
+    const spec = t.dataset.add ?? (t.dataset.row ? 'row' + t.dataset.row : null);
+    if (!spec) return;
+    dragPayload = 'new:' + spec;
+    e.dataTransfer?.setData('text/plain', spec);
+    if (e.dataTransfer) e.dataTransfer.effectAllowed = 'copy';
+  };
+  const endPaletteDrag = () => { dragPayload = null; clearDrop(); };
+  ['bldPalette', 'bldRows'].forEach(id => { $(id).addEventListener('dragstart', startPaletteDrag as any); $(id).addEventListener('dragend', endPaletteDrag); });
+  $('bldPalette').addEventListener('click', e => { const t = (e.target as HTMLElement).closest('button'); if (t?.dataset.add) addByClick(t.dataset.add); });
+  $('bldRows').addEventListener('click', e => { const t = (e.target as HTMLElement).closest('button'); if (t?.dataset.row) addByClick('row' + t.dataset.row); });
+
+  // ---------- estructura ----------
+  const summary = (b: any): string => {
+    switch (b.type) {
+      case 'header': case 'heading': case 'text': case 'footer': return String(b.text).replace(/\s+/g, ' ').slice(0, 26);
+      case 'button': return b.text;
+      case 'columns': return b.leftTitle;
+      case 'image': return b.alt || '';
+      case 'row': return `${b.cols} col.`;
+      default: return '';
+    }
+  };
   function renderOutline() {
-    const ol = $('bldOutline');
-    ol.innerHTML = design.blocks.map(b => `
-      <li data-id="${b.id}" draggable="true" class="${b.id === selectedId ? 'sel' : ''}">
-        <span class="grip" aria-hidden="true">⋮⋮</span>
-        <span class="lbl"><b>${LABELS[b.type]}</b>${esc(summary(b))}</span>
+    const items: string[] = [];
+    const li = (b: any, depth: number) => `
+      <li data-id="${b.id}" class="${b.id === selectedId ? 'sel' : ''} d${depth}">
+        <span class="lbl"><b>${LABELS[b.type]}</b><span>${esc(summary(b))}</span></span>
         <button data-act="up" title="Subir" aria-label="Subir">↑</button>
         <button data-act="down" title="Bajar" aria-label="Bajar">↓</button>
         <button data-act="dup" title="Duplicar" aria-label="Duplicar">⧉</button>
         <button data-act="del" title="Eliminar" aria-label="Eliminar">✕</button>
-      </li>`).join('') || '<p class="bld-hint">Aún no hay bloques. Agrega uno arriba.</p>';
+      </li>`;
+    for (const b of design.blocks) {
+      items.push(li(b, 0));
+      if (b.type === 'row') b.cells.forEach(col => col.forEach(c => items.push(li(c, 1))));
+    }
+    $('bldOutline').innerHTML = items.join('') || '<p class="bld-hint">Aún no hay bloques.</p>';
   }
   $('bldOutline').addEventListener('click', e => {
     const t = e.target as HTMLElement;
@@ -340,37 +662,28 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     if (!li) return;
     const id = li.dataset.id!;
     const act = (t.closest('button') as HTMLElement | null)?.dataset.act;
-    if (act === 'up') move(id, -1);
-    else if (act === 'down') move(id, 1);
-    else if (act === 'dup') dup(id);
-    else if (act === 'del') del(id);
+    if (act === 'up') moveStep(id, -1);
+    else if (act === 'down') moveStep(id, 1);
+    else if (act === 'dup') dupBlock(id);
+    else if (act === 'del') delBlock(id);
     else select(id);
   });
-  $('bldOutline').addEventListener('dragstart', e => { const li = (e.target as HTMLElement).closest('li'); dragId = li?.dataset.id ?? null; e.dataTransfer?.setData('text/plain', dragId ?? ''); });
-  $('bldOutline').addEventListener('dragover', e => { e.preventDefault(); const li = (e.target as HTMLElement).closest('li'); document.querySelectorAll('#bldOutline li.over').forEach(x => x.classList.remove('over')); li?.classList.add('over'); });
-  $('bldOutline').addEventListener('drop', e => {
-    e.preventDefault();
-    const li = (e.target as HTMLElement).closest('li') as HTMLElement | null;
-    if (!li || !dragId || li.dataset.id === dragId) { renderOutline(); return; }
-    const from = idx(dragId), to = idx(li.dataset.id!);
-    struct(() => { const [b] = design.blocks.splice(from, 1); design.blocks.splice(to, 0, b); });
-    dragId = null;
-  });
-  $('bldOutline').addEventListener('dragend', () => { dragId = null; renderOutline(); });
 
-  // ---------- panel de propiedades ----------
-  type F = { k: string; l: string; t: 'text' | 'area' | 'color' | 'select' | 'range' | 'url'; o?: [string, string][]; min?: number; max?: number; num?: boolean; vars?: boolean };
+  // ---------- propiedades ----------
+  type F = { k: string; l: string; t: 'text' | 'area' | 'color' | 'select' | 'range' | 'url'; o?: [string, string][]; min?: number; max?: number; num?: boolean; vars?: boolean; note?: string };
   const ALIGN: [string, string][] = [['left', 'Izquierda'], ['center', 'Centro'], ['right', 'Derecha']];
+  const FMT = 'Formato: **negrita**, *cursiva*, [texto](https://enlace). También puedes editar directo en el correo.';
   const SCHEMA: Record<string, F[]> = {
     header: [{ k: 'text', l: 'Texto de marca', t: 'text' }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'bg', l: 'Fondo', t: 'color' }, { k: 'color', l: 'Texto', t: 'color' }],
     heading: [{ k: 'text', l: 'Título', t: 'area', vars: true }, { k: 'size', l: 'Tamaño', t: 'select', num: true, o: [['1', 'Grande'], ['2', 'Mediano'], ['3', 'Pequeño']] }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'color', l: 'Color', t: 'color' }],
-    text: [{ k: 'text', l: 'Texto', t: 'area', vars: true }, { k: 'size', l: 'Tamaño (px)', t: 'range', min: 12, max: 22 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'color', l: 'Color', t: 'color' }],
+    text: [{ k: 'text', l: 'Texto', t: 'area', vars: true, note: FMT }, { k: 'size', l: 'Tamaño (px)', t: 'range', min: 12, max: 22 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'color', l: 'Color', t: 'color' }],
     image: [{ k: 'src', l: 'Enlace de la imagen (https)', t: 'url' }, { k: 'alt', l: 'Texto alternativo', t: 'text' }, { k: 'link', l: 'Al hacer clic abre (https)', t: 'url' }, { k: 'width', l: 'Ancho (%)', t: 'range', min: 20, max: 100 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }],
     button: [{ k: 'text', l: 'Texto del botón', t: 'text' }, { k: 'url', l: 'Enlace (https)', t: 'url' }, { k: 'bg', l: 'Fondo', t: 'color' }, { k: 'color', l: 'Texto', t: 'color' }, { k: 'radius', l: 'Redondeo', t: 'range', min: 0, max: 40 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }],
     divider: [{ k: 'color', l: 'Color', t: 'color' }, { k: 'thickness', l: 'Grosor', t: 'range', min: 1, max: 8 }],
     spacer: [{ k: 'height', l: 'Alto (px)', t: 'range', min: 4, max: 120 }],
     columns: [{ k: 'leftTitle', l: 'Título izquierda', t: 'text' }, { k: 'leftText', l: 'Texto izquierda', t: 'area', vars: true }, { k: 'rightTitle', l: 'Título derecha', t: 'text' }, { k: 'rightText', l: 'Texto derecha', t: 'area', vars: true }, { k: 'accent', l: 'Color de títulos', t: 'color' }, { k: 'color', l: 'Color de texto', t: 'color' }],
-    footer: [{ k: 'text', l: 'Texto del pie', t: 'area', vars: true }, { k: 'color', l: 'Color', t: 'color' }],
+    footer: [{ k: 'text', l: 'Texto del pie', t: 'area', vars: true, note: FMT }, { k: 'color', l: 'Color', t: 'color' }],
+    row: [{ k: 'cols', l: 'Columnas', t: 'select', num: true, o: [['1', '1 columna'], ['2', '2 columnas'], ['3', '3 columnas']] }, { k: 'bg', l: 'Color de fondo de la fila', t: 'color' }],
     social: [],
   };
   const VARS = ['nombre', 'empresa', 'fecha', 'monto'];
@@ -381,8 +694,8 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     let ctl = '';
     if (f.t === 'text') ctl = `<input type="text" id="${id}" data-k="${f.k}" value="${esc(val)}" />`;
     else if (f.t === 'url') ctl = `<input type="url" id="${id}" data-k="${f.k}" value="${esc(val)}" placeholder="https://" spellcheck="false" />`;
-    else if (f.t === 'area') ctl = `<textarea id="${id}" data-k="${f.k}">${esc(val)}</textarea>` + (f.vars ? `<div class="bld-vars">${VARS.map(x => `<button type="button" data-var="${x}" data-for="${id}">{{${x}}}</button>`).join('')}</div>` : '');
-    else if (f.t === 'color') ctl = `<input type="color" id="${id}" data-k="${f.k}" value="${esc(val)}" />`;
+    else if (f.t === 'area') ctl = `<textarea id="${id}" data-k="${f.k}">${esc(val)}</textarea>` + (f.vars ? `<div class="bld-vars">${VARS.map(x => `<button type="button" data-var="${x}" data-for="${id}">{{${x}}}</button>`).join('')}</div>` : '') + (f.note ? `<p class="bld-note">${esc(f.note)}</p>` : '');
+    else if (f.t === 'color') ctl = `<input type="color" id="${id}" data-k="${f.k}" value="${esc(val || '#ffffff')}" />`;
     else if (f.t === 'range') ctl = `<input type="range" id="${id}" data-k="${f.k}" min="${f.min}" max="${f.max}" value="${esc(val)}" />`;
     else if (f.t === 'select') ctl = `<select id="${id}" data-k="${f.k}" ${f.num ? 'data-num="1"' : ''}>${f.o!.map(([a, b]) => `<option value="${a}" ${String(a) === val ? 'selected' : ''}>${b}</option>`).join('')}</select>`;
     return `<div class="bld-f"><label for="${id}">${f.l}</label>${ctl}</div>`;
@@ -390,24 +703,35 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
 
   function renderProps() {
     const box = $('bldProps');
-    const b = design.blocks.find(x => x.id === selectedId);
+    const b = getBlock(selectedId);
     $('bldPropTitle').textContent = b ? `Editar: ${LABELS[b.type]}` : 'Propiedades';
-    if (!b) { box.innerHTML = '<p class="bld-hint">Selecciona un bloque en la vista previa o en la estructura para editarlo.</p>'; return; }
-    let html = SCHEMA[b.type].map(f => fieldHtml(f, (b as any)[f.k], 'p')).join('');
+    if (!b) { box.innerHTML = '<p class="bld-hint">Selecciona un bloque en el correo o en la estructura para ajustar sus propiedades.</p>'; return; }
+    let html = SCHEMA[b.type].map(f => fieldHtml(f, b[f.k], 'p')).join('');
+    if (b.type === 'row' && b.bg) html += '<button class="bld-mini" data-rowbg="clear">Quitar color de fondo</button>';
     if (b.type === 'social') {
-      const items = (b as Extract<Block, { type: 'social' }>).items;
-      html += `<div class="bld-f"><label>Enlaces</label>${items.map((it, i) => `
+      html += `<div class="bld-f"><label>Enlaces</label>${b.items.map((it: any, i: number) => `
         <div class="bld-soc"><select data-soc="net" data-i="${i}">${Object.entries(SOCIALS).map(([k, n]) => `<option value="${k}" ${k === it.net ? 'selected' : ''}>${n}</option>`).join('')}</select>
         <input type="url" data-soc="url" data-i="${i}" value="${esc(it.url)}" placeholder="https://" /><button data-soc="del" data-i="${i}" aria-label="Quitar">✕</button></div>`).join('')}
-        <button class="bld-mini" data-soc="add">+ Agregar red</button></div>`
-        + fieldHtml({ k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, (b as any).align, 'p');
+        <button class="bld-mini" data-soc="add">+ Agregar red</button></div>` + fieldHtml({ k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, b.align, 'p');
     }
     box.innerHTML = html;
   }
 
+  const commitField = () => { dirty = true; renderPreview(); save(); updateHist(); };
+
+  function changeCols(row: RowB, n: 1 | 2 | 3) {
+    struct(() => {
+      const old = row.cells;
+      const cells = Array.from({ length: n }, (_, i) => old[i] ?? []);
+      for (let i = n; i < old.length; i++) cells[n - 1].push(...old[i]);
+      cells[n - 1] = cells[n - 1].slice(0, LIMITS.cellBlocks);
+      row.cols = n; row.cells = cells;
+    });
+  }
+
   $('bldProps').addEventListener('input', e => {
     const el = e.target as HTMLInputElement;
-    const b = design.blocks.find(x => x.id === selectedId) as any;
+    const b = getBlock(selectedId);
     if (!b) return;
     if (el.dataset.soc) {
       const i = Number(el.dataset.i);
@@ -415,15 +739,22 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
       return;
     }
     const k = el.dataset.k;
-    if (!k) return;
+    if (!k || (b.type === 'row' && k === 'cols')) return;
     snapshot();
     b[k] = el.type === 'range' || el.dataset.num ? Number(el.value) : el.value;
     commitField();
-    if (['text', 'leftTitle', 'alt'].includes(k)) renderOutline();
+    if (['text', 'leftTitle', 'alt'].includes(k)) { const lbl = document.querySelector(`#bldOutline li[data-id="${b.id}"] .lbl span`); if (lbl) lbl.textContent = summary(b); }
+  });
+  $('bldProps').addEventListener('change', e => {
+    const el = e.target as HTMLSelectElement;
+    const b = getBlock(selectedId);
+    if (!b) return;
+    if (b.type === 'row' && el.dataset.k === 'cols') { changeCols(b, Number(el.value) as 1 | 2 | 3); return; }
+    if (el.dataset.soc === 'net') { snapshot(true); b.items[Number(el.dataset.i)].net = el.value; commitField(); }
   });
   $('bldProps').addEventListener('click', e => {
     const t = e.target as HTMLElement;
-    const b = design.blocks.find(x => x.id === selectedId) as any;
+    const b = getBlock(selectedId);
     if (!b) return;
     if (t.dataset.var) {
       const ta = document.getElementById(t.dataset.for!) as HTMLTextAreaElement | HTMLInputElement;
@@ -437,14 +768,10 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
       struct(() => b.items.push({ net: 'web', url: 'https://' }));
     } else if (t.dataset.soc === 'del') {
       struct(() => b.items.splice(Number(t.dataset.i), 1));
+    } else if (t.dataset.rowbg === 'clear') {
+      struct(() => { b.bg = ''; });
     }
   });
-  $('bldProps').addEventListener('change', e => {
-    const el = e.target as HTMLSelectElement;
-    if (el.dataset.soc === 'net') { const b = design.blocks.find(x => x.id === selectedId) as any; if (b) { snapshot(true); b.items[Number(el.dataset.i)].net = el.value; commitField(); } }
-  });
-
-  const commitField = () => { dirty = true; renderPreview(); save(); updateHist(); };
 
   // ---------- estilo global ----------
   function renderStyle() {
@@ -472,14 +799,27 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
   subj.addEventListener('input', () => { snapshot(); design.subject = subj.value; commitField(); });
   pre.addEventListener('input', () => { snapshot(); design.preheader = pre.value; commitField(); });
 
-  // ---------- pestañas ----------
+  // ---------- pestañas y plantillas ----------
+  const thumbs = () => {
+    document.querySelectorAll<HTMLElement>('.bld-tpl-thumb').forEach(box => {
+      const tpl = TEMPLATES.find(t => t.id === box.dataset.thumb);
+      if (!tpl) return;
+      const w = box.clientWidth || 130;
+      let ifr = box.querySelector('iframe') as HTMLIFrameElement | null;
+      if (!ifr) {
+        ifr = document.createElement('iframe');
+        ifr.setAttribute('sandbox', ''); ifr.setAttribute('loading', 'lazy'); ifr.setAttribute('tabindex', '-1'); ifr.setAttribute('aria-hidden', 'true');
+        ifr.srcdoc = renderEmail(tpl.design, { vars: SAMPLE_VARS });
+        box.appendChild(ifr);
+      }
+      ifr.style.transform = `scale(${w / 600})`;
+    });
+  };
   document.querySelectorAll<HTMLButtonElement>('.bld-tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.bld-tab').forEach(x => x.classList.toggle('active', x === t));
     document.querySelectorAll<HTMLElement>('.bld-panel').forEach(p => (p.hidden = p.dataset.panel !== t.dataset.tab));
+    if (t.dataset.tab === 'tpl') thumbs();
   }));
-  $('bldPalette').addEventListener('click', e => { const t = (e.target as HTMLElement).closest('button'); if (t?.dataset.add) addBlock(t.dataset.add as Block['type']); });
-
-  // ---------- plantillas / importar / exportar ----------
   $('bldTpls').addEventListener('click', e => {
     const t = (e.target as HTMLElement).closest('button');
     const tpl = TEMPLATES.find(x => x.id === t?.dataset.tpl);
@@ -489,6 +829,8 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     design = cloneDesign(tpl.design); selectedId = null; dirty = false;
     renderAll(); save();
   });
+
+  // ---------- exportar / importar ----------
   const download = (name: string, mime: string, content: string) => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([content], { type: mime }));
@@ -522,10 +864,9 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
     else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
-    else if (e.key === 'Delete' && selectedId) del(selectedId);
   });
-  $('bldDesk').addEventListener('click', () => { $('bldStage').classList.remove('mob'); $('bldDesk').classList.add('on'); $('bldMob').classList.remove('on'); });
-  $('bldMob').addEventListener('click', () => { $('bldStage').classList.add('mob'); $('bldMob').classList.add('on'); $('bldDesk').classList.remove('on'); });
+  $('bldDesk').addEventListener('click', () => { $('bldStage').classList.remove('mob'); $('bldDesk').classList.add('on'); $('bldMob').classList.remove('on'); setTimeout(() => { fit(); placeOverlay(); }, 250); });
+  $('bldMob').addEventListener('click', () => { $('bldStage').classList.add('mob'); $('bldMob').classList.add('on'); $('bldDesk').classList.remove('on'); setTimeout(() => { fit(); placeOverlay(); }, 250); });
 
   function renderAll() {
     subj.value = design.subject; pre.value = design.preheader;
@@ -570,8 +911,8 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     const to = toInput.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) { say('Ingresa un correo válido.', 'err'); toInput.focus(); return; }
     if (!design.subject.trim()) { say('Escribe un asunto para tu correo.', 'err'); subj.focus(); return; }
-    const bad = design.blocks.find(b => b.type === 'button' && !/^(https:\/\/|mailto:|tel:)/i.test(b.url));
-    if (bad) { say('Hay un botón sin enlace https válido. Revísalo en el panel.', 'err'); select(bad.id); return; }
+    const bad = allBlocks(design).find(b => b.type === 'button' && !/^(https:\/\/|mailto:|tel:)/i.test(b.url));
+    if (bad) { say('Hay un botón sin enlace https válido. Revísalo en el panel.', 'err'); selectedId = null; select(bad.id); return; }
     const token = (window as any).turnstile?.getResponse(tsId) as string | undefined;
     if (!token) { say('Completa la verificación de seguridad.', 'err'); return; }
 
@@ -589,6 +930,7 @@ const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, acce
     }
   });
 
-  select(null);
   renderAll();
+  thumbs();
+  window.addEventListener('resize', () => { thumbs(); fit(); placeOverlay(); });
 </script>
