@@ -1,0 +1,9 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import { services } from '../lib/content';
+export function getStaticPaths() {
+  return services.map(entry => ({ params: { servicio: entry.slug }, props: { entry } }));
+}
+const { entry } = Astro.props;
+---
+<ContentPage entry={entry} kind="service" />

@@ -1,0 +1,70 @@
+---
+// Índice del blog en la URL que ya estaba indexada en Google (/2025/03/03/blog-email-marketing/).
+// Conserva su título original.
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { posts, services, hrefOf, BLOG_URL } from '../../../../lib/content';
+const SITE = 'https://banamailing.com';
+const fmt = (d?: string) => d ? new Date(d + 'T12:00:00').toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Blog', '@id': SITE + BLOG_URL + '#blog', name: 'Blog de Email Marketing y Mailing Masivo', url: SITE + BLOG_URL, inLanguage: 'es-PE', publisher: { '@id': SITE + '/#organization' },
+      blogPost: posts.map(p => ({ '@type': 'BlogPosting', headline: p.h1, url: SITE + hrefOf(p, 'post'), datePublished: p.date })) },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE + BLOG_URL } ] },
+  ],
+};
+---
+<BaseLayout
+  title="Blog de Email Marketing y Mailing Masivo - Blog Email marketing"
+  description="Guías prácticas de email marketing y mailing masivo en Perú: entregabilidad, segmentación, métricas y buenas prácticas para que tus campañas lleguen y vendan."
+  canonical="https://banamailing.com/2025/03/03/blog-email-marketing/"
+  schema={schema}
+>
+  <section class="bl">
+    <div class="bl-inner">
+      <span class="bl-eyebrow">Blog Email marketing</span>
+      <h1>Blog de Email Marketing y Mailing Masivo</h1>
+      <p class="bl-lead">Domina el email marketing y haz crecer tu negocio. Guías claras, escritas por el equipo de <a href="/nosotros">BanaMailing</a>, con más de 20 años enviando campañas en Perú.</p>
+
+      <div class="bl-grid">
+        {posts.map(p => (
+          <a class="bl-card" href={hrefOf(p, 'post')}>
+            <span class="bl-tag">{p.eyebrow}</span>
+            <h2>{p.h1}</h2>
+            <p>{p.summary}</p>
+            <span class="bl-meta">{fmt(p.date)} · {p.readMin} min</span>
+          </a>
+        ))}
+      </div>
+
+      <h2 class="bl-sub">Nuestros servicios</h2>
+      <ul class="bl-links">
+        {services.map(s => <li><a href={hrefOf(s, 'service')}>{s.h1}</a></li>)}
+        <li><a href="/arma-tu-mailing">Arma tu mailing gratis: editor con plantillas</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bl { padding: 6.5rem 1.5rem 4rem; background: #fff; }
+  .bl-inner { max-width: 1000px; margin: 0 auto; }
+  .bl-eyebrow { display: inline-block; background: var(--purple-light); border: 1px solid #DDD6FE; color: var(--purple); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 100px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 1rem; }
+  .bl h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1rem; }
+  .bl-lead { color: var(--muted); font-size: 1.08rem; line-height: 1.75; max-width: 720px; margin-bottom: 2.5rem; }
+  .bl-lead a { color: var(--purple); font-weight: 600; text-decoration: underline; }
+  .bl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .bl-card { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; background: #FAFAFA; transition: border-color .2s, box-shadow .2s, transform .2s; }
+  .bl-card:hover { border-color: #DDD6FE; box-shadow: 0 8px 24px rgba(103,76,196,.1); transform: translateY(-2px); }
+  .bl-tag { font-size: 12px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: .05em; }
+  .bl-card h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.25; color: var(--text); }
+  .bl-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+  .bl-meta { font-size: 12px; color: var(--muted); margin-top: auto; }
+  .bl-sub { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; margin: 3rem 0 1rem; }
+  .bl-links { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .bl-links a { display: block; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-weight: 600; color: var(--text); }
+  .bl-links a:hover { color: var(--purple); border-color: #DDD6FE; }
+  @media (max-width: 720px) { .bl { padding: 5.5rem 1.25rem 3rem; } .bl-grid, .bl-links { grid-template-columns: 1fr; } }
+</style>

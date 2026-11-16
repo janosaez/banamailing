@@ -1,7 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-interface Props { title?: string; description?: string; image?: string; noindex?: boolean; schema?: Record<string, unknown>; }
+interface Props { title?: string; description?: string; image?: string; noindex?: boolean; schema?: Record<string, unknown>; canonical?: string; }
 const SITE = 'https://banamailing.com';
 const {
   title = 'Correos Masivos Perú y Mailing 🚀 | Email Marketing Profesional | BanaMailing®',
@@ -9,9 +9,10 @@ const {
   image = '/images/equipo-colaborativo-mision-email-marketing.webp',
   noindex = false,
   schema,
+  canonical: canonicalOverride,
 } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const canonical = SITE + path;
+const canonical = canonicalOverride ?? SITE + path;
 const ogImage = image.startsWith('http') ? image : SITE + image;
 ---
 <!DOCTYPE html>

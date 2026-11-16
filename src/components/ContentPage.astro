@@ -1,0 +1,152 @@
+---
+// Plantilla de páginas de contenido SEO (servicios y artículos). Datos en src/lib/content.ts
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { findBySlug, hrefOf, BLOG_URL, type Entry } from '../lib/content';
+interface Props { entry: Entry; kind: 'service' | 'post'; }
+const { entry, kind } = Astro.props;
+const SITE = 'https://banamailing.com';
+const url = SITE + hrefOf(entry, kind);
+const strip = (h: string) => h.replace(/<[^>]+>/g, '');
+const related = entry.related.map(s => findBySlug(s)).filter(Boolean) as NonNullable<ReturnType<typeof findBySlug>>[];
+
+const crumbs = kind === 'post'
+  ? [['Inicio', SITE + '/'], ['Blog', SITE + BLOG_URL], [entry.h1, url]]
+  : [['Inicio', SITE + '/'], [entry.h1, url]];
+
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })),
+  },
+];
+if (kind === 'service') {
+  graph.push({
+    '@type': 'Service', '@id': url + '#service', name: entry.h1, description: entry.description, url,
+    serviceType: 'Email marketing y correos masivos', areaServed: { '@type': 'Country', name: 'Perú' },
+    provider: { '@id': SITE + '/#organization' },
+  });
+} else {
+  graph.push({
+    '@type': 'BlogPosting', '@id': url + '#article', headline: entry.h1, description: entry.description, url,
+    inLanguage: 'es-PE', datePublished: entry.date, dateModified: entry.date,
+    mainEntityOfPage: url, image: SITE + '/images/equipo-colaborativo-mision-email-marketing.webp',
+    author: { '@id': SITE + '/#organization' }, publisher: { '@id': SITE + '/#organization' },
+  });
+}
+if (entry.faqs.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: entry.faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: strip(f.a) } })),
+  });
+}
+const schema = { '@context': 'https://schema.org', '@graph': graph };
+const fmt = (d?: string) => d ? new Date(d + 'T12:00:00').toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+---
+<BaseLayout title={entry.title} description={entry.description} schema={schema}>
+  <article class="cp">
+    <div class="cp-inner">
+      <nav class="cp-crumbs" aria-label="Migas de pan">
+        <a href="/">Inicio</a><span>›</span>
+        {kind === 'post' && (<><a href={BLOG_URL}>Blog</a><span>›</span></>)}
+        <span aria-current="page">{entry.h1}</span>
+      </nav>
+
+      <header class="cp-head">
+        <span class="cp-eyebrow">{entry.eyebrow}</span>
+        <h1>{entry.h1}</h1>
+        <p class="cp-lead" set:html={entry.lead} />
+        {kind === 'post' && <p class="cp-meta">Por BanaMailing · {fmt(entry.date)} · {entry.readMin} min de lectura</p>}
+        {kind === 'service' && (
+          <div class="cp-ctas">
+            <a class="cp-btn" href="/#demo">Solicitar demo gratis →</a>
+            <a class="cp-btn cp-btn-ghost" href="/arma-tu-mailing">Probar el editor</a>
+          </div>
+        )}
+      </header>
+
+      {entry.sections.map(s => (
+        <section class="cp-sec">
+          <h2>{s.h2}</h2>
+          {s.p?.map(t => <p set:html={t} />)}
+          {s.ul && <ul>{s.ul.map(t => <li set:html={t} />)}</ul>}
+          {s.ol && <ol>{s.ol.map(t => <li set:html={t} />)}</ol>}
+        </section>
+      ))}
+
+      {entry.faqs.length > 0 && (
+        <section class="cp-sec">
+          <h2>Preguntas frecuentes</h2>
+          <div class="cp-faq">
+            {entry.faqs.map(f => (
+              <details>
+                <summary>{f.q}</summary>
+                <p set:html={f.a} />
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <aside class="cp-cta">
+        <h2>¿Listo para tu próxima campaña?</h2>
+        <p>Cuéntanos tu objetivo y te preparamos una demo gratuita. Respondemos por correo o WhatsApp.</p>
+        <div class="cp-ctas">
+          <a class="cp-btn" href="/contacto">Hablar con un asesor</a>
+          <a class="cp-btn cp-btn-wa" href="https://api.whatsapp.com/send?phone=51990137226&text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20correos%20masivos." target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </aside>
+
+      {related.length > 0 && (
+        <section class="cp-sec">
+          <h2>También te puede interesar</h2>
+          <ul class="cp-rel">
+            {related.map(r => (
+              <li><a href={hrefOf(r)}>{r.h1}</a><span>{r.eyebrow}</span></li>
+            ))}
+            {kind === 'post' && <li><a href={BLOG_URL}>Ver todos los artículos del blog</a><span>Blog</span></li>}
+          </ul>
+        </section>
+      )}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cp { padding: 6.5rem 1.5rem 4rem; background: #fff; }
+  .cp-inner { max-width: 820px; margin: 0 auto; }
+  .cp-crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+  .cp-crumbs a { color: var(--purple); font-weight: 600; }
+  .cp-crumbs [aria-current] { color: var(--muted); }
+  .cp-eyebrow { display: inline-block; background: var(--purple-light); border: 1px solid #DDD6FE; color: var(--purple); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 100px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 1rem; }
+  .cp h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.12; color: var(--text); margin-bottom: 1.1rem; }
+  .cp-lead { font-size: 1.08rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+  .cp-lead :global(strong) { color: var(--text); }
+  .cp-meta { font-size: 13px; color: var(--muted); margin-bottom: 1rem; }
+  .cp-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 2rem; }
+  .cp-btn { background: var(--purple); color: #fff; padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; transition: background .15s, transform .15s; display: inline-block; }
+  .cp-btn:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .cp-btn-ghost { background: #fff; color: var(--text); border: 1px solid var(--border); }
+  .cp-btn-ghost:hover { background: #fff; border-color: #9CA3AF; }
+  .cp-btn-wa { background: #15803D; }
+  .cp-btn-wa:hover { background: #166534; }
+  .cp-sec { margin: 2.6rem 0; }
+  .cp-sec h2 { font-size: clamp(1.35rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 1rem; padding-bottom: .7rem; border-bottom: 2px solid var(--purple-light); }
+  .cp-sec p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .cp-sec ul, .cp-sec ol { margin: .5rem 0 1rem 1.25rem; display: flex; flex-direction: column; gap: 9px; color: var(--muted); line-height: 1.7; }
+  .cp-sec :global(strong) { color: var(--text); font-weight: 600; }
+  .cp-sec :global(a), .cp-lead :global(a) { color: var(--purple); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .cp-faq { display: flex; flex-direction: column; gap: 10px; }
+  .cp-faq details { border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; background: #FAFAFA; }
+  .cp-faq summary { cursor: pointer; font-weight: 700; color: var(--text); }
+  .cp-faq details p { margin: .8rem 0 0; }
+  .cp-cta { background: var(--purple-light); border: 1px solid #DDD6FE; border-radius: 18px; padding: 2rem; margin: 3rem 0; text-align: center; }
+  .cp-cta h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .5rem; }
+  .cp-cta p { color: var(--muted); margin-bottom: 1.25rem; }
+  .cp-cta .cp-ctas { justify-content: center; margin-bottom: 0; }
+  .cp-rel { list-style: none !important; margin: 0 !important; padding: 0; gap: 10px; }
+  .cp-rel li { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; }
+  .cp-rel a { color: var(--text); font-weight: 700; }
+  .cp-rel a:hover { color: var(--purple); }
+  .cp-rel span { font-size: 12px; color: var(--purple); font-weight: 700; white-space: nowrap; }
+  @media (max-width: 640px) { .cp { padding: 5.5rem 1.25rem 3rem; } .cp-rel li { flex-direction: column; align-items: flex-start; gap: 4px; } }
+</style>
