@@ -1,0 +1,44 @@
+---
+// Sección "Sobre nosotros" de la home. Conserva el H2 y el texto que ya posiciona en Google.
+---
+<section class="nos-home" id="nosotros" aria-labelledby="nos-home-title">
+  <div class="nos-home-inner">
+    <div class="nos-home-text">
+      <span class="nos-home-kicker">Desde 2004 · +20 años de experiencia</span>
+      <h2 id="nos-home-title">Sobre nosotros</h2>
+      <p>
+        <strong>Banamailing</strong> nació con un propósito claro: ayudar a las empresas a <strong>conectar con sus clientes a través de campañas de email marketing en Perú</strong> altamente efectivas. Utilizamos <strong>PowerMTA y AMS Enterprise</strong> para mailing masivo y segmentación de bases de correos en Perú, garantizando envíos optimizados.
+      </p>
+      <p>
+        Gracias a <strong>Google Analytics con UTM</strong>, medimos aperturas y clics, mejorando cada campaña con estrategias de remarketing y personalización para maximizar conversiones.
+      </p>
+      <a class="nos-home-link" href="/nosotros">Conoce más sobre BanaMailing →</a>
+    </div>
+
+    <ul class="nos-home-list" aria-label="Por qué BanaMailing">
+      <li><span class="nos-n">+500</span><span class="nos-l">empresas atendidas en Perú</span></li>
+      <li><span class="nos-n">99%</span><span class="nos-l">de entregabilidad</span></li>
+      <li><span class="nos-n">42%</span><span class="nos-l">de tasa de apertura</span></li>
+      <li><span class="nos-n">+200M</span><span class="nos-l">de correos enviados</span></li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .nos-home { scroll-margin-top: 70px; background: #fff; border-top: 1px solid var(--border); padding: 5rem 1.5rem; }
+  .nos-home-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+  .nos-home-kicker { display: inline-block; background: var(--purple-light); color: var(--purple); font-weight: 700; font-size: 12px; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+  .nos-home h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.1rem; }
+  .nos-home p { color: var(--muted); font-size: 1.02rem; line-height: 1.75; margin-bottom: 1rem; }
+  .nos-home p strong { color: var(--text); font-weight: 700; }
+  .nos-home-link { display: inline-block; margin-top: .5rem; color: var(--purple); font-weight: 700; font-size: 15px; border-bottom: 2px solid transparent; transition: border-color .15s; }
+  .nos-home-link:hover { border-color: var(--purple); }
+  .nos-home-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .nos-home-list li { background: #F8F7FC; border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem 1.2rem; }
+  .nos-n { display: block; font-size: 2.1rem; font-weight: 900; color: var(--purple); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+  .nos-l { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+  @media (max-width: 860px) {
+    .nos-home { padding: 3.5rem 1.25rem; }
+    .nos-home-inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

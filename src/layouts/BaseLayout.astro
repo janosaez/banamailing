@@ -1,13 +1,14 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-interface Props { title?: string; description?: string; image?: string; noindex?: boolean; }
+interface Props { title?: string; description?: string; image?: string; noindex?: boolean; schema?: Record<string, unknown>; }
 const SITE = 'https://banamailing.com';
 const {
   title = 'Correos Masivos Perú y Mailing 🚀 | Email Marketing Profesional | BanaMailing®',
   description = 'Servicio líder de correos masivos Perú y campañas de mailing profesional 🚀. Envía tus correos segmentados con alta entregabilidad y mide resultados reales con BanaMailing®.',
   image = '/images/equipo-colaborativo-mision-email-marketing.webp',
   noindex = false,
+  schema,
 } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const canonical = SITE + path;
@@ -109,6 +110,7 @@ const ogImage = image.startsWith('http') ? image : SITE + image;
       }
     ]
   }</script>
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 <body>
   <Nav />

@@ -1,4 +1,6 @@
 ---
+// En la home y en /nosotros el texto largo ya está en el contenido: evita repetirlo en el pie.
+const isHome = ['/', '/nosotros'].includes(Astro.url.pathname.replace(/\/+$/, '') || '/');
 ---
 <footer class="site-footer">
   <div class="footer-inner">
@@ -6,8 +8,14 @@
     <div class="footer-top">
       <div class="footer-col footer-col-brand">
         <div class="footer-logo">BANAMAILING</div>
-        <p class="footer-about"><strong>Banamailing</strong> nació con un propósito claro: ayudar a las empresas a <strong>conectar con sus clientes a través de campañas de email marketing en Perú</strong> altamente efectivas. Utilizamos <strong>PowerMTA y AMS Enterprise</strong> para mailing masivo y segmentación de bases de correos en Perú, garantizando envíos optimizados.</p>
-        <p class="footer-about" style="margin-top:10px;">Gracias a <strong>Google Analytics con UTM</strong>, medimos aperturas y clics, mejorando cada campaña con estrategias de <strong>remarketing y personalización</strong> para maximizar conversiones.</p>
+        {isHome ? (
+          <p class="footer-about">Agencia de <strong>email marketing y correos masivos en Perú</strong>. <a href="/nosotros" style="text-decoration:underline;">Conoce más sobre nosotros</a>.</p>
+        ) : (
+          <>
+            <p class="footer-about"><strong>Banamailing</strong> nació con un propósito claro: ayudar a las empresas a <strong>conectar con sus clientes a través de campañas de email marketing en Perú</strong> altamente efectivas. Utilizamos <strong>PowerMTA y AMS Enterprise</strong> para mailing masivo y segmentación de bases de correos en Perú, garantizando envíos optimizados.</p>
+            <p class="footer-about" style="margin-top:10px;">Gracias a <strong>Google Analytics con UTM</strong>, medimos aperturas y clics, mejorando cada campaña con estrategias de <strong>remarketing y personalización</strong> para maximizar conversiones.</p>
+          </>
+        )}
         <div class="footer-social">
           <a href="https://www.facebook.com" target="_blank" class="social-btn" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
@@ -27,7 +35,7 @@
           <li><a href="/">Inicio</a></li>
           <li><a href="/#demo">Demo gratuita</a></li>
           <li><a href="/#precios">Precios y planes</a></li>
-          <li><a href="#">Nosotros</a></li>
+          <li><a href="/nosotros">Nosotros</a></li>
           <li><a href="/expertos-en-email-marketing">Expertos en email marketing</a></li>
         </ul>
       </div>
