@@ -1,4 +1,6 @@
 ---
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const cur = (href: string) => (path === href ? 'page' : undefined);
 ---
 <nav>
   <div class="nav-inner">
@@ -17,18 +19,18 @@
     </button>
 
     <ul class="nav-links" id="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#precios">Precios</a></li>
-      <li><a href="#demo">Demo gratis</a></li>
-      <li><a href="/validacion">Validación</a></li>
-      <li><a href="/cobranzas">Cobranzas</a></li>
-      <li><a href="/contacto">Contacto</a></li>
+      <li><a href="/" aria-current={cur('/')}>Home</a></li>
+      <li><a href="/#servicios">Servicios</a></li>
+      <li><a href="/#precios">Precios</a></li>
+      <li><a href="/arma-tu-mailing" aria-current={cur('/arma-tu-mailing')}>Arma tu mailing</a></li>
+      <li><a href="/validacion" aria-current={cur('/validacion')}>Validación</a></li>
+      <li><a href="/cobranzas" aria-current={cur('/cobranzas')}>Cobranzas</a></li>
+      <li><a href="/contacto" aria-current={cur('/contacto')}>Contacto</a></li>
     </ul>
 
     <div class="nav-actions">
       <button class="nav-ghost">Iniciar sesión</button>
-      <button class="nav-cta" onclick="document.getElementById('demo')?.scrollIntoView({behavior:'smooth'})">Solicitar demo</button>
+      <button class="nav-cta" onclick="var e=document.getElementById('demo');e?e.scrollIntoView({behavior:'smooth'}):(location.href='/#demo')">Solicitar demo</button>
     </div>
   </div>
 </nav>
@@ -56,6 +58,7 @@
   .nav-links { display: flex; gap: 0; list-style: none; flex: 1; justify-content: center; }
   .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); padding: 6px 10px; border-radius: 8px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
   .nav-links a:hover { color: var(--text); background: #F5F5F7; }
+  .nav-links a[aria-current="page"] { color: var(--purple); background: var(--purple-light); font-weight: 600; }
   .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .nav-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: border-color 0.15s; white-space: nowrap; }
   .nav-ghost:hover { border-color: #9CA3AF; }

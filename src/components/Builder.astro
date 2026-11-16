@@ -1,0 +1,594 @@
+---
+import { TEMPLATES } from '../lib/templates';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+const tplMeta = TEMPLATES.map(t => ({ id: t.id, name: t.name, desc: t.desc, accent: t.design.settings.accent }));
+---
+<section class="bld" id="armador" data-sitekey={siteKey}>
+  <div class="bld-head">
+    <span class="bld-badge">Gratis · sin registro</span>
+    <h1>Arma tu mailing y <em>pruébalo en tu correo</em></h1>
+    <p>Elige una plantilla, edítala con bloques y recibe una prueba real en tu bandeja. Ideal para ver cómo se verá tu campaña antes de enviarla.</p>
+  </div>
+
+  <div class="bld-app">
+    <!-- IZQUIERDA -->
+    <aside class="bld-left" aria-label="Plantillas y bloques">
+      <div class="bld-tabs" role="tablist">
+        <button class="bld-tab active" data-tab="tpl" role="tab">Plantillas</button>
+        <button class="bld-tab" data-tab="blocks" role="tab">Bloques</button>
+        <button class="bld-tab" data-tab="style" role="tab">Estilo</button>
+      </div>
+
+      <div class="bld-panel" data-panel="tpl">
+        <p class="bld-hint">Elige una plantilla y edítala a tu gusto.</p>
+        <div class="bld-tpls" id="bldTpls">
+          {tplMeta.map(t => (
+            <button class="bld-tpl" data-tpl={t.id} style={`--c:${t.accent}`}>
+              <span class="bld-tpl-thumb"><i></i><i></i><i></i></span>
+              <strong>{t.name}</strong>
+              <small>{t.desc}</small>
+            </button>
+          ))}
+        </div>
+        <div class="bld-row">
+          <button class="bld-btn" id="bldImport">Cargar diseño (.json)</button>
+          <input type="file" id="bldFile" accept="application/json,.json" hidden />
+        </div>
+      </div>
+
+      <div class="bld-panel" data-panel="blocks" hidden>
+        <p class="bld-hint">Haz clic para agregar un bloque debajo del seleccionado.</p>
+        <div class="bld-palette" id="bldPalette">
+          <button data-add="header">▭ Cabecera</button>
+          <button data-add="heading">H Título</button>
+          <button data-add="text">¶ Texto</button>
+          <button data-add="image">▣ Imagen</button>
+          <button data-add="button">◉ Botón</button>
+          <button data-add="columns">◫ 2 columnas</button>
+          <button data-add="divider">— Divisor</button>
+          <button data-add="spacer">↕ Espacio</button>
+          <button data-add="social">☺ Redes</button>
+          <button data-add="footer">▁ Pie</button>
+        </div>
+        <h3 class="bld-h3">Estructura</h3>
+        <ol class="bld-outline" id="bldOutline"></ol>
+      </div>
+
+      <div class="bld-panel" data-panel="style" hidden>
+        <div class="bld-fields" id="bldStyle"></div>
+      </div>
+    </aside>
+
+    <!-- CENTRO -->
+    <div class="bld-center">
+      <div class="bld-toolbar">
+        <button class="bld-icon" id="bldUndo" title="Deshacer (Ctrl+Z)" aria-label="Deshacer">↶</button>
+        <button class="bld-icon" id="bldRedo" title="Rehacer (Ctrl+Y)" aria-label="Rehacer">↷</button>
+        <span class="bld-sep"></span>
+        <button class="bld-icon on" id="bldDesk" title="Vista escritorio" aria-label="Vista escritorio">🖥</button>
+        <button class="bld-icon" id="bldMob" title="Vista móvil" aria-label="Vista móvil">📱</button>
+        <span class="bld-grow"></span>
+        <button class="bld-btn sm" id="bldExportJson">Guardar diseño</button>
+        <button class="bld-btn sm" id="bldExportHtml">Descargar HTML</button>
+      </div>
+      <div class="bld-meta">
+        <div class="field-group">
+          <label class="field-label" for="bldSubject">Asunto</label>
+          <input class="field-input" id="bldSubject" maxlength="120" placeholder="Asunto de tu correo" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="bldPre">Texto de vista previa</label>
+          <input class="field-input" id="bldPre" maxlength="140" placeholder="Lo que se ve junto al asunto en la bandeja" />
+        </div>
+      </div>
+      <div class="bld-stage" id="bldStage">
+        <iframe id="bldFrame" title="Vista previa del correo" sandbox="allow-same-origin"></iframe>
+      </div>
+    </div>
+
+    <!-- DERECHA -->
+    <aside class="bld-right" aria-label="Propiedades y envío de prueba">
+      <h3 class="bld-h3" id="bldPropTitle">Propiedades</h3>
+      <div class="bld-fields" id="bldProps"><p class="bld-hint">Selecciona un bloque en la vista previa o en la estructura para editarlo.</p></div>
+
+      <div class="bld-send">
+        <h3 class="bld-h3">Recibe una prueba</h3>
+        <p class="bld-hint">Te enviamos este correo para que lo veas en tu bandeja. Límite: 1 prueba cada 10 minutos.</p>
+        <label class="field-label" for="bldTo">Tu correo</label>
+        <input class="field-input" id="bldTo" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="tucorreo@empresa.com" />
+        <div id="bldTurnstile" class="bld-ts"></div>
+        <button class="bld-send-btn" id="bldSend">Enviar prueba a mi correo</button>
+        <p class="bld-status" id="bldStatus" role="status" aria-live="polite"></p>
+        <p class="bld-legal">Enviaremos un único correo de prueba a esta dirección y no la guardamos. Los enlaces deben ser https.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style is:global>
+  .bld { background: #F8F7FC; padding: 2.5rem 1rem 4rem; }
+  .bld-head { max-width: 760px; margin: 0 auto 1.75rem; text-align: center; }
+  .bld-badge { display: inline-block; background: var(--purple-light); color: var(--purple); font-weight: 700; font-size: 12px; padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
+  .bld-head h1 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); line-height: 1.15; letter-spacing: -0.03em; font-weight: 800; }
+  .bld-head h1 em { color: var(--purple); font-style: normal; }
+  .bld-head p { color: var(--muted); margin-top: 10px; font-size: 15px; line-height: 1.6; }
+
+  .bld-app { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 290px minmax(0, 1fr) 310px; gap: 14px; align-items: start; }
+  .bld-left, .bld-right, .bld-center { background: #fff; border: 1px solid var(--border); border-radius: 14px; }
+  .bld-left, .bld-right { padding: 14px; position: sticky; top: 76px; max-height: calc(100vh - 92px); overflow: auto; }
+  .bld-center { padding: 12px; min-width: 0; }
+
+  .bld-tabs { display: flex; gap: 4px; background: #F3F4F6; padding: 4px; border-radius: 10px; margin-bottom: 12px; }
+  .bld-tab { flex: 1; border: 0; background: transparent; padding: 7px 4px; border-radius: 7px; font: 600 12.5px inherit; font-family: inherit; color: var(--muted); cursor: pointer; }
+  .bld-tab.active { background: #fff; color: var(--purple); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .bld-hint { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .bld-h3 { font-size: 13px; font-weight: 800; margin: 14px 0 8px; letter-spacing: -0.01em; }
+  .bld-h3:first-child { margin-top: 0; }
+
+  .bld-tpls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .bld-tpl { text-align: left; border: 1px solid var(--border); background: #fff; border-radius: 10px; padding: 8px; cursor: pointer; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
+  .bld-tpl:hover { border-color: var(--c); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .bld-tpl strong { display: block; font-size: 12.5px; margin-top: 6px; color: var(--text); }
+  .bld-tpl small { display: block; font-size: 11px; color: var(--muted); line-height: 1.35; margin-top: 2px; }
+  .bld-tpl-thumb { display: block; background: #F3F4F6; border-radius: 6px; padding: 6px; height: 64px; overflow: hidden; }
+  .bld-tpl-thumb i { display: block; height: 8px; border-radius: 3px; background: #D1D5DB; margin-bottom: 5px; }
+  .bld-tpl-thumb i:first-child { background: var(--c); height: 12px; }
+  .bld-tpl-thumb i:nth-child(3) { width: 60%; }
+
+  .bld-btn { border: 1px solid var(--border); background: #fff; color: var(--text); padding: 9px 12px; border-radius: 9px; font: 600 12.5px inherit; font-family: inherit; cursor: pointer; width: 100%; transition: border-color .15s, background .15s; }
+  .bld-btn:hover { border-color: var(--purple); background: var(--purple-light); }
+  .bld-btn.sm { width: auto; padding: 7px 11px; }
+  .bld-row { margin-top: 6px; }
+
+  .bld-palette { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .bld-palette button { border: 1px solid var(--border); background: #fff; padding: 9px 8px; border-radius: 9px; font: 600 12.5px inherit; font-family: inherit; cursor: pointer; text-align: left; transition: all .15s; }
+  .bld-palette button:hover { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+
+  .bld-outline { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .bld-outline li { display: flex; align-items: center; gap: 4px; border: 1px solid var(--border); border-radius: 8px; padding: 5px 6px; background: #fff; font-size: 12px; cursor: pointer; }
+  .bld-outline li.sel { border-color: var(--purple); background: var(--purple-light); }
+  .bld-outline li.over { border-top: 3px solid var(--purple); }
+  .bld-outline .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bld-outline .lbl b { color: var(--purple); font-weight: 700; margin-right: 5px; }
+  .bld-outline button { border: 0; background: transparent; cursor: pointer; padding: 3px 5px; border-radius: 5px; font-size: 13px; color: var(--muted); }
+  .bld-outline button:hover { background: #E5E7EB; color: var(--text); }
+  .bld-outline .grip { cursor: grab; color: #9CA3AF; font-size: 12px; }
+
+  .bld-toolbar { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .bld-icon { border: 1px solid var(--border); background: #fff; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 15px; font-family: inherit; }
+  .bld-icon:hover:not(:disabled) { border-color: var(--purple); }
+  .bld-icon:disabled { opacity: .35; cursor: not-allowed; }
+  .bld-icon.on { background: var(--purple-light); border-color: var(--purple); }
+  .bld-sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+  .bld-grow { flex: 1; }
+  .bld-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .bld-stage { background: #EDEBF5; border-radius: 10px; padding: 14px; display: flex; justify-content: center; }
+  #bldFrame { border: 0; background: #fff; width: 100%; height: 640px; border-radius: 6px; transition: width .2s; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  .bld-stage.mob #bldFrame { width: 390px; max-width: 100%; }
+
+  .bld-fields { display: flex; flex-direction: column; gap: 10px; }
+  .bld-f label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .bld-f input[type=text], .bld-f input[type=url], .bld-f select, .bld-f textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font: 13px inherit; font-family: inherit; background: #fff; }
+  .bld-f textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+  .bld-f input:focus, .bld-f select:focus, .bld-f textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(103,76,196,.12); }
+  .bld-f input[type=color] { width: 100%; height: 34px; border: 1px solid var(--border); border-radius: 8px; padding: 2px; background: #fff; cursor: pointer; }
+  .bld-f input[type=range] { width: 100%; accent-color: var(--purple); }
+  .bld-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bld-vars { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .bld-vars button { border: 1px dashed #C4B5FD; background: #F8F6FF; color: var(--purple); font: 600 11px inherit; font-family: inherit; padding: 3px 7px; border-radius: 6px; cursor: pointer; }
+  .bld-soc { display: grid; grid-template-columns: 110px 1fr 28px; gap: 5px; align-items: center; margin-bottom: 5px; }
+  .bld-soc button { border: 0; background: #FEE2E2; color: #B91C1C; border-radius: 6px; cursor: pointer; height: 30px; }
+  .bld-mini { border: 1px dashed var(--border); background: #fff; padding: 7px; border-radius: 8px; font: 600 12px inherit; font-family: inherit; cursor: pointer; color: var(--purple); }
+
+  .bld-send { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .bld-send .field-input { margin-top: 2px; }
+  .bld-ts { margin: 10px 0 2px; min-height: 0; }
+  .bld-send-btn { width: 100%; margin-top: 10px; background: var(--purple); color: #fff; border: 0; padding: 12px; border-radius: 10px; font: 700 14px inherit; font-family: inherit; cursor: pointer; transition: background .15s, transform .1s; }
+  .bld-send-btn:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-1px); }
+  .bld-send-btn:disabled { opacity: .55; cursor: not-allowed; }
+  .bld-status { font-size: 12.5px; line-height: 1.5; margin-top: 8px; min-height: 18px; }
+  .bld-status.ok { color: var(--green); font-weight: 600; }
+  .bld-status.err { color: #B91C1C; font-weight: 600; }
+  .bld-legal { font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 8px; }
+
+  @media (max-width: 1180px) {
+    .bld-app { grid-template-columns: 270px minmax(0, 1fr); }
+    .bld-right { grid-column: 1 / -1; position: static; max-height: none; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .bld-right > .bld-h3 { grid-column: 1; }
+    .bld-send { margin-top: 0; padding-top: 0; border-top: 0; grid-column: 2; grid-row: 1 / span 2; }
+  }
+  @media (max-width: 820px) {
+    .bld-app { grid-template-columns: 1fr; }
+    .bld-left { position: static; max-height: none; }
+    .bld-right { display: block; }
+    .bld-send { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .bld-meta { grid-template-columns: 1fr; }
+    #bldFrame { height: 520px; }
+  }
+</style>
+
+<script>
+  import { SAMPLE_VARS, SOCIALS, FONTS, LIMITS, esc, newBlock, renderEmail, sanitizeDesign, type Block, type Design } from '../lib/mailing';
+  import { TEMPLATES, cloneDesign } from '../lib/templates';
+
+  const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+  const STORE = 'bana-mailing-v1';
+  const SENT = 'bana-last-send';
+
+  const LABELS: Record<string, string> = { header: 'Cabecera', heading: 'Título', text: 'Texto', image: 'Imagen', button: 'Botón', divider: 'Divisor', spacer: 'Espacio', columns: '2 columnas', social: 'Redes', footer: 'Pie' };
+
+  let design: Design = cloneDesign(TEMPLATES[1].design);
+  let selectedId: string | null = null;
+  let past: string[] = [];
+  let future: string[] = [];
+  let lastSnap = 0;
+  let dirty = false;
+
+  // ---------- persistencia ----------
+  try {
+    const saved = localStorage.getItem(STORE);
+    if (saved) { const d = sanitizeDesign(JSON.parse(saved)); if (d && d.blocks.length) design = d; }
+  } catch { /* sin storage */ }
+  const save = () => { try { localStorage.setItem(STORE, JSON.stringify(design)); } catch { /* ignorar */ } };
+
+  // ---------- historial ----------
+  const snapshot = (force = false) => {
+    const now = Date.now();
+    if (!force && now - lastSnap < 900) return;
+    lastSnap = now;
+    past.push(JSON.stringify(design));
+    if (past.length > 80) past.shift();
+    future = [];
+    updateHist();
+  };
+  const updateHist = () => {
+    ($('bldUndo') as HTMLButtonElement).disabled = past.length === 0;
+    ($('bldRedo') as HTMLButtonElement).disabled = future.length === 0;
+  };
+  const restore = (json: string) => { design = JSON.parse(json); if (selectedId && !design.blocks.find(b => b.id === selectedId)) selectedId = null; renderAll(); save(); };
+  const undo = () => { if (!past.length) return; future.push(JSON.stringify(design)); restore(past.pop()!); updateHist(); };
+  const redo = () => { if (!future.length) return; past.push(JSON.stringify(design)); restore(future.pop()!); updateHist(); };
+
+  // ---------- vista previa ----------
+  const frame = $('bldFrame') as HTMLIFrameElement;
+  let pendingScroll = 0;
+  let raf = 0;
+  const renderPreview = () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      pendingScroll = frame.contentWindow?.scrollY ?? 0;
+      frame.srcdoc = renderEmail(design, { editor: true, selectedId, vars: SAMPLE_VARS });
+    });
+  };
+  frame.addEventListener('load', () => {
+    const doc = frame.contentDocument;
+    if (!doc) return;
+    frame.contentWindow?.scrollTo(0, pendingScroll);
+    doc.addEventListener('click', e => {
+      e.preventDefault();
+      const el = (e.target as HTMLElement).closest('[data-bid]') as HTMLElement | null;
+      if (el?.dataset.bid) select(el.dataset.bid, true);
+    });
+  });
+
+  // ---------- selección y estructura ----------
+  const select = (id: string | null, fromPreview = false) => {
+    selectedId = id;
+    renderOutline(); renderProps(); renderPreview();
+    if (fromPreview && id) $('bldProps').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+
+  const summary = (b: Block): string => {
+    switch (b.type) {
+      case 'header': case 'heading': case 'text': case 'footer': return b.text.replace(/\s+/g, ' ').slice(0, 28);
+      case 'button': return b.text;
+      case 'columns': return b.leftTitle;
+      case 'image': return b.alt || '';
+      default: return '';
+    }
+  };
+
+  const idx = (id: string) => design.blocks.findIndex(b => b.id === id);
+  const struct = (fn: () => void) => { snapshot(true); fn(); renderAll(); save(); };
+
+  const addBlock = (type: Block['type']) => {
+    if (design.blocks.length >= LIMITS.blocks) { alert(`Máximo ${LIMITS.blocks} bloques por correo.`); return; }
+    const b = newBlock(type, design.settings.accent);
+    struct(() => {
+      const at = selectedId ? idx(selectedId) + 1 : design.blocks.length;
+      design.blocks.splice(at, 0, b);
+      selectedId = b.id;
+    });
+  };
+  const move = (id: string, dir: -1 | 1) => struct(() => {
+    const i = idx(id), j = i + dir;
+    if (j < 0 || j >= design.blocks.length) return;
+    [design.blocks[i], design.blocks[j]] = [design.blocks[j], design.blocks[i]];
+  });
+  const dup = (id: string) => {
+    if (design.blocks.length >= LIMITS.blocks) return;
+    struct(() => {
+      const i = idx(id);
+      const copy = JSON.parse(JSON.stringify(design.blocks[i])) as Block;
+      copy.id = Math.random().toString(36).slice(2, 10);
+      design.blocks.splice(i + 1, 0, copy);
+      selectedId = copy.id;
+    });
+  };
+  const del = (id: string) => struct(() => {
+    const i = idx(id);
+    design.blocks.splice(i, 1);
+    selectedId = design.blocks[Math.min(i, design.blocks.length - 1)]?.id ?? null;
+  });
+
+  let dragId: string | null = null;
+  function renderOutline() {
+    const ol = $('bldOutline');
+    ol.innerHTML = design.blocks.map(b => `
+      <li data-id="${b.id}" draggable="true" class="${b.id === selectedId ? 'sel' : ''}">
+        <span class="grip" aria-hidden="true">⋮⋮</span>
+        <span class="lbl"><b>${LABELS[b.type]}</b>${esc(summary(b))}</span>
+        <button data-act="up" title="Subir" aria-label="Subir">↑</button>
+        <button data-act="down" title="Bajar" aria-label="Bajar">↓</button>
+        <button data-act="dup" title="Duplicar" aria-label="Duplicar">⧉</button>
+        <button data-act="del" title="Eliminar" aria-label="Eliminar">✕</button>
+      </li>`).join('') || '<p class="bld-hint">Aún no hay bloques. Agrega uno arriba.</p>';
+  }
+  $('bldOutline').addEventListener('click', e => {
+    const t = e.target as HTMLElement;
+    const li = t.closest('li') as HTMLElement | null;
+    if (!li) return;
+    const id = li.dataset.id!;
+    const act = (t.closest('button') as HTMLElement | null)?.dataset.act;
+    if (act === 'up') move(id, -1);
+    else if (act === 'down') move(id, 1);
+    else if (act === 'dup') dup(id);
+    else if (act === 'del') del(id);
+    else select(id);
+  });
+  $('bldOutline').addEventListener('dragstart', e => { const li = (e.target as HTMLElement).closest('li'); dragId = li?.dataset.id ?? null; e.dataTransfer?.setData('text/plain', dragId ?? ''); });
+  $('bldOutline').addEventListener('dragover', e => { e.preventDefault(); const li = (e.target as HTMLElement).closest('li'); document.querySelectorAll('#bldOutline li.over').forEach(x => x.classList.remove('over')); li?.classList.add('over'); });
+  $('bldOutline').addEventListener('drop', e => {
+    e.preventDefault();
+    const li = (e.target as HTMLElement).closest('li') as HTMLElement | null;
+    if (!li || !dragId || li.dataset.id === dragId) { renderOutline(); return; }
+    const from = idx(dragId), to = idx(li.dataset.id!);
+    struct(() => { const [b] = design.blocks.splice(from, 1); design.blocks.splice(to, 0, b); });
+    dragId = null;
+  });
+  $('bldOutline').addEventListener('dragend', () => { dragId = null; renderOutline(); });
+
+  // ---------- panel de propiedades ----------
+  type F = { k: string; l: string; t: 'text' | 'area' | 'color' | 'select' | 'range' | 'url'; o?: [string, string][]; min?: number; max?: number; num?: boolean; vars?: boolean };
+  const ALIGN: [string, string][] = [['left', 'Izquierda'], ['center', 'Centro'], ['right', 'Derecha']];
+  const SCHEMA: Record<string, F[]> = {
+    header: [{ k: 'text', l: 'Texto de marca', t: 'text' }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'bg', l: 'Fondo', t: 'color' }, { k: 'color', l: 'Texto', t: 'color' }],
+    heading: [{ k: 'text', l: 'Título', t: 'area', vars: true }, { k: 'size', l: 'Tamaño', t: 'select', num: true, o: [['1', 'Grande'], ['2', 'Mediano'], ['3', 'Pequeño']] }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'color', l: 'Color', t: 'color' }],
+    text: [{ k: 'text', l: 'Texto', t: 'area', vars: true }, { k: 'size', l: 'Tamaño (px)', t: 'range', min: 12, max: 22 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, { k: 'color', l: 'Color', t: 'color' }],
+    image: [{ k: 'src', l: 'Enlace de la imagen (https)', t: 'url' }, { k: 'alt', l: 'Texto alternativo', t: 'text' }, { k: 'link', l: 'Al hacer clic abre (https)', t: 'url' }, { k: 'width', l: 'Ancho (%)', t: 'range', min: 20, max: 100 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }],
+    button: [{ k: 'text', l: 'Texto del botón', t: 'text' }, { k: 'url', l: 'Enlace (https)', t: 'url' }, { k: 'bg', l: 'Fondo', t: 'color' }, { k: 'color', l: 'Texto', t: 'color' }, { k: 'radius', l: 'Redondeo', t: 'range', min: 0, max: 40 }, { k: 'align', l: 'Alineación', t: 'select', o: ALIGN }],
+    divider: [{ k: 'color', l: 'Color', t: 'color' }, { k: 'thickness', l: 'Grosor', t: 'range', min: 1, max: 8 }],
+    spacer: [{ k: 'height', l: 'Alto (px)', t: 'range', min: 4, max: 120 }],
+    columns: [{ k: 'leftTitle', l: 'Título izquierda', t: 'text' }, { k: 'leftText', l: 'Texto izquierda', t: 'area', vars: true }, { k: 'rightTitle', l: 'Título derecha', t: 'text' }, { k: 'rightText', l: 'Texto derecha', t: 'area', vars: true }, { k: 'accent', l: 'Color de títulos', t: 'color' }, { k: 'color', l: 'Color de texto', t: 'color' }],
+    footer: [{ k: 'text', l: 'Texto del pie', t: 'area', vars: true }, { k: 'color', l: 'Color', t: 'color' }],
+    social: [],
+  };
+  const VARS = ['nombre', 'empresa', 'fecha', 'monto'];
+
+  const fieldHtml = (f: F, v: unknown, prefix: string): string => {
+    const val = String(v ?? '');
+    const id = `${prefix}-${f.k}`;
+    let ctl = '';
+    if (f.t === 'text') ctl = `<input type="text" id="${id}" data-k="${f.k}" value="${esc(val)}" />`;
+    else if (f.t === 'url') ctl = `<input type="url" id="${id}" data-k="${f.k}" value="${esc(val)}" placeholder="https://" spellcheck="false" />`;
+    else if (f.t === 'area') ctl = `<textarea id="${id}" data-k="${f.k}">${esc(val)}</textarea>` + (f.vars ? `<div class="bld-vars">${VARS.map(x => `<button type="button" data-var="${x}" data-for="${id}">{{${x}}}</button>`).join('')}</div>` : '');
+    else if (f.t === 'color') ctl = `<input type="color" id="${id}" data-k="${f.k}" value="${esc(val)}" />`;
+    else if (f.t === 'range') ctl = `<input type="range" id="${id}" data-k="${f.k}" min="${f.min}" max="${f.max}" value="${esc(val)}" />`;
+    else if (f.t === 'select') ctl = `<select id="${id}" data-k="${f.k}" ${f.num ? 'data-num="1"' : ''}>${f.o!.map(([a, b]) => `<option value="${a}" ${String(a) === val ? 'selected' : ''}>${b}</option>`).join('')}</select>`;
+    return `<div class="bld-f"><label for="${id}">${f.l}</label>${ctl}</div>`;
+  };
+
+  function renderProps() {
+    const box = $('bldProps');
+    const b = design.blocks.find(x => x.id === selectedId);
+    $('bldPropTitle').textContent = b ? `Editar: ${LABELS[b.type]}` : 'Propiedades';
+    if (!b) { box.innerHTML = '<p class="bld-hint">Selecciona un bloque en la vista previa o en la estructura para editarlo.</p>'; return; }
+    let html = SCHEMA[b.type].map(f => fieldHtml(f, (b as any)[f.k], 'p')).join('');
+    if (b.type === 'social') {
+      const items = (b as Extract<Block, { type: 'social' }>).items;
+      html += `<div class="bld-f"><label>Enlaces</label>${items.map((it, i) => `
+        <div class="bld-soc"><select data-soc="net" data-i="${i}">${Object.entries(SOCIALS).map(([k, n]) => `<option value="${k}" ${k === it.net ? 'selected' : ''}>${n}</option>`).join('')}</select>
+        <input type="url" data-soc="url" data-i="${i}" value="${esc(it.url)}" placeholder="https://" /><button data-soc="del" data-i="${i}" aria-label="Quitar">✕</button></div>`).join('')}
+        <button class="bld-mini" data-soc="add">+ Agregar red</button></div>`
+        + fieldHtml({ k: 'align', l: 'Alineación', t: 'select', o: ALIGN }, (b as any).align, 'p');
+    }
+    box.innerHTML = html;
+  }
+
+  $('bldProps').addEventListener('input', e => {
+    const el = e.target as HTMLInputElement;
+    const b = design.blocks.find(x => x.id === selectedId) as any;
+    if (!b) return;
+    if (el.dataset.soc) {
+      const i = Number(el.dataset.i);
+      if (b.items[i]) { snapshot(); b.items[i][el.dataset.soc] = el.value; commitField(); }
+      return;
+    }
+    const k = el.dataset.k;
+    if (!k) return;
+    snapshot();
+    b[k] = el.type === 'range' || el.dataset.num ? Number(el.value) : el.value;
+    commitField();
+    if (['text', 'leftTitle', 'alt'].includes(k)) renderOutline();
+  });
+  $('bldProps').addEventListener('click', e => {
+    const t = e.target as HTMLElement;
+    const b = design.blocks.find(x => x.id === selectedId) as any;
+    if (!b) return;
+    if (t.dataset.var) {
+      const ta = document.getElementById(t.dataset.for!) as HTMLTextAreaElement | HTMLInputElement;
+      const ins = `{{${t.dataset.var}}}`;
+      const s = ta.selectionStart ?? ta.value.length, en = ta.selectionEnd ?? s;
+      ta.value = ta.value.slice(0, s) + ins + ta.value.slice(en);
+      ta.focus(); ta.setSelectionRange(s + ins.length, s + ins.length);
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+    } else if (t.dataset.soc === 'add') {
+      if (b.items.length >= LIMITS.socials) return;
+      struct(() => b.items.push({ net: 'web', url: 'https://' }));
+    } else if (t.dataset.soc === 'del') {
+      struct(() => b.items.splice(Number(t.dataset.i), 1));
+    }
+  });
+  $('bldProps').addEventListener('change', e => {
+    const el = e.target as HTMLSelectElement;
+    if (el.dataset.soc === 'net') { const b = design.blocks.find(x => x.id === selectedId) as any; if (b) { snapshot(true); b.items[Number(el.dataset.i)].net = el.value; commitField(); } }
+  });
+
+  const commitField = () => { dirty = true; renderPreview(); save(); updateHist(); };
+
+  // ---------- estilo global ----------
+  function renderStyle() {
+    const s = design.settings as any;
+    $('bldStyle').innerHTML =
+      fieldHtml({ k: 'accent', l: 'Color principal', t: 'color' }, s.accent, 's') +
+      fieldHtml({ k: 'bg', l: 'Fondo exterior', t: 'color' }, s.bg, 's') +
+      fieldHtml({ k: 'contentBg', l: 'Fondo del correo', t: 'color' }, s.contentBg, 's') +
+      fieldHtml({ k: 'font', l: 'Tipografía', t: 'select', o: Object.keys(FONTS).map(k => [k, ({ sans: 'Arial', verdana: 'Verdana', georgia: 'Georgia (serif)', trebuchet: 'Trebuchet', tahoma: 'Tahoma', mono: 'Monoespaciada' } as any)[k]] as [string, string]) }, s.font, 's') +
+      fieldHtml({ k: 'width', l: 'Ancho del correo (px)', t: 'range', min: 480, max: 700 }, s.width, 's');
+  }
+  const onStyle = (e: Event) => {
+    const el = e.target as HTMLInputElement;
+    const k = el.dataset.k as keyof Design['settings'] | undefined;
+    if (!k) return;
+    snapshot();
+    (design.settings as any)[k] = k === 'width' ? Number(el.value) : el.value;
+    commitField();
+  };
+  $('bldStyle').addEventListener('input', onStyle);
+  $('bldStyle').addEventListener('change', onStyle);
+
+  // ---------- asunto / pretítulo ----------
+  const subj = $('bldSubject') as HTMLInputElement, pre = $('bldPre') as HTMLInputElement;
+  subj.addEventListener('input', () => { snapshot(); design.subject = subj.value; commitField(); });
+  pre.addEventListener('input', () => { snapshot(); design.preheader = pre.value; commitField(); });
+
+  // ---------- pestañas ----------
+  document.querySelectorAll<HTMLButtonElement>('.bld-tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.bld-tab').forEach(x => x.classList.toggle('active', x === t));
+    document.querySelectorAll<HTMLElement>('.bld-panel').forEach(p => (p.hidden = p.dataset.panel !== t.dataset.tab));
+  }));
+  $('bldPalette').addEventListener('click', e => { const t = (e.target as HTMLElement).closest('button'); if (t?.dataset.add) addBlock(t.dataset.add as Block['type']); });
+
+  // ---------- plantillas / importar / exportar ----------
+  $('bldTpls').addEventListener('click', e => {
+    const t = (e.target as HTMLElement).closest('button');
+    const tpl = TEMPLATES.find(x => x.id === t?.dataset.tpl);
+    if (!tpl) return;
+    if (dirty && !confirm('Se reemplazará tu diseño actual por la plantilla. ¿Continuar?')) return;
+    snapshot(true);
+    design = cloneDesign(tpl.design); selectedId = null; dirty = false;
+    renderAll(); save();
+  });
+  const download = (name: string, mime: string, content: string) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([content], { type: mime }));
+    a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  $('bldExportJson').addEventListener('click', () => download('mi-mailing.json', 'application/json', JSON.stringify(design, null, 2)));
+  $('bldExportHtml').addEventListener('click', () => {
+    // Las variables se conservan tal cual ({{nombre}}) para usarlas en tu plataforma de envío.
+    const keep = new Proxy({}, { get: (_t, k) => `{{${String(k)}}}` }) as Record<string, string>;
+    download('mi-mailing.html', 'text/html', renderEmail(design, { vars: keep }));
+  });
+  $('bldImport').addEventListener('click', () => ($('bldFile') as HTMLInputElement).click());
+  $('bldFile').addEventListener('change', async e => {
+    const input = e.target as HTMLInputElement;
+    const f = input.files?.[0];
+    input.value = '';
+    if (!f) return;
+    if (f.size > 100_000) { alert('El archivo es demasiado grande.'); return; }
+    try {
+      const d = sanitizeDesign(JSON.parse(await f.text()));
+      if (!d) throw new Error();
+      snapshot(true); design = d; selectedId = null; dirty = false; renderAll(); save();
+    } catch { alert('Ese archivo no es un diseño válido de BanaMailing.'); }
+  });
+
+  $('bldUndo').addEventListener('click', undo);
+  $('bldRedo').addEventListener('click', redo);
+  document.addEventListener('keydown', e => {
+    const tag = (e.target as HTMLElement).tagName;
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+    else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
+    else if (e.key === 'Delete' && selectedId) del(selectedId);
+  });
+  $('bldDesk').addEventListener('click', () => { $('bldStage').classList.remove('mob'); $('bldDesk').classList.add('on'); $('bldMob').classList.remove('on'); });
+  $('bldMob').addEventListener('click', () => { $('bldStage').classList.add('mob'); $('bldMob').classList.add('on'); $('bldDesk').classList.remove('on'); });
+
+  function renderAll() {
+    subj.value = design.subject; pre.value = design.preheader;
+    renderOutline(); renderProps(); renderStyle(); renderPreview(); updateHist();
+  }
+
+  // ---------- envío de prueba ----------
+  const sendBtn = $('bldSend') as HTMLButtonElement;
+  const status = $('bldStatus');
+  const toInput = $('bldTo') as HTMLInputElement;
+  const siteKey = ($('armador') as HTMLElement).dataset.sitekey || '';
+  let tsId: string | null = null;
+  let cooldownTimer = 0;
+
+  const say = (msg: string, kind: '' | 'ok' | 'err' = '') => { status.textContent = msg; status.className = `bld-status ${kind}`; };
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  const startCooldown = (seconds: number) => {
+    clearInterval(cooldownTimer);
+    const until = Date.now() + seconds * 1000;
+    try { localStorage.setItem(SENT, String(until)); } catch { /* ignorar */ }
+    const tick = () => {
+      const left = Math.ceil((until - Date.now()) / 1000);
+      if (left <= 0) { clearInterval(cooldownTimer); sendBtn.disabled = !siteKey; sendBtn.textContent = 'Enviar prueba a mi correo'; return; }
+      sendBtn.disabled = true; sendBtn.textContent = `Podrás enviar otra en ${fmt(left)}`;
+    };
+    tick(); cooldownTimer = window.setInterval(tick, 1000);
+  };
+
+  if (!siteKey) {
+    sendBtn.disabled = true;
+    say('El envío de pruebas se activará muy pronto. Mientras tanto puedes armar y descargar tu mailing.');
+  } else {
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.async = true; s.defer = true;
+    s.onload = () => { tsId = (window as any).turnstile.render('#bldTurnstile', { sitekey: siteKey, language: 'es', theme: 'light' }); };
+    document.head.appendChild(s);
+    try { const until = Number(localStorage.getItem(SENT) || 0); if (until > Date.now()) startCooldown(Math.ceil((until - Date.now()) / 1000)); } catch { /* ignorar */ }
+  }
+
+  sendBtn.addEventListener('click', async () => {
+    const to = toInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) { say('Ingresa un correo válido.', 'err'); toInput.focus(); return; }
+    if (!design.subject.trim()) { say('Escribe un asunto para tu correo.', 'err'); subj.focus(); return; }
+    const bad = design.blocks.find(b => b.type === 'button' && !/^(https:\/\/|mailto:|tel:)/i.test(b.url));
+    if (bad) { say('Hay un botón sin enlace https válido. Revísalo en el panel.', 'err'); select(bad.id); return; }
+    const token = (window as any).turnstile?.getResponse(tsId) as string | undefined;
+    if (!token) { say('Completa la verificación de seguridad.', 'err'); return; }
+
+    sendBtn.disabled = true; sendBtn.textContent = 'Enviando…'; say('');
+    try {
+      const r = await fetch('/api/enviar-prueba', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to, design, token }) });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok) { say('¡Listo! Revisa tu bandeja (y la carpeta de spam) en unos segundos.', 'ok'); startCooldown(data.retryAfter || 600); }
+      else if (r.status === 429 && data.retryAfter) { say(data.error, 'err'); startCooldown(data.retryAfter); }
+      else { say(data.error || 'No se pudo enviar. Inténtalo de nuevo.', 'err'); sendBtn.disabled = false; sendBtn.textContent = 'Enviar prueba a mi correo'; }
+    } catch {
+      say('Sin conexión. Inténtalo de nuevo.', 'err'); sendBtn.disabled = false; sendBtn.textContent = 'Enviar prueba a mi correo';
+    } finally {
+      try { (window as any).turnstile?.reset(tsId); } catch { /* ignorar */ }
+    }
+  });
+
+  select(null);
+  renderAll();
+</script>
