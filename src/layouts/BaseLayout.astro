@@ -70,19 +70,24 @@ const ogImage = image.startsWith('http') ? image : SITE + image;
         "priceRange": "S/ 400 - S/ 2400",
         "currenciesAccepted": "PEN",
         "description": "Servicio profesional de mailing masivo, correos masivos y email marketing en Perú. PowerMTA + AMS Enterprise. Demo gratuita en 48 horas.",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Chacarilla del Estanque",
-          "addressLocality": "Santiago de Surco",
-          "addressRegion": "Lima",
-          "postalCode": "15038",
-          "addressCountry": "PE"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": -12.1061,
-          "longitude": -76.9993
-        },
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Armendáriz 480",
+            "addressLocality": "Miraflores",
+            "addressRegion": "Lima",
+            "postalCode": "15074",
+            "addressCountry": "PE"
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "Chacarilla del Estanque",
+            "addressLocality": "Santiago de Surco",
+            "addressRegion": "Lima",
+            "postalCode": "15038",
+            "addressCountry": "PE"
+          }
+        ],
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",

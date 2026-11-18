@@ -443,7 +443,7 @@ export const legal: Entry[] = [
     description: 'Cómo BANA NETWORK SAC (BanaMailing) trata tus datos personales: qué datos recibimos, para qué los usamos, con quién los compartimos y cómo ejercer tus derechos.',
     eyebrow: 'Legal',
     h1: 'Política de Privacidad',
-    lead: 'Última actualización: 16 de noviembre de 2026. Esta política explica cómo <strong>BANA NETWORK SAC</strong> (marca BanaMailing, RUC 20606350644, con domicilio en Chacarilla del Estanque, Santiago de Surco, Lima, Perú) trata los datos personales de quienes visitan banamailing.com, de acuerdo con la Ley N.° 29733, Ley de Protección de Datos Personales, y su reglamento.',
+    lead: 'Última actualización: 16 de noviembre de 2026. Esta política explica cómo <strong>BANA NETWORK SAC</strong> (marca BanaMailing, RUC 20606350644, con oficinas en Av. Armendáriz 480, Miraflores, y en Chacarilla del Estanque, Santiago de Surco, Lima, Perú) trata los datos personales de quienes visitan banamailing.com, de acuerdo con la Ley N.° 29733, Ley de Protección de Datos Personales, y su reglamento.',
     sections: [
       {
         h2: '1. Qué datos podemos recibir',
