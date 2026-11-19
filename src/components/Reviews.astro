@@ -1,4 +1,21 @@
 ---
+// Reseñas reales copiadas de la ficha de Google Business (Banamailing - Mailing Perú y Correos Masivos).
+// Para actualizar la calificación que se muestra, cambia RATING y COUNT.
+const RATING = '4.3';
+const COUNT = 6;
+const reviews = [
+  { name: 'Christian Pajuelo', initial: 'C', color: '#1565C0', date: '', featured: true,
+    text: 'El equipo siempre está disponible y muestra una gran disposición para ayudarnos a optimizar nuestras campañas. Su acompañamiento constante y su capacidad para brindarnos soluciones efectivas han sido clave para mejorar nuestros resultados. Valoramos mucho su compromiso y profesionalismo.' },
+  { name: 'Jose Antonio', initial: 'J', color: '#2E7D32', date: '',
+    text: 'El mejor proveedor de mailing en Perú, alta conversión, bases totalmente actualizadas, responsivas y respuestas casi inmediatas al cliente para cualquier duda técnica o general, totalmente recomendado' },
+  { name: 'Alfonso Llamo', initial: 'A', color: '#6A1B9A', date: '',
+    text: 'Muy buena labor en el servicio de publicidad' },
+  { name: 'Cuy Games Perú', initial: 'C', color: '#E65100', date: '16 jun 2025',
+    text: 'Muy positivo!' },
+  { name: 'Juan Jose Pineda Mora', initial: 'J', color: '#F57C00', date: '18 nov 2026',
+    text: 'Excelente servicio! Muy responsable! Los recomiendo!' },
+];
+const gIcon = '<svg class="rv-g" viewBox="0 0 24 24" width="22" height="22" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
 ---
 <section class="reviews-section">
   <div class="reviews-inner">
@@ -9,9 +26,9 @@
       </div>
       <h2 class="reviews-title">Empresas que hacen <em>mailing masivo</em> con BanaMailing</h2>
       <div class="reviews-score">
-        <span class="rs-num">4.3</span>
+        <span class="rs-num">{RATING}</span>
         <div class="rs-stars">★★★★★</div>
-        <span class="rs-count">Basado en 6 opiniones de Google</span>
+        <span class="rs-count">Basado en {COUNT} opiniones de Google</span>
       </div>
     </div>
 
@@ -19,71 +36,28 @@
       <button class="rv-arrow rv-prev" id="rvPrev" aria-label="Anterior">‹</button>
       <div class="reviews-track" id="reviewsTrack">
 
-        <div class="rv-card">
-          <div class="rv-top">
-            <div class="rv-avatar" style="background:#2E7D32;">E</div>
-            <div class="rv-info">
-              <p class="rv-name">Elber Prieto</p>
-              <p class="rv-date">14 jun 2025</p>
+        {reviews.map((r) => (
+          <div class={`rv-card${r.featured ? ' rv-featured' : ''}`}>
+            <div class="rv-top">
+              <div class="rv-avatar" style={`background:${r.color};`}>{r.initial}</div>
+              <div class="rv-info">
+                <p class="rv-name">{r.name}</p>
+                {r.date && <p class="rv-date">{r.date}</p>}
+              </div>
+              <Fragment set:html={gIcon} />
             </div>
-            <svg class="rv-g" viewBox="0 0 24 24" width="22" height="22" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">{r.text}</p>
+            <div class="rv-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A73E8" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Reseña en Google</div>
           </div>
-          <div class="rv-stars">★★★★★</div>
-          <p class="rv-text">Muy eficientes en su labor y servicio publicitario.</p>
-          <div class="rv-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A73E8" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Verificado por Google</div>
-        </div>
-
-        <div class="rv-card rv-featured">
-          <div class="rv-top">
-            <div class="rv-avatar" style="background:#1565C0;">C</div>
-            <div class="rv-info">
-              <p class="rv-name">Christian Pajuelo</p>
-              <p class="rv-date">13 jun 2025</p>
-            </div>
-            <svg class="rv-g" viewBox="0 0 24 24" width="22" height="22" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          </div>
-          <div class="rv-stars">★★★★★</div>
-          <p class="rv-text">El equipo siempre está disponible y muestra una gran disposición para ayudarnos a optimizar nuestras campañas. Su acompañamiento constante y su capacidad para brindarnos soluciones efectivas han sido clave para mejorar nuestros resultados. Valoramos mucho su compromiso y profesionalismo.</p>
-          <div class="rv-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A73E8" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Verificado por Google</div>
-        </div>
-
-        <div class="rv-card">
-          <div class="rv-top">
-            <div class="rv-avatar" style="background:#6A1B9A;">A</div>
-            <div class="rv-info">
-              <p class="rv-name">Alfonso Llamo</p>
-              <p class="rv-date">13 jun 2025</p>
-            </div>
-            <svg class="rv-g" viewBox="0 0 24 24" width="22" height="22" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          </div>
-          <div class="rv-stars">★★★★★</div>
-          <p class="rv-text">Muy buena labor en el servicio de publicidad. Resultados rápidos y equipo muy profesional.</p>
-          <div class="rv-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A73E8" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Verificado por Google</div>
-        </div>
-
-        <div class="rv-card">
-          <div class="rv-top">
-            <div class="rv-avatar" style="background:#B71C1C;">M</div>
-            <div class="rv-info">
-              <p class="rv-name">Manuel Sáez</p>
-              <p class="rv-date">13 jun 2025</p>
-            </div>
-            <svg class="rv-g" viewBox="0 0 24 24" width="22" height="22" aria-label="Google"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          </div>
-          <div class="rv-stars">★★★★★</div>
-          <p class="rv-text">Rápida atención y muy eficientes. Recomendados para publicidad por correo masivo en Perú.</p>
-          <div class="rv-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1A73E8" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Verificado por Google</div>
-        </div>
+        ))}
 
       </div>
       <button class="rv-arrow rv-next" id="rvNext" aria-label="Siguiente">›</button>
     </div>
 
     <div class="rv-dots" id="rvDots">
-      <span class="rv-dot active"></span>
-      <span class="rv-dot"></span>
-      <span class="rv-dot"></span>
-      <span class="rv-dot"></span>
+      {reviews.map((_, i) => <span class={`rv-dot${i === 0 ? ' active' : ''}`}></span>)}
     </div>
 
     <div class="reviews-ctas">
